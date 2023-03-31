@@ -4,5 +4,8 @@
       "name": "rjaf-me",
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "mdx.experimentalLanguageServer": false
+  }
 }
