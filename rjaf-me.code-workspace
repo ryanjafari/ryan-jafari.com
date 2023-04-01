@@ -6,6 +6,10 @@
     }
   ],
   "settings": {
-    "mdx.experimentalLanguageServer": false
+    "mdx.experimentalLanguageServer": false,
+    "[mdx]": {
+      "editor.wordWrap": "wordWrapColumn",
+      "editor.wordWrapColumn": 80
+    }
   }
 }
