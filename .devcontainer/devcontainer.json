@@ -2,10 +2,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "github.vscode-pull-request-github",
         // TODO: TypeScript soon?
         // "ms-vscode.vscode-typescript-next",
-        "ue.alphabetical-sorter",
         "unifiedjs.vscode-mdx"
       ]
     }

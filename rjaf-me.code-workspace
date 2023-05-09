@@ -6,6 +6,7 @@
     }
   ],
   "settings": {
+    "explorer.sortOrder": "type",
     "mdx.experimentalLanguageServer": false,
     "[mdx]": {
       "editor.wordWrap": "wordWrapColumn",
