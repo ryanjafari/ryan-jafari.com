@@ -4,7 +4,9 @@
       "extensions": [
         // TODO: TypeScript soon?
         // "ms-vscode.vscode-typescript-next",
-        "unifiedjs.vscode-mdx"
+        "viablelab.capitalize",
+        "unifiedjs.vscode-mdx",
+        "ue.alphabetical-sorter"
       ]
     }
   }

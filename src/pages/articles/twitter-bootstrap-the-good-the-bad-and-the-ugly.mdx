@@ -1,16 +1,15 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const meta = {
-  author: 'Ryan Jafari',
   date: '2012-03-27',
-  title: 'Twitter Bootstrap: the good, the bad, and the ugly',
+  title: 'Twitter Bootstrap: The Good, the Bad, and the Ugly',
   description:
     'CSS prototyping frameworks are convenient tools that can give your app cool "out-of-the-box" (and consistent) visual elements and styling (and in some cases interactivity too).'
 }
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-[Twitter Bootstrap](http://twitter.github.com/bootstrap/), one of these CSS prototyping frameworks, is all the rage now, as you probably know. It's heavily marketed by Twitter to developers, trendy, cool, and hip. I was first introduced to it while looking for a quick way to get some styling for a prototype. Among its "competitors" are [Zurb Foundation](http://foundation.zurb.com/) (which by the way we ended up using for that prototype). Why? Well Twitter Bootstrap seemed to be a little too invasive into our HTML-- meaning that often our HTML had to have a certain structure to accommodate Bootstrap. We thought Foundation was a little bit cleaner (and less bloated) on the code end of things. But ANYWAY...
+[Twitter Bootstrap](https://getbootstrap.com/), one of these CSS prototyping frameworks, is all the rage now, as you probably know. It's heavily marketed by Twitter to developers, trendy, cool, and hip. I was first introduced to it while looking for a quick way to get some styling for a prototype. Among its "competitors" are [Zurb Foundation](http://foundation.zurb.com/) (which by the way we ended up using for that prototype). Why? Well Twitter Bootstrap seemed to be a little too invasive into our HTML-- meaning that often our HTML had to have a certain structure to accommodate Bootstrap. We thought Foundation was a little bit cleaner (and less bloated) on the code end of things. But ANYWAY...
 
 Being an HTML/CSS developer, the kind who likes to actually understand what every bit of HTML and CSS is actually doing, I initially cringed at murmurs in the community of using something like Bootstrap or Foundation for a production app. I truly believed the only place for these tools, **ever**, would be for use in rapid prototyping of a web app. Off we went then, prototyping and merrily using Foundation. End of story right? No, wrong.
 
@@ -21,7 +20,7 @@ Then, one day, the internet was taken by storm by developers having nerdgasms ov
 - **It's built on LESS**: we prefer SASS here at Cetrasoft (not because it's just what we know, but because we actually prefer it).
 - **General QQ'ing**: I was upset that people would rather just never learn a thing about HTML/CSS/JS and use some monolithic front-end framework to do everything for them, not bothering to take the time to learn something new by building out their own framework. I've since changed mind a bit..
 
-Then, I read this article from Baregit, a new Git repository hosting service: <s>[To Bootstrap or Not?]()</s>. Well, it pretty much changed (almost) everything about how I looked at Twitter Bootstrap (and others) for production use. Here's why (basically a summary from the article):
+Then, I read this article from Baregit, a new Git repository hosting service: ~[To Bootstrap or Not?]()~. Well, it pretty much changed (almost) everything about how I looked at Twitter Bootstrap (and others) for production use. Here's why (basically a summary from the article):
 
 - **Easy visual consistency** between your applications and other Bootstrap applications around the web, making users comfortable with tried and true visual and interactive paradigms. In the article, the writer makes an analogy between Bootstrap and Gnome/WPF/Cocoa. The buttons, dialogs, etc. of applications under each of those frameworks look the same from application to application. I initially thought this was a bad thing, but it actually is a good thing.
 - **Tested with many browsers**. Big win here.

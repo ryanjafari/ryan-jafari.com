@@ -1,9 +1,8 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const meta = {
-  author: 'Ryan Jafari',
   date: '2012-03-15',
-  title: "git flow: when you're done with a feature branch",
+  title: "Git Flow: When You're Done with a Feature Branch",
   description: "UPDATE: It's probably also a good idea to rebase your feature branch against your current develop branch before you finish it."
 }
 
@@ -11,7 +10,7 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 
 This way, you can ease a bit of the pain of merge conflicts since when you finish your feature you will have already rebased against the branch that the finish merges to (develop).
 
-Next up in the git flow chronicles, and more of a note for myself than anything: today I was done with my work on a feature branch I had taken over from my buddy Carlos. I had staged everything and committed, all looking good. However when I finished the feature branch using `git flow feature finish <feature_name>` I got a 'not fully merged' warning for my feature branch. The 'git flow feature finish' went through, but the local feature branch wasn't deleted like it usually is. I figured I screwed something up. Working through everything with C-man, I got to what I think is a fairly decent process for what to do when finishing up work on a feature branch and preparing to merge it to develop (local) and push it to develop (remote):
+Next up in the git flow chronicles, and more of a note for myself than anything: today I was done with my work on a feature branch I had taken over from my buddy Carlos. I had staged everything and committed, all looking good. However when I finished the feature branch using `git flow feature finish <feature_name>` I got a 'not fully merged' warning for my feature branch. The `git flow feature finish` went through, but the local feature branch wasn't deleted like it usually is. I figured I screwed something up. Working through everything with C-man, I got to what I think is a fairly decent process for what to do when finishing up work on a feature branch and preparing to merge it to develop (local) and push it to develop (remote):
 
 ```bash
 # assuming you're on the feature branch...

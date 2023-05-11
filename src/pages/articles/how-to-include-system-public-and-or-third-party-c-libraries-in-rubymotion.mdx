@@ -1,9 +1,8 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const meta = {
-  author: 'Ryan Jafari',
   date: '2014-01-30',
-  title: 'How to include system, public, and/or third party C libraries in RubyMotion',
+  title: 'How to Include System, Public, And/or Third Party C Libraries in Rubymotion',
   description:
     'This is part one in a series of posts about my trials and tribulations in OS X development with RubyMotion.'
 }
@@ -12,11 +11,11 @@ export default (props) => <ArticleLayout meta={meta} {...props} />
 
 Well the mere mortal that I am, this was a bit tricky to figure out, coming from being a RubyMotion and OS X development newcomer. My only hope is that the pain and struggle was not in vain, if you, my fellow newb, can learn from it. **Onward!**
 
-### Including PulseAudio ###
+## Including PulseAudio
 
 Don't ask why, but I needed to include PulseAudio's C libraries into my RubyMotion app so that I could call methods that would interact with a PulseAudio daemon running on my computer. By the way, PulseAudio is a popular desktop audio server that's used in various distributions of Linux (and with the help of Homebrew, now on my Mac). Clients that use it can interact with the computer's sound hardware to do a whole bunch of crazy things.
 
-### app.libs ###
+## app.libs
 
 One of the options RubyMotion's App.setup object provides us is the `libs` option. According to the [RubyMotion Project Management][1] documentation, `libs` refers to...
 
@@ -32,13 +31,13 @@ end
 
 I went ahead and `rake` compiled and ran my app. No complaints. I then tried both in the terminal and in code to find a constant that I knew the library defined, like `PA_CONTEXT_UNCONNECTED`. Not a chance that it was going to work like this alone. I needed to find some way that my app could speak to this foreign library. A language both could understand.
 
-### bridgesupport ###
+## bridgesupport
 
-I went ahead and did some research and found out the RubyMotion's `Motion::Project::Config` class supports an option called `bridgesupport_files`. So then you ask, WTF is bridgesupport? [bridgesupport][2] is a tool Apple ships with OS X that generates XML files that describe the APIs of frameworks/libraries that a scripting language like Ruby cannot otherwise see at runtime. PRETTY SWEET. It takes header files from these libraries and converts them into XML files describing their objects, fields, methods, etc. `gen_bridge_metadata` is the executable that exists on an OS X system that is able to generate these files. Go ahead `which gen_bridge_metadata` if you don't believe me. Ok bridgesupport; good to know. But what do we do now?
+I went ahead and did some research and found out the RubyMotion's `Motion::Project::Config` class supports an option called `bridgesupport_files`. So then you ask, WTF is bridgesupport? ~[bridgesupport]()~ is a tool Apple ships with OS X that generates XML files that describe the APIs of frameworks/libraries that a scripting language like Ruby cannot otherwise see at runtime. PRETTY SWEET. It takes header files from these libraries and converts them into XML files describing their objects, fields, methods, etc. `gen_bridge_metadata` is the executable that exists on an OS X system that is able to generate these files. Go ahead `which gen_bridge_metadata` if you don't believe me. Ok bridgesupport; good to know. But what do we do now?
 
-### motion.h ###
+## motion.h
 
-There's a really smart guy named [Dave Lee][3] who put together a simple and useful gem called [motion.h][4] for facilitating the use of bridgesupport in RubyMotion, integrating it into the build process that happens when you run your project's `Rakefile` by typing `rake`. It takes header files from the library you want to use as input. Here, I'll show you:
+There's a really smart guy named [Dave Lee][2] who put together a simple and useful gem called [motion.h][3] for facilitating the use of bridgesupport in RubyMotion, integrating it into the build process that happens when you run your project's `Rakefile` by typing `rake`. It takes header files from the library you want to use as input. Here, I'll show you:
 
 ```ruby
 # Gemfile
@@ -70,6 +69,5 @@ Gasp, my mother would be appalled.
 And that's it! Next up, Gems & RubyMotion.
 
 [1]: http://www.rubymotion.com/developer-center/guides/project-management/#_os_x_options
-[2]: https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man5/BridgeSupport.5.html
-[3]: https://github.com/kastiglione
-[4]: https://github.com/kastiglione/motion.h
+[2]: https://github.com/kastiglione
+[3]: https://github.com/kastiglione/motion.h

@@ -1,9 +1,8 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const meta = {
-  author: 'Ryan Jafari',
   date: '2012-04-30',
-  title: 'Twitter Bootstrap: Comparing Options For Rails',
+  title: 'Twitter Bootstrap: Comparing Options for Rails',
   description:
     "So we've jumped on the Bootstrap bandwagon and I do offer my sincerest apologies: it is in fact a great front-end framework: very easy to use, good looking, and well implemented."
 }
@@ -42,12 +41,12 @@ Recently we needed to figure out what Rails gem we were going to use for TBS int
 
 Note about future TBS upgrades: Regardless of which implementation chosen (LESS or Sass), there will always be lag time between a TBS source update and a gem update (shorter for LESS, longer for Sass).
 
-### Overall Options
+## Overall Options
 
-- Using the original LESS code via a Rails engine (less-rails-bootstrap or twitter-bootstrap-rails)
-- Copying in translated Sass code directly into your application (sass-twitter-bootstrap), or...
-- Using a translated Sass version via a Rails engine (bootstrap-sass or bootstrap-rails).
+- Using the original LESS code via a Rails engine (`less-rails-bootstrap` or `twitter-bootstrap-rails`)
+- Copying in translated Sass code directly into your application (`sass-twitter-bootstrap`), or...
+- Using a translated Sass version via a Rails engine (`bootstrap-sass` or `bootstrap-rails`).
 
-### Our Decision
+## Our Decision
 
 We've found that so far, rare is it that we make customizations to TBS. After all, part of the beauty (and point) of TBS is using it as it stands, with light customization. So far we've customized very little things save colors, so we don't feel the need for a translated into Sass solution. We are fine to do a little LESS, but of course if there ever came a time for major work, we would prefer the ability to work within Sass syntax. As for now though, we've gone with `twitter-boostrap-rails`.

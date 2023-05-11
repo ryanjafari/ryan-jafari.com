@@ -1,7 +1,6 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const meta = {
-  author: 'Ryan Jafari',
   date: '2014-02-26',
   title: 'Bootstrap 3 Rails Tab Helper',
   description:
@@ -10,7 +9,7 @@ export const meta = {
 
 export default (props) => <ArticleLayout meta={meta} {...props} />
 
-### A Quick Introduction ###
+## A Quick Introduction
 
 So you've stumbled upon this while doing some front-end work in a Rails project with Bootstrap. You might be more of a front-end developer than a Rails developer, and you might not exactly be 100% cozy with Rails quite yet. Or maybe you're a back-end guy that wants something to help deal with this front-end stuff as unobtrusively as possible. Either way, you're throwing down a ton of markup in your views and are looking for something to help you keep things clean.
 
@@ -28,7 +27,7 @@ I've decided to release my helpers not so much as drop-in source code ready for 
 
 Getting the hang of writing solid, versatile helpers for your views isn't too bad. Let me show you how.
 
-### The Bootstrap Tab Helper ###
+## The Bootstrap Tab Helper
 
 How about this. Tabs. Bootstrap Tabs. It's a ton of markup, and sometimes getting them working properly with tabs linking to their respective panels is a brief pain in the ass. If your app happens to use tabs in a lot of places, hooking this up over and over is a drag.
 
@@ -55,7 +54,7 @@ I'm going to assume some familiarity with the folder structure of a Rails projec
 
 Let's think about it conceptually. Our `TabHelper` module will need to instantiate a `TabCollection` which is responsible for keeping track of a list of `TabItem`s, which represent our individual tabs. Here's what that looks like:
 
-#### Step 1 #####
+### Step 1
 
 ```ruby
 module TabHelper
@@ -99,7 +98,7 @@ In order for us to be able to create `TabItem`s with the content that we pass as
 
 The thing is, the `capture` method is only available to us from a Rails `ActionView` context. When we're in an ERB file or a Rails view helper, we automatically have access to it, as Rails does some magic that allows us to call `capture` without any special handling. Since we don't have access to a view context with our little `TabCollection` class, we'll need to pass a reference to it from the `bs_tabs` method directly under the definition of the `TabHelper` module, which *does* have access to one. Check it out:
 
-#### Step 2 ####
+### Step 2
 
 ```ruby
 module TabHelper
@@ -136,7 +135,7 @@ Isn't it beautiful to leverage object-oriented programming principles when tackl
 
 Let's start off with taking a look at how a `TabItem` will render itself:
 
-#### Step 3 #####
+### Step 3
 
 ```ruby
 module TabHelper
@@ -194,7 +193,7 @@ The `pane` method is pretty self explanatory at this point. We just set up the H
 
 So now our `TabItem` knows how to render itself. Awesome... we are so close. Now to let `TabCollection` know how to do similarly:
 
-#### Step 4 ####
+### Step 4
 
 ```ruby
 module TabHelper
@@ -256,7 +255,7 @@ Concatenate `tab_links` and `tab_content` and we've completed our `render` metho
 
 Just one final step, since we haven't actually called render yet:
 
-#### Step 5 ####
+### Step 5
 
 ```ruby
 module TabHelper
@@ -276,7 +275,7 @@ Calling `h.render` will output the actual HTML content. Done.
 
 ---
 
-#### <a name='final'></a> Final Product ####
+### <a name='final'></a> Final Product
 
 ```ruby
 module TabHelper

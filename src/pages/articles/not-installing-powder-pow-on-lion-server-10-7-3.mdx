@@ -1,9 +1,8 @@
 import { ArticleLayout } from '@/components/ArticleLayout'
 
 export const meta = {
-  author: 'Ryan Jafari',
   date: '2012-03-03',
-  title: '(Not) Installing Powder & Pow on Lion Server 10.7.3',
+  title: '(not) installing Powder & Pow on Lion Server 10.7.3',
   description:
     "There comes a time in every developer's life where he or she is fed up with the way they handle account subdomains locally on their Ruby on Rails apps with `lvh.me`, and seeks a real solution.",
 }
@@ -14,13 +13,13 @@ For us, this solution came in the form of **Pow**, a Rack server for Mac OS X by
 
 Anyway, Pow on Lion Server seems to be a bust from 8 months ago till now, from what I can gather on the following issue [thread](https://github.com/37signals/pow/issues/172). Perhaps I am overlooking something? In this post I'll go through what I've tried, experienced, and noticed during my trials with getting Pow to work on Lion Server:
 
-### Problems
+## Problems
 
 - On `powder status`: `Error: Cannot get Pow status. Pow may be down. Try 'powder up' first.`
 - On Pow install: `!!! Couldn't resolve configured domains (dev)`
 - Console shows: `2/13/12 6:08:58.121 PM cx.pow.powd: tput: No value for $TERM and no -T specified`. This is probably benign.
 
-### Interesting
+## Interesting
 
 Now, I am but a mere mortal. Nevertheless, I noticed the following: the firewall rule that is created looks like:
 
@@ -41,18 +40,18 @@ Notice the port 20560. 20559 != 20560. Is this somehow related to the problem? I
 
 UPDATE: To edit the resolver entry, edit the file: `/etc/resolvers/dev`. Then, toggle your AirPort off and then back on to refresh the output of `scutil --dns`. As it turns out though, this doesn't fix anything.
 
-### Pow (0.3.2) Installation Attempts
+## Pow (0.3.2) Installation Attempts
 
 - Tried installing from source: `npm install`
 - Tried installing from Homebrew: `brew install pow`
 - Tried installing from powder: `powder install`
 - Tried installing from the standard shell script: `curl get.pow.cx | sh`
 
-### Resources for the Hopeless
+## Resources for the Hopeless
 
 - [Pow installation](https://github.com/37signals/pow/wiki/Installation)
 - [Pow troubleshooting](https://github.com/37signals/pow/wiki/Troubleshooting)
-- [Pow user's manual](http://pow.cx/manual.html)
+- ~[Pow user's manual]()~
 - [Pow "Lion Server" issue](https://github.com/37signals/pow/issues/172)
 
 UPDATE: Well, I never was able to fix it the clean and easy way, but following the instructions [here](https://github.com/37signals/pow/wiki/Running-Pow-with-Apache) got Powder & Pow working for me with minimal friction. Save for one thing: if requests you expect to be served by Pow are being served by Apache, make sure, as the article notes, that you don't have a duplicate virtual host for port 80. If you're getting the "Lion Server" default page, check the bottom of your `/etc/apache2/httpd.conf` file. You will notice a section like this:
