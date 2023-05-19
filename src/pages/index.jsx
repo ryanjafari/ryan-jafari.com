@@ -251,7 +251,7 @@ export default function Home({ articles }) {
     <>
       <Head>
         <title>
-          Spencer Sharp - Software designer, founder, and amateur astronaut
+          Ryan Jafari - Software designer, founder, and amateur astronaut
         </title>
         <meta
           name="description"
