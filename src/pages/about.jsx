@@ -60,37 +60,21 @@ export default function About() {
             </div>
           </div>
           <div className="lg:order-first lg:row-span-2">
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-              I’m Ryan Jafari. I live in New York City, where I design the
-              future.
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-4xl">
+              I'm Ryan Jafari, a lifelong tech lover turned polyglot programmer, entrepreneur, educator, and containerization and machine learning enthusiast.
             </h1>
             <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
-              <p>
-                I’ve loved making things for as long as I can remember, and
-                wrote my first program when I was 6 years old, just two weeks
-                after my mom brought home the brand new Macintosh LC 550 that I
-                taught myself to type on.
-              </p>
-              <p>
-                The only thing I loved more than computers as a kid was space.
-                When I was 8, I climbed the 40-foot oak tree at the back of our
-                yard while wearing my older sister’s motorcycle helmet, counted
-                down from three, and jumped — hoping the tree was tall enough
-                that with just a bit of momentum I’d be able to get to orbit.
-              </p>
-              <p>
-                I spent the next few summers indoors working on a rocket design,
-                while I recovered from the multiple surgeries it took to fix my
-                badly broken legs. It took nine iterations, but when I was 15 I
-                sent my dad’s Blackberry into orbit and was able to transmit a
-                photo back down to our family computer from space.
-              </p>
-              <p>
-                Today, I’m the founder of Planetaria, where we’re working on
-                civilian space suits and manned shuttle kits you can assemble at
-                home so that the next generation of kids really <em>can</em>{' '}
-                make it to orbit — from the comfort of their own backyards.
-              </p>
+              <p>My journey in tech started early. I was fortunate enough to grow up with family computers that kept pace with the times: Macs, PCs, and various game consoles. Their inner workings both fascinated and eluded me, which led me to break quite a few things! By the late '90s, the video game review website I built rivaled the likes of IGN. However, it was not until late high school and early college that I truly delved into "real programming," with my earliest code written in assembly, C, and Java.</p>
+
+              <p>After college, I transitioned into the agency world where I worked with Java and C# for household brands. It was around this time that I overheard a conversation about how much my work was worth, and it was a lot more than I was being paid. This realization led me to embrace my entrepreneurial spirit, co-founding a Ruby on Rails consultancy called "Ryan & Carlos" with my cousin. Together, we dedicated our efforts towards building NYC-based startups from the ground up. We achieved considerable success in our work, building startups that not only grossed millions in annual recurring revenue, but also attracted acquisitions from industry titans like Oracle.</p>
+
+              <p>My career pivoted after six years at "Ryan & Carlos" when I began teaching. My students ranged from executives at Fortune 500 companies to career changers at various bootcamps in NYC. I eventually went into management, overseeing admissions, teaching, curriculum, and placement, ultimately landing thousands of my students jobs working in tech as software developers.</p>
+
+              <p>A new chapter in my life began with the birth of my first child and the purchase of my first home. I found an opportunity in the almost hundred-year-old house to become an amateur electrician. I also figured while I was at it, why not go ahead and set up an enterprise-level network infrastructure? Back on the software side, I was experimenting with container orchestration technology, specifically Kubernetes. I began a self-hosting binge, serving highly available apps from my office to the world.</p>
+
+              <p>During each of these periods, I learned a ton, and my fascination with technology continues unabated. I am currently interested in containerization and machine learning, particularly in the role ML can play in container orchestration to improve network efficiency and reduce hosting costs.</p>
+
+              <p>As I continue to learn and innovate, I remain a testament to the fact that a lifelong love for technology will keep you breaking things, taking you places you never thought you could go, and doing things you never thought you could do.</p>
             </div>
           </div>
           <div className="lg:pl-20">
