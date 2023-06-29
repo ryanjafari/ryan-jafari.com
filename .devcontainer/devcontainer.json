@@ -6,7 +6,9 @@
         // "ms-vscode.vscode-typescript-next",
         "viablelab.capitalize",
         "unifiedjs.vscode-mdx",
-        "ue.alphabetical-sorter"
+        "ue.alphabetical-sorter",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode"
       ]
     }
   }
