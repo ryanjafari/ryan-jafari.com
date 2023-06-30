@@ -251,8 +251,8 @@ export default function Home({ articles }) {
     <>
       <Head>
         <title>
-          Ryan Jafari - Polyglot programmer, entrepeneur, educator, container
-          wrangler, and machine learning maestro
+          Ryan Jafari - Software engineer, entrepeneur, educator, early adopter,
+          and emergent-tech enthusiast
         </title>
         <meta
           name="description"
@@ -262,8 +262,8 @@ export default function Home({ articles }) {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-            Polyglot programmer, entrepeneur, educator, container wrangler, and
-            machine learning maestro.
+            Software engineer, entrepeneur, educator, early adopter, and
+            emergent-tech enthusiast.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I’m Spencer, a software designer and entrepreneur based in New York
