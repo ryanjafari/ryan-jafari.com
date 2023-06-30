@@ -269,8 +269,8 @@ export default function Home({ articles }) {
             I’m Ryan, a software engineer and entrepreneur based in New York. I
             thrive on crafting products driven by robust software, using
             avant-garde technology on top of meticulous engineering practices.
-            Simultaneously, my mission is to empower colleagues to carve their
-            unique path in the tech landscape.
+            At the same time, I empower my colleagues to carve their unique
+            paths in the tech landscape.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
