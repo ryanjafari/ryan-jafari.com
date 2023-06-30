@@ -266,10 +266,11 @@ export default function Home({ articles }) {
             emergent-tech enthusiast.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Spencer, a software designer and entrepreneur based in New York
-            City. I’m the founder and CEO of Planetaria, where we develop
-            technologies that empower regular people to explore space on their
-            own terms.
+            I’m Ryan, a software engineer and entrepreneur based in New York. I
+            thrive on crafting products driven by robust software, using
+            avant-garde technology on top of meticulous engineering practices.
+            Simultaneously, my mission is to empower colleagues to carve their
+            unique path in the tech landscape.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
