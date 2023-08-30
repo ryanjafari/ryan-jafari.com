@@ -268,9 +268,9 @@ export default function Home({ articles }) {
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
             I’m Ryan, a software engineer and entrepreneur based in New York. I
             thrive on crafting products driven by robust software, using
-            avant-garde technology on top of meticulous engineering practices.
-            At the same time, I empower my colleagues to carve their unique
-            paths in the tech landscape.
+            bleeding-edge technology on top of sound engineering practices. At
+            the same time, I enjoy empowering my colleagues to carve their own
+            unique paths in the tech landscape.
           </p>
           <div className="mt-6 flex gap-6">
             <SocialLink
