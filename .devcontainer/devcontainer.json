@@ -1,14 +1,20 @@
 {
+  "name": "rjaf-me",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
-        // TODO: TypeScript soon?
+        // TODO: TypeScript soon? Still thinking about it. If so, uncomment:
         // "ms-vscode.vscode-typescript-next",
         "viablelab.capitalize",
         "unifiedjs.vscode-mdx",
         "ue.alphabetical-sorter",
         "bradlc.vscode-tailwindcss",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "gruntfuggly.todo-tree"
       ]
     }
   }
