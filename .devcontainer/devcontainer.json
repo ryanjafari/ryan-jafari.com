@@ -15,7 +15,11 @@
         "esbenp.prettier-vscode",
         "ms-azuretools.vscode-docker",
         "gruntfuggly.todo-tree"
-      ]
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      }
     }
   }
 }
