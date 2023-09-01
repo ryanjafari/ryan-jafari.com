@@ -6,19 +6,28 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        // TODO: TypeScript soon? Still thinking about it. If so, uncomment:
-        // "ms-vscode.vscode-typescript-next",
-        "viablelab.capitalize",
-        "unifiedjs.vscode-mdx",
-        "ue.alphabetical-sorter",
         "bradlc.vscode-tailwindcss",
         "esbenp.prettier-vscode",
+        "gruntfuggly.todo-tree",
         "ms-azuretools.vscode-docker",
-        "gruntfuggly.todo-tree"
+        // TODO: TypeScript soon? Still thinking about it. If so, uncomment:
+        // "ms-vscode.vscode-typescript-next",
+        "ue.alphabetical-sorter",
+        "unifiedjs.vscode-mdx",
+        "viablelab.capitalize"
       ],
       "settings": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.rulers": [80],
+        // TODO: Should this character be allowed or not? To allow, uncomment:
+        // "editor.unicodeHighlight.allowedCharacters": {
+        //   "’": true
+        // },
+        "[markdown]": {
+          "editor.wordWrap": "wordWrapColumn",
+          "editor.wordWrapColumn": 80
+        }
       }
     }
   }
