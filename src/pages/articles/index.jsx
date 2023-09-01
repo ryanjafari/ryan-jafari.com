@@ -45,7 +45,7 @@ export default function ArticlesIndex({ articles }) {
         />
       </Head>
       <SimpleLayout
-        title="Writing on software design, leadership insights, and tech problem-solving."
+        title="Writing on software design, leadership, and tech problem-solving."
         intro="All of my long-form thoughts on programming, products, relationships, management, startups, tinkering, and the future. In the order I had them."
       >
         <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
