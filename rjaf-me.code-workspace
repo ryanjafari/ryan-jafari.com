@@ -7,8 +7,18 @@
   ],
   "settings": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "explorer.sortOrder": "type",
+    // TODO: Other format events?
+    "editor.formatOnSave": true,
+    "editor.rulers": [80],
+    // TODO: When true, some errors happen. Try again.
     "mdx.experimentalLanguageServer": false,
+    "[dockerfile]": {
+      "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[markdown]": {
+      "editor.wordWrap": "wordWrapColumn",
+      "editor.wordWrapColumn": 80
+    },
     "[mdx]": {
       "editor.wordWrap": "wordWrapColumn",
       "editor.wordWrapColumn": 80

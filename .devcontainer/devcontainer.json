@@ -15,20 +15,7 @@
         "ue.alphabetical-sorter",
         "unifiedjs.vscode-mdx",
         "viablelab.capitalize"
-      ],
-      "settings": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true,
-        "editor.rulers": [80],
-        // TODO: Should this character be allowed or not? To allow, uncomment:
-        // "editor.unicodeHighlight.allowedCharacters": {
-        //   "’": true
-        // },
-        "[markdown]": {
-          "editor.wordWrap": "wordWrapColumn",
-          "editor.wordWrapColumn": 80
-        }
-      }
+      ]
     }
   }
 }
