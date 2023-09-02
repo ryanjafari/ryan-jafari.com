@@ -16,4 +16,4 @@ RUN npm install -g npm@10.0.0
 # Upgrade to a specific version of pnpm.
 RUN npm install -g pnpm@8.7.1
 
-# TODO: Add pnpm install for the project? Test.
+# TODO: Add pnpm install for the project? Test from a full rebuild.
