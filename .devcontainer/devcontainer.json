@@ -7,14 +7,21 @@
     "vscode": {
       "extensions": [
         "bradlc.vscode-tailwindcss",
+        "burkeholland.simple-react-snippets",
         "esbenp.prettier-vscode",
+        "github.copilot-chat",
+        "github.copilot",
         "gruntfuggly.todo-tree",
+        "mkxml.vscode-filesize",
         "ms-azuretools.vscode-docker",
         // TODO: TypeScript soon? Still thinking about it. If so, uncomment:
         // "ms-vscode.vscode-typescript-next",
-        "ue.alphabetical-sorter",
+        "streetsidesoftware.code-spell-checker",
         "unifiedjs.vscode-mdx",
-        "viablelab.capitalize"
+        "viablelab.capitalize",
+        "vsls-contrib.gistfs",
+        "tyriar.lorem-ipsum",
+        "jock.svg"
       ]
     }
   }

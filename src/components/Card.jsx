@@ -1,9 +1,14 @@
-import Link from 'next/link'
 import clsx from 'clsx'
+import Link from 'next/link'
 
 function ChevronRightIcon(props) {
   return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" {...props}>
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      {...props}
+    >
       <path
         d="M6.75 5.75 9.25 8l-2.5 2.25"
         strokeWidth="1.5"
@@ -14,7 +19,9 @@ function ChevronRightIcon(props) {
   )
 }
 
-export function Card({ as: Component = 'div', className, children }) {
+export function Card({ as, className, children }) {
+  let Component = as ?? 'div'
+
   return (
     <Component
       className={clsx(className, 'group relative flex flex-col items-start')}
@@ -36,7 +43,9 @@ Card.Link = function CardLink({ children, ...props }) {
   )
 }
 
-Card.Title = function CardTitle({ as: Component = 'h2', href, children }) {
+Card.Title = function CardTitle({ as, href, children }) {
+  let Component = as ?? 'h2'
+
   return (
     <Component className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100">
       {href ? <Card.Link href={href}>{children}</Card.Link> : children}
@@ -46,7 +55,7 @@ Card.Title = function CardTitle({ as: Component = 'h2', href, children }) {
 
 Card.Description = function CardDescription({ children }) {
   return (
-    <p className="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+    <p className="relative z-10 mt-2 text-sm text-zinc-600 dark:text-zinc-400 sm:line-clamp-3 sm:h-[4.5rem] md:line-clamp-2 md:h-[3rem]">
       {children}
     </p>
   )
@@ -65,18 +74,20 @@ Card.Cta = function CardCta({ children }) {
 }
 
 Card.Eyebrow = function CardEyebrow({
-  as: Component = 'p',
+  as,
   decorate = false,
   className,
   children,
   ...props
 }) {
+  let Component = as ?? 'p'
+
   return (
     <Component
       className={clsx(
         className,
         'relative z-10 order-first mb-3 flex items-center text-sm text-zinc-400 dark:text-zinc-500',
-        decorate && 'pl-3.5'
+        decorate && 'pl-3.5',
       )}
       {...props}
     >

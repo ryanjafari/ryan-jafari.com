@@ -17,3 +17,4 @@ RUN npm install -g npm@10.0.0
 RUN npm install -g pnpm@8.7.1
 
 # TODO: Add pnpm install for the project? Test from a full rebuild.
+# TODO: Pin version of oh-my-zsh and disable auto-update.

@@ -1,0 +1,87 @@
+import {
+  LinkIcon,
+  CodeBracketIcon,
+  RocketLaunchIcon,
+  HeartIcon,
+  ArrowTrendingUpIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import theStdLogo from './the-standard.svg'
+import theStdHomePage from './the-standard-home-page.png'
+import theStdAdmin from './the-standard-admin.png'
+import theStdApm from './the-standard-sentry-apm.png'
+import theStdCwv from './the-standard-sentry-cwv.png'
+import theStdGsc from './the-standard-google-search.png'
+
+export const entry = {
+  date: 2023,
+  title: 'The Standard',
+  description:
+    'International boutique hotel chain. Brochure site fully customizable via CMS.',
+  logo: theStdLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Live website"
+    href="https://www.standardhotels.com"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby on Rails Development"
+  />
+  <ProjectBullet
+    icon={RocketLaunchIcon}
+    text="Application Performance Monitoring"
+  />
+  <ProjectBullet
+    icon={HeartIcon}
+    text="Core Web Vitals"
+  />
+  <ProjectBullet
+    icon={ArrowTrendingUpIcon}
+    text="Technical SEO Maintenance"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={theStdHomePage}
+    alt={`Screenshot from ${entry.title}: the home page`}
+  />
+  <Image
+    src={theStdAdmin}
+    alt={`Screenshot from ${entry.title}: admin console`}
+  />
+  <Image
+    src={theStdApm}
+    alt={`Screenshot from ${entry.title}: application performance monitoring via Sentry`}
+  />
+  <Image
+    src={theStdCwv}
+    alt={`Screenshot from ${entry.title}: core web vitals via Sentry`}
+  />
+  <Image
+    src={theStdGsc}
+    alt={`Screenshot from ${entry.title}: technical SEO maintenance via Google Search Console`}
+  />
+</ImagesWithDetails>

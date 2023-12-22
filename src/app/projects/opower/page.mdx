@@ -1,0 +1,83 @@
+import {
+  AtSymbolIcon,
+  LinkIcon,
+  CodeBracketIcon,
+  UserGroupIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import opLogo from './opower-logo.svg'
+import opHanging from './opower-hanging-in-washington.jpg'
+import opOffAfter from './opower-office-after-hours.jpg'
+import opOffCarlos from './opower-office-carlos-working.jpg'
+import opOffOutside from './opower-office-outside-view.jpg'
+import opTeamHockey from './opower-team-hockey-game.jpg'
+
+export const entry = {
+  date: 2011,
+  title: 'Opower',
+  description:
+    'Customer engagement platform for utilities backed by AI. Acquired by Oracle.',
+  logo: opLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Ryan & Carlos"
+    href="https://www.ryanandcarlos.com/"
+  />
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Oracle Utilities Website"
+    href="https://www.oracle.com/utilities/opower-energy-efficiency/"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby on Rails Development"
+  />
+  <ProjectBullet
+    icon={UserGroupIcon}
+    text="Team Augmentation"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={opHanging}
+    alt={`Photo from ${entry.title}: hanging out in Washington, D.C.`}
+  />
+  <Image
+    src={opOffAfter}
+    alt={`Photo from ${entry.title}: the office after hours`}
+  />
+  <Image
+    src={opOffCarlos}
+    alt={`Photo from ${entry.title}: Carlos working diligently`}
+  />
+  <Image
+    src={opOffOutside}
+    alt={`Photo from ${entry.title}: view outside the office`}
+  />
+  <Image
+    src={opTeamHockey}
+    alt={`Photo from ${entry.title}: hockey game with the gang`}
+  />
+</ImagesWithDetails>

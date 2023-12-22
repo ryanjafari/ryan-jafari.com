@@ -1,0 +1,97 @@
+import {
+  LinkIcon,
+  CodeBracketIcon,
+  PaintBrushIcon,
+  RocketLaunchIcon,
+  HeartIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import pfmLogo from './precision-for-medicine.svg'
+import pfmBlogHomePage from './precision-for-medicine-blog-home-page.png'
+import pfmBlogBelowFold from './precision-for-medicine-blog-below-fold.png'
+import pfmBlogCategories from './precision-for-medicine-blog-categories.png'
+import pfmEditor from './precision-for-medicine-editor.png'
+import pfmEditorBlocks from './precision-for-medicine-editor-blocks.png'
+import pfmNewRelicApm from './precision-for-medicine-new-relic-apm.png'
+import pfmNewRelicCwv from './precision-for-medicine-new-relic-cwv.png'
+
+export const entry = {
+  date: 2023,
+  title: 'Precision for Medicine',
+  description:
+    'Precision medicine clinical trials. Blog with editable widgets. 89% improvement in TTFB.',
+  logo: pfmLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Live website"
+    href="https://www.precisionformedicine.com/"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="PHP Development"
+  />
+  <ProjectBullet
+    icon={PaintBrushIcon}
+    text="UI/UX Development"
+  />
+  <ProjectBullet
+    icon={RocketLaunchIcon}
+    text="Application Performance Monitoring"
+  />
+  <ProjectBullet
+    icon={HeartIcon}
+    text="Core Web Vitals"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={pfmBlogHomePage}
+    alt={`Screenshot from ${entry.title}: the blog home page`}
+  />
+  <Image
+    src={pfmBlogBelowFold}
+    alt={`Screenshot from ${entry.title}: the blog below the fold`}
+  />
+  <Image
+    src={pfmBlogCategories}
+    alt={`Screenshot from ${entry.title}: blog posts by category`}
+  />
+  <Image
+    src={pfmEditor}
+    alt={`Screenshot from ${entry.title}: custom blog editor`}
+  />
+  <Image
+    src={pfmEditorBlocks}
+    alt={`Screenshot from ${entry.title}: custom WordPress Gutenberg blocks`}
+  />
+  <Image
+    src={pfmNewRelicApm}
+    alt={`Screenshot from ${entry.title}: application performance monitoring via New Relic`}
+  />
+  <Image
+    src={pfmNewRelicCwv}
+    alt={`Screenshot from ${entry.title}: core web vitals via New Relic`}
+  />
+</ImagesWithDetails>

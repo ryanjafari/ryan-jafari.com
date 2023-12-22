@@ -1,16 +1,23 @@
-import { Fragment, useEffect, useRef } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+'use client'
+
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
+import { useTheme } from 'next-themes'
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { Container } from '@/components/Container'
 import avatarImage from '@/images/avatar.jpg'
 
 function CloseIcon(props) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+    >
       <path
         d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
         fill="none"
@@ -25,7 +32,11 @@ function CloseIcon(props) {
 
 function ChevronDownIcon(props) {
   return (
-    <svg viewBox="0 0 8 6" aria-hidden="true" {...props}>
+    <svg
+      viewBox="0 0 8 6"
+      aria-hidden="true"
+      {...props}
+    >
       <path
         d="M1.75 1.75 4 4.25l2.25-2.5"
         fill="none"
@@ -58,7 +69,11 @@ function SunIcon(props) {
 
 function MoonIcon(props) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+    >
       <path
         d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z"
         strokeWidth="1.5"
@@ -72,7 +87,11 @@ function MoonIcon(props) {
 function MobileNavItem({ href, children }) {
   return (
     <li>
-      <Popover.Button as={Link} href={href} className="block py-2">
+      <Popover.Button
+        as={Link}
+        href={href}
+        className="block py-2"
+      >
         {children}
       </Popover.Button>
     </li>
@@ -96,7 +115,7 @@ function MobileNavigation(props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Popover.Overlay className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" />
+          <Popover.Overlay className="fixed inset-0 z-40 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" />
         </Transition.Child>
         <Transition.Child
           as={Fragment}
@@ -109,10 +128,13 @@ function MobileNavigation(props) {
         >
           <Popover.Panel
             focus
-            className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800"
+            className="fixed inset-x-4 top-8 z-40 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800"
           >
             <div className="flex flex-row-reverse items-center justify-between">
-              <Popover.Button aria-label="Close menu" className="-m-1 p-1">
+              <Popover.Button
+                aria-label="Close menu"
+                className="-m-1 p-1"
+              >
                 <CloseIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
               </Popover.Button>
               <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
@@ -136,7 +158,7 @@ function MobileNavigation(props) {
 }
 
 function NavItem({ href, children }) {
-  let isActive = useRouter().pathname === href
+  let isActive = usePathname() === href
 
   return (
     <li>
@@ -146,7 +168,7 @@ function NavItem({ href, children }) {
           'relative block px-3 py-2 transition',
           isActive
             ? 'text-blue-500 dark:text-blue-400'
-            : 'hover:text-blue-500 dark:hover:text-blue-400'
+            : 'hover:text-blue-500 dark:hover:text-blue-400',
         )}
       >
         {children}
@@ -172,34 +194,21 @@ function DesktopNavigation(props) {
   )
 }
 
-function ModeToggle() {
-  function disableTransitionsTemporarily() {
-    document.documentElement.classList.add('[&_*]:!transition-none')
-    window.setTimeout(() => {
-      document.documentElement.classList.remove('[&_*]:!transition-none')
-    }, 0)
-  }
+function ThemeToggle() {
+  let { resolvedTheme, setTheme } = useTheme()
+  let otherTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
+  let [mounted, setMounted] = useState(false)
 
-  function toggleMode() {
-    disableTransitionsTemporarily()
-
-    let darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    let isSystemDarkMode = darkModeMediaQuery.matches
-    let isDarkMode = document.documentElement.classList.toggle('dark')
-
-    if (isDarkMode === isSystemDarkMode) {
-      delete window.localStorage.isDarkMode
-    } else {
-      window.localStorage.isDarkMode = isDarkMode
-    }
-  }
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <button
       type="button"
-      aria-label="Toggle dark mode"
+      aria-label={mounted ? `Switch to ${otherTheme} theme` : 'Toggle theme'}
       className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
-      onClick={toggleMode}
+      onClick={() => setTheme(otherTheme)}
     >
       <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-blue-50 [@media(prefers-color-scheme:dark)]:stroke-blue-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-blue-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-blue-600" />
       <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-blue-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-blue-500" />
@@ -218,7 +227,7 @@ function AvatarContainer({ className, ...props }) {
     <div
       className={clsx(
         className,
-        'h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10'
+        'h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10',
       )}
       {...props}
     />
@@ -239,7 +248,7 @@ function Avatar({ large = false, className, ...props }) {
         sizes={large ? '4rem' : '2.25rem'}
         className={clsx(
           'rounded-full bg-zinc-100 object-cover dark:bg-zinc-800',
-          large ? 'h-16 w-16' : 'h-9 w-9'
+          large ? 'h-16 w-16' : 'h-9 w-9',
         )}
         priority
       />
@@ -248,10 +257,10 @@ function Avatar({ large = false, className, ...props }) {
 }
 
 export function Header() {
-  let isHomePage = useRouter().pathname === '/'
+  let isHomePage = usePathname() === '/'
 
-  let headerRef = useRef()
-  let avatarRef = useRef()
+  let headerRef = useRef(null)
+  let avatarRef = useRef(null)
   let isInitial = useRef(true)
 
   useEffect(() => {
@@ -267,11 +276,15 @@ export function Header() {
     }
 
     function updateHeaderStyles() {
+      if (!headerRef.current) {
+        return
+      }
+
       let { top, height } = headerRef.current.getBoundingClientRect()
       let scrollY = clamp(
         window.scrollY,
         0,
-        document.body.scrollHeight - window.innerHeight
+        document.body.scrollHeight - window.innerHeight,
       )
 
       if (isInitial.current) {
@@ -323,7 +336,7 @@ export function Header() {
 
       setProperty(
         '--avatar-image-transform',
-        `translate3d(${x}rem, 0, 0) scale(${scale})`
+        `translate3d(${x}rem, 0, 0) scale(${scale})`,
       )
 
       let borderScale = 1 / (toScale / scale)
@@ -331,7 +344,7 @@ export function Header() {
       let borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
 
       setProperty('--avatar-border-transform', borderTransform)
-      setProperty('--avatar-border-opacity', scale === toScale ? 1 : 0)
+      setProperty('--avatar-border-opacity', scale === toScale ? '1' : '0')
     }
 
     function updateStyles() {
@@ -353,7 +366,7 @@ export function Header() {
   return (
     <>
       <header
-        className="pointer-events-none relative z-50 flex flex-col"
+        className="pointer-events-none relative z-40 flex flex-none flex-col"
         style={{
           height: 'var(--header-height)',
           marginBottom: 'var(--header-mb)',
@@ -367,11 +380,15 @@ export function Header() {
             />
             <Container
               className="top-0 order-last -mb-3 pt-3"
-              style={{ position: 'var(--header-position)' }}
+              style={{
+                position: 'var(--header-position)',
+              }}
             >
               <div
                 className="top-[var(--avatar-top,theme(spacing.3))] w-full"
-                style={{ position: 'var(--header-inner-position)' }}
+                style={{
+                  position: 'var(--header-inner-position)',
+                }}
               >
                 <div className="relative">
                   <AvatarContainer
@@ -394,11 +411,15 @@ export function Header() {
         <div
           ref={headerRef}
           className="top-0 z-10 h-16 pt-6"
-          style={{ position: 'var(--header-position)' }}
+          style={{
+            position: 'var(--header-position)',
+          }}
         >
           <Container
             className="top-[var(--header-top,theme(spacing.6))] w-full"
-            style={{ position: 'var(--header-inner-position)' }}
+            style={{
+              position: 'var(--header-inner-position)',
+            }}
           >
             <div className="relative flex gap-4">
               <div className="flex flex-1">
@@ -414,14 +435,19 @@ export function Header() {
               </div>
               <div className="flex justify-end md:flex-1">
                 <div className="pointer-events-auto">
-                  <ModeToggle />
+                  <ThemeToggle />
                 </div>
               </div>
             </div>
           </Container>
         </div>
       </header>
-      {isHomePage && <div style={{ height: 'var(--content-offset)' }} />}
+      {isHomePage && (
+        <div
+          className="flex-none"
+          style={{ height: 'var(--content-offset)' }}
+        />
+      )}
     </>
   )
 }

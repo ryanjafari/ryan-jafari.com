@@ -1,0 +1,71 @@
+import {
+  AtSymbolIcon,
+  CodeBracketIcon,
+  PuzzlePieceIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import tttLogo from './tic-tac-toe-logo.svg'
+import tttNewGame from './tic-tac-toe-new-game.jpg'
+import tttMidGame from './tic-tac-toe-mid-game.jpg'
+import tttComputerWins from './tic-tac-toe-the-computer-wins.jpg'
+import tttYouWin from './tic-tac-toe-you-win.jpg'
+
+export const entry = {
+  date: 2006,
+  title: 'Tic Tac Toe',
+  description:
+    'Basic game with rudimentary AI. Written in Java using Swing. First project with a GUI.',
+  logo: tttLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="NYU Courant Computer Science"
+    href="https://cs.nyu.edu/home/index.html"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Java Development"
+  /> <ProjectBullet
+    icon={PuzzlePieceIcon}
+    text="Game Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={tttNewGame}
+    alt={`Screenshot from ${entry.title}: the new game state`}
+  />
+  <Image
+    src={tttMidGame}
+    alt={`Screenshot from ${entry.title}: the mid game state`}
+  />
+  <Image
+    src={tttComputerWins}
+    alt={`Screenshot from ${entry.title}: the computer wins!`}
+  />
+  <Image
+    src={tttYouWin}
+    alt={`Screenshot from ${entry.title}: congrats, you win!`}
+  />
+</ImagesWithDetails>

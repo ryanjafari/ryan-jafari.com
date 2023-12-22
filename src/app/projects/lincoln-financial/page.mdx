@@ -1,0 +1,68 @@
+import {
+  AtSymbolIcon,
+  LinkIcon,
+  CodeBracketIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import lfLogo from './lincoln-financial-logo.svg'
+import lfIntroScreen from './lincoln-financial-intro-screen.jpg'
+import lfWizStep1 from './lincoln-financial-wizard-step-1.jpg'
+import lfWizMidpt from './lincoln-financial-wizard-midpoint.jpg'
+
+export const entry = {
+  date: 2009,
+  title: 'Lincoln Financial',
+  description:
+    'Fortune 200 financial services company. API for retirement planning wizard.',
+  logo: lfLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Firstborn (Now Dentsu Creative)"
+    href="https://www.dentsucreative.com/"
+  />
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Firstborn Portfolio"
+    href="https://work.firstborn.com/work/188/lincoln-financial-your-futureself"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="C# ASP.NET Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={lfIntroScreen}
+    alt={`Screenshot from ${entry.title}: the intro screen`}
+  />
+  <Image
+    src={lfWizStep1}
+    alt={`Screenshot from ${entry.title}: step 1 of the wizard`}
+  />
+  <Image
+    src={lfWizMidpt}
+    alt={`Screenshot from ${entry.title}: midpoint of the wizard`}
+  />
+</ImagesWithDetails>

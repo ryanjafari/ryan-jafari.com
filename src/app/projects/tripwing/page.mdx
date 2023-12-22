@@ -1,0 +1,92 @@
+import {
+  LinkIcon,
+  BuildingStorefrontIcon,
+  CodeBracketIcon,
+  PaintBrushIcon,
+  UserPlusIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import twLogo from './tripwing.svg'
+import twHomePage from './tripwing-home-page.png'
+import twTourSearch from './tripwing-tour-search.png'
+import twTourDetail from './tripwing-tour-detail.png'
+import twTourMap from './tripwing-tour-map.png'
+import twTeamConvention from './tripwing-team-convention.jpg'
+import twTeamDinner from './tripwing-team-dinner.jpg'
+
+export const entry = {
+  date: 2014,
+  title: 'Tripwing',
+  description:
+    'Tour search engine. Custom itinerary builder for travel agents. Acquired by TravelStride.',
+  logo: twLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={LinkIcon}
+    text="TravelStride website"
+    href="https://www.travelstride.com"
+  />
+  <ProjectBullet
+    icon={BuildingStorefrontIcon}
+    text="Startup Consulting"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby on Rails Development"
+  />
+  <ProjectBullet
+    icon={PaintBrushIcon}
+    text="UI/UX Development"
+  />
+  <ProjectBullet
+    icon={UserPlusIcon}
+    text="Talent Vetting"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={twHomePage}
+    alt={`Screenshot from ${entry.title}: the home page`}
+  />
+  <Image
+    src={twTourSearch}
+    alt={`Screenshot from ${entry.title}: tour search results page`}
+  />
+  <Image
+    src={twTourDetail}
+    alt={`Screenshot from ${entry.title}: tour detail page`}
+  />
+  <Image
+    src={twTourMap}
+    alt={`Screenshot from ${entry.title}: tour map detail`}
+  />
+  <Image
+    src={twTeamConvention}
+    alt={`Photo from ${entry.title}: team at travel convention`}
+  />
+  <Image
+    src={twTeamDinner}
+    alt={`Photo from ${entry.title}: team at company dinner`}
+  />
+</ImagesWithDetails>

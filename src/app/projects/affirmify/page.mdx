@@ -1,0 +1,97 @@
+import {
+  LinkIcon,
+  BuildingStorefrontIcon,
+  CodeBracketIcon,
+  PaintBrushIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import affLogo from './affirmify.svg'
+import affHomePage from './affirmify-home-page.jpg'
+import affPricingPage from './affirmify-pricing-page.jpg'
+import affSignupMock from './affirmify-signup-mockup.jpg'
+import affDashboard from './affirmify-dashboard.jpg'
+import affDocDetail from './affirmify-document-detail.jpg'
+import affOffice from './affirmify-office.jpg'
+import affTeam from './affirmify-team.jpg'
+import affRyanWork from './affirmify-ryan-working.jpg'
+
+export const entry = {
+  date: 2013,
+  title: 'Affirmify',
+  description:
+    'Response management system for HR. Custom form builder and request wizard.',
+  logo: affLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Flickr photostream"
+    href="https://www.flickr.com/photos/66541408@N06/with/6188029718/"
+  />
+  <ProjectBullet
+    icon={BuildingStorefrontIcon}
+    text="Startup Consulting"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby on Rails Development"
+  />
+  <ProjectBullet
+    icon={PaintBrushIcon}
+    text="UI/UX Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={affHomePage}
+    alt={`Screenshot from ${entry.title}: the home page`}
+  />
+  <Image
+    src={affPricingPage}
+    alt={`Screenshot from ${entry.title}: the pricing page`}
+  />
+  <Image
+    src={affSignupMock}
+    alt={`Screenshot from ${entry.title}: mockup of signup page`}
+  />
+  <Image
+    src={affDashboard}
+    alt={`Screenshot from ${entry.title}: the main dashboard`}
+  />
+  <Image
+    src={affDocDetail}
+    alt={`Screenshot from ${entry.title}: document detail page`}
+  />
+  <Image
+    src={affOffice}
+    alt={`Photo from ${entry.title}: at the WeWork office`}
+  />
+  <Image
+    src={affTeam}
+    alt={`Photo from ${entry.title}: the team at the office`}
+  />
+  <Image
+    src={affRyanWork}
+    alt={`Photo from ${entry.title}: Ryan working at the office`}
+  />
+</ImagesWithDetails>

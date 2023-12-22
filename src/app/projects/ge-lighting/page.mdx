@@ -1,0 +1,68 @@
+import {
+  AtSymbolIcon,
+  LinkIcon,
+  CodeBracketIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import geLogo from './ge-lighting-logo.svg'
+import geNavi from './ge-lighting-navigation.jpg'
+import geMood from './ge-lighting-moodometer.jpg'
+import geReport from './ge-lighting-report-page.jpg'
+
+export const entry = {
+  date: 2008,
+  title: 'GE Lighting',
+  description:
+    'Bulb company with ties to Edison. Printable PDF shopping lists. Mutli-award winner.',
+  logo: geLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Firstborn (Now Dentsu Creative)"
+    href="https://www.dentsucreative.com/"
+  />
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Firstborn Portfolio"
+    href="https://work.firstborn.com/work/161/ge-whats-your-lighting-style"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Java Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={geNavi}
+    alt={`Screenshot from ${entry.title}: the navigation screen`}
+  />
+  <Image
+    src={geReport}
+    alt={`Screenshot from ${entry.title}: the report page`}
+  />
+  <Image
+    src={geMood}
+    alt={`Screenshot from ${entry.title}: the moodometer`}
+  />
+</ImagesWithDetails>

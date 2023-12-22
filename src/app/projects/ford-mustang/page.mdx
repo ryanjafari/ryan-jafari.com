@@ -1,0 +1,69 @@
+import {
+  AtSymbolIcon,
+  LinkIcon,
+  CodeBracketIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import logoFord from './ford-mustang-logo.svg'
+import fordHomePage from './ford-mustang-home-page.jpg'
+import fordCustomizer from './ford-mustang-car-customizer.jpg'
+import fordBattleMode from './ford-mustang-battle-mode.jpg'
+
+export const entry = {
+  // TODO: This date needs to be within the time I worked at FB. X-ref against my resume later. I believe this date works:
+  date: 2010,
+  title: 'Ford Mustang',
+  description:
+    'Iconic American muscle car. Socket server based chat and collaborative car customizer.',
+  logo: logoFord,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Firstborn (Now Dentsu Creative)"
+    href="https://www.dentsucreative.com/"
+  />
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Firstborn Portfolio"
+    href="https://work.firstborn.com/work/19/the-mustang-customizer-2011"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Java Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={fordHomePage}
+    alt={`Screenshot from ${entry.title}: the home page`}
+  />
+  <Image
+    src={fordBattleMode}
+    alt={`Screenshot from ${entry.title}: battle mode`}
+  />
+  <Image
+    src={fordCustomizer}
+    alt={`Screenshot from ${entry.title}: the car customizer`}
+  />
+</ImagesWithDetails>

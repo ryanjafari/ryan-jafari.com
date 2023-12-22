@@ -1,0 +1,68 @@
+import {
+  AtSymbolIcon,
+  LinkIcon,
+  CodeBracketIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import mrLogo from './malibu-rum-logo.svg'
+import mrIntroScreen from './malibu-rum-intro-screen.jpg'
+import mrNavigation from './malibu-rum-navigation.jpg'
+import mrHistory from './malibu-rum-history.jpg'
+
+export const entry = {
+  date: 2008,
+  title: 'Malibu Rum',
+  description:
+    "World's best-selling Caribbean rum. Server-side support for global website.",
+  logo: mrLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Firstborn (Now Dentsu Creative)"
+    href="https://www.dentsucreative.com/"
+  />
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Firstborn Portfolio"
+    href="https://work.firstborn.com/work/158/malibu-rum-global-site"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="C# ASP.NET Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={mrIntroScreen}
+    alt={`Screenshot from ${entry.title}: the intro screen`}
+  />
+  <Image
+    src={mrNavigation}
+    alt={`Screenshot from ${entry.title}: the navigation screen`}
+  />
+  <Image
+    src={mrHistory}
+    alt={`Screenshot from ${entry.title}: the history of Malibu Rum`}
+  />
+</ImagesWithDetails>

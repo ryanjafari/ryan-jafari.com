@@ -1,0 +1,108 @@
+import {
+  AtSymbolIcon,
+  LinkIcon,
+  CodeBracketIcon,
+  PaintBrushIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import j5Logo from './lego-johnny-5-logo.svg'
+import j5LeftTrack from './lego-johnny-5-left-track.jpg'
+import j5RightTrack from './lego-johnny-5-right-track.jpg'
+import j5LowerBody from './lego-johnny-5-lower-body.jpg'
+import j5UpperBody from './lego-johnny-5-upper-body.jpg'
+import j5Arms from './lego-johnny-5-arms.jpg'
+import j5Head from './lego-johnny-5-head.jpg'
+import j5Final from './lego-johnny-5-final-step.jpg'
+import j5Complete from './lego-johnny-5-complete.jpg'
+import j5PartsFile from './lego-johnny-5-parts-file.png'
+import j5RubyScript from './lego-johnny-5-ruby-script.png'
+import j5XmlFile from './lego-johnny-5-xml-file.png'
+
+export const entry = {
+  date: 2013,
+  title: 'LEGO Johnny 5',
+  description:
+    'Custom LEGO build of Johnny 5. Credit to Steven Marshall for instructions.',
+  logo: j5Logo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Home"
+  />
+  <ProjectBullet
+    icon={LinkIcon}
+    text="The Brothers Brick"
+    href="https://www.brothers-brick.com/2007/05/09/short-circuits-johnny-5-by-steven-marshall/"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={j5LeftTrack}
+    alt={`Screenshot from ${entry.title}: instructions for the finished left track`}
+  />
+  <Image
+    src={j5RightTrack}
+    alt={`Screenshot from ${entry.title}: instructions for the finished right track`}
+  />
+  <Image
+    src={j5LowerBody}
+    alt={`Screenshot from ${entry.title}: instructions for the finished lower body`}
+  />
+  <Image
+    src={j5UpperBody}
+    alt={`Screenshot from ${entry.title}: instructions for the finished upper body`}
+  />
+  <Image
+    src={j5Arms}
+    alt={`Screenshot from ${entry.title}: instructions for the finished arms`}
+  />
+  <Image
+    src={j5Head}
+    alt={`Screenshot from ${entry.title}: instructions for the finished head`}
+  />
+  <Image
+    src={j5Final}
+    alt={`Screenshot from ${entry.title}: the final step of the instructions`}
+  />
+  <Image
+    src={j5Complete}
+    alt={`Photo from ${entry.title}: the completed model of Johnny 5`}
+  />
+  <Image
+    src={j5PartsFile}
+    alt={`Screenshot from ${entry.title}: the LEGO parts file`}
+  />
+  <Image
+    src={j5RubyScript}
+    alt={`Screenshot from ${entry.title}: a Ruby script for parsing the parts file`}
+  />
+  <Image
+    src={j5XmlFile}
+    alt={`Screenshot from ${entry.title}: an XML file output from the Ruby script`}
+  />
+</ImagesWithDetails>

@@ -1,0 +1,66 @@
+import {
+  AtSymbolIcon,
+  CodeBracketIcon,
+  PaintBrushIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import sfLogo from './statisfy-logo.svg'
+import sfIcon from './statisfy-icon.png'
+import sfPieCharts from './statisfy-pie-charts.png'
+import sfWeeklyRpt from './statisfy-weekly-report.png'
+
+export const entry = {
+  date: 2015,
+  title: 'Statisfy',
+  description:
+    "Update your clients right from Git. R&C's first SaaS product. We learned a lot.",
+  logo: sfLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Ryan & Carlos"
+    href="https://www.ryanandcarlos.com/"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby on Rails Development"
+  /> <ProjectBullet
+    icon={PaintBrushIcon}
+    text="UI/UX Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={sfIcon}
+    alt={`Screenshot from ${entry.title}: the "Soothsayer" icon`}
+  />
+  <Image
+    src={sfPieCharts}
+    alt={`Screenshot from ${entry.title}: pie charts breaking down dev efforts`}
+  />
+  <Image
+    src={sfWeeklyRpt}
+    alt={`Screenshot from ${entry.title}: weekly update emailed to clients`}
+  />
+</ImagesWithDetails>

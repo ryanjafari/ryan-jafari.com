@@ -1,0 +1,81 @@
+import {
+  AtSymbolIcon,
+  WrenchScrewdriverIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import xblLogo from './xbox-linux-logo.svg'
+import xblHmm from './xbox-linux-hmm.jpg'
+import xblSoldering from './xbox-linux-soldering-failure.jpg'
+import xblBrutally from './xbox-linux-brutally-crude-soldering.jpg'
+import xblSomethingUsb from './xbox-linux-something-with-usb.jpg'
+import xblHolyMoly from './xbox-linux-holy-moly.jpg'
+import xblItsWorking from './xbox-linux-its-working.jpg'
+import xblRunningHot from './xbox-linux-we-were-running-hot.jpg'
+
+export const entry = {
+  date: 2008,
+  title: 'Xbox Linux',
+  description:
+    'Linux on an old Xbox. Broke a few things. First time soldering I think?',
+  logo: xblLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Carlos's House"
+  />
+  <ProjectBullet
+    icon={WrenchScrewdriverIcon}
+    text="Soldering"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={xblHmm}
+    alt={`Photo from ${entry.title}: we popped it open and it looked hard`}
+  />
+  <Image
+    src={xblSoldering}
+    alt={`Photo from ${entry.title}: our soldering game was weak`}
+  />
+  <Image
+    src={xblBrutally}
+    alt={`Photo from ${entry.title}: soldering some USB wires together`}
+  />
+  <Image
+    src={xblSomethingUsb}
+    alt={`Photo from ${entry.title}: controller cable to USB stick soldering`}
+  />
+  <Image
+    src={xblHolyMoly}
+    alt={`Photo from ${entry.title}: using MechInstaller is perfectly legal`}
+  />
+  <Image
+    src={xblItsWorking}
+    alt={`Photo from ${entry.title}: we actually got it going`}
+  />
+  <Image
+    src={xblRunningHot}
+    alt={`Photo from ${entry.title}: probably a bad way to cool it down`}
+  />
+</ImagesWithDetails>

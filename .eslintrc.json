@@ -1,0 +1,7 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    // TODO: Additional options here: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-sort-props.md
+    "react/jsx-sort-props": [1, { "noSortAlphabetically": false }]
+  }
+}

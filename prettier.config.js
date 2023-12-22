@@ -1,5 +1,10 @@
+/** @type {import('prettier').Options} */
 module.exports = {
-  singleQuote: true,
+  // NOTE: `prettier-plugin-tailwindcss` must come last.
+  plugins: ['prettier-plugin-tailwindcss'],
+  printWidth: 80,
   semi: false,
-  plugins: [require('prettier-plugin-tailwindcss')],
+  singleAttributePerLine: true,
+  singleQuote: true,
+  tailwindFunctions: ['clsx'],
 }

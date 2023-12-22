@@ -1,0 +1,66 @@
+import {
+  AtSymbolIcon,
+  CodeBracketIcon,
+  PuzzlePieceIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import swLogo from './sleepwalker-logo.svg'
+import swIntroScreen from './sleepwalker-intro-screen.jpg'
+import swGatesOpen from './sleepwalker-gates-open.jpg'
+import swGatesBadGuys from './sleepwalker-gates-and-bad-guys.jpg'
+
+export const entry = {
+  date: 2008,
+  title: 'Sleepwalker',
+  description:
+    'Puzzle platform game. Written in Assembly. Final for Computer Systems Organization.',
+  logo: swLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="NYU Courant Computer Science"
+    href="https://cs.nyu.edu/home/index.html"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Assembly Development"
+  /> <ProjectBullet
+    icon={PuzzlePieceIcon}
+    text="Game Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={swIntroScreen}
+    alt={`Screenshot from ${entry.title}: the intro screen`}
+  />
+  <Image
+    src={swGatesOpen}
+    alt={`Screenshot from ${entry.title}: the gates are open!`}
+  />
+  <Image
+    src={swGatesBadGuys}
+    alt={`Screenshot from ${entry.title}: uh oh! gates closed and bad guys!`}
+  />
+</ImagesWithDetails>

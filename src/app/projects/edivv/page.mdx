@@ -1,0 +1,77 @@
+import {
+  LinkIcon,
+  BuildingStorefrontIcon,
+  CodeBracketIcon,
+  PaintBrushIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
+
+import edivvLogo from './edivv.svg'
+import edivvHomePage from './edivv-home-page.png'
+import edivvFacebookSignIn from './edivv-facebook-sign-in.png'
+import edivvFeaturedItems from './edivv-featured-items.png'
+import edivvItemDetail from './edivv-item-detail.png'
+
+export const entry = {
+  date: 2016,
+  title: 'eDivv',
+  description:
+    'Beauty products marketplace. Proprietary trade reconciliation algorithm. Raised $257k.',
+  logo: edivvLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={LinkIcon}
+    text="Crunchbase page"
+    href="https://www.crunchbase.com/organization/edivv-inc"
+  />
+  <ProjectBullet
+    icon={BuildingStorefrontIcon}
+    text="Startup Consulting"
+  />
+  <ProjectBullet
+    icon={CodeBracketIcon}
+    text="Ruby on Rails Development"
+  />
+  <ProjectBullet
+    icon={PaintBrushIcon}
+    text="UI/UX Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={edivvHomePage}
+    alt={`Screenshot from ${entry.title}: the home page`}
+  />
+  <Image
+    src={edivvFacebookSignIn}
+    alt={`Screenshot from ${entry.title}: Facebook sign in`}
+  />
+  <Image
+    src={edivvFeaturedItems}
+    alt={`Screenshot from ${entry.title}: featured items`}
+  />
+  <Image
+    src={edivvItemDetail}
+    alt={`Screenshot from ${entry.title}: item detail`}
+  />
+</ImagesWithDetails>

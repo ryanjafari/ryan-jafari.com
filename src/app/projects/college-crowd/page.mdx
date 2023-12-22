@@ -1,0 +1,67 @@
+import {
+  AtSymbolIcon,
+  BuildingStorefrontIcon,
+  PaintBrushIcon,
+} from '@heroicons/react/24/outline'
+
+import { EntryLayout } from '@/components/EntryLayout'
+import { ProjectBullet } from '@/components/ProjectBullet'
+import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+
+import ccLogo from './college-crowd-logo.svg'
+import ccProjectIndex from './college-crowd-project-index.png'
+import ccProjectPage from './college-crowd-project-page.png'
+import ccPledgeForm from './college-crowd-pledge-form.png'
+
+export const entry = {
+  date: 2013,
+  title: 'College Crowd',
+  description:
+    'College crowdsourcing platform. "Wizard of Oz" app. Raised over $20,000 in one week.',
+  logo: ccLogo,
+}
+
+export const metadata = {
+  title: entry.title,
+  description: entry.description,
+}
+
+export default (props) => (
+  <EntryLayout
+    entry={entry}
+    {...props}
+  />
+)
+
+{entry.description}
+
+<div className="not-prose">
+  <ProjectBullet
+    icon={AtSymbolIcon}
+    text="Ryan & Carlos"
+    href="https://www.ryanandcarlos.com/"
+  />
+  <ProjectBullet
+    icon={BuildingStorefrontIcon}
+    text="Startup Consulting"
+  />
+  <ProjectBullet
+    icon={PaintBrushIcon}
+    text="UI/UX Development"
+  />
+</div>
+
+<ImagesWithDetails>
+  <Image
+    src={ccProjectIndex}
+    alt={`Screenshot from ${entry.title}: the project index page`}
+  />
+  <Image
+    src={ccProjectPage}
+    alt={`Screenshot from ${entry.title}: the project page`}
+  />
+  <Image
+    src={ccPledgeForm}
+    alt={`Screenshot from ${entry.title}: the project pledge form`}
+  />
+</ImagesWithDetails>
