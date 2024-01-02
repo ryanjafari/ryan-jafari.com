@@ -9,7 +9,7 @@ It's 2024 and I'm trying to organize my thoughts... I figured I'd start this blo
 
 Nope. The only plan is 30 minutes daily. We'll see.
 
-So then, this will be a means of catharsis. At least for now, for today, it's just for me. Moving forward, some of the topics might be useful to other audiences. Which would be great. Actually, I've been telling myself that's the reason I want to start writing. To provide value for others. But it isn't why I *need* to start writing, I'll need to provide some value for me first.
+So then, this will be a means of catharsis. At least for now, for today, it's just for me. Moving forward, some of the topics might be useful to other audiences. Which would be great. Actually, that's the reason I want to start writing. To provide value for others. But it isn't why I *need* to start writing. I'll need to provide some value for me first.
 
 ## Getting Here
 
@@ -33,5 +33,6 @@ Setting goals, tracking progress against them, and following through to the fini
 * Machine learning in medical imaging
 * Giving back to the community
 * Improving my diet (a little bit)
+* Getting better at time management
 
-See you tomorrow.
+No time left. See you tomorrow.
