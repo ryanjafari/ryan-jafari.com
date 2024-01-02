@@ -1,3 +1,9 @@
+---
+date: 2024-01-02
+title: Getting Started in 2024
+description: It's been a hell of a ride. Here's to another one.
+layout: EntryLayout
+---
 It's 2024 and I'm trying to organize my thoughts... I figured I'd start this blog to journal daily. You have no idea what it took to get to this point; this article is over a decade in the making. You'd figure I'd have some kind of plan for it.
 
 Nope. The only plan is 30 minutes daily. We'll see.
