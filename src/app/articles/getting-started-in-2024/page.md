@@ -17,11 +17,11 @@ The chapter of life I'm now in started with the birth of my daughter in 2020. Wh
 
 Really I could go on and on complaining. And usually I do. But after all's said and done, what I've learned over the last 3-4 years eclipses even what I learned running a business for just shy of a decade. Some takeaways:
 
-* You have nothing without family
-* Never take your mental health for granted
-* Patience is a skill that can be honed
-* Time management is really, really important
-* You will work harder than you ever thought you could
+* You have nothing without family.
+* Never take your mental health for granted.
+* Patience is a skill that can be honed.
+* Time management is really, really important.
+* You will work harder than you ever thought you could.
 
 ## Getting There
 
@@ -29,10 +29,10 @@ I have eight minutes left.
 
 Setting goals, tracking progress against them, and following through to the finish line has always been hard for me. There are so many shiny things, I want to do it all. There have been many, many personal projects, nearly all of them half-finished. The excuses are many, but they end today. In 2024 (as of now):
 
-* This website and blog
-* Machine learning in medical imaging
-* Giving back to the community
-* Improving my diet (a little bit)
-* Getting better at time management
+* This website and blog.
+* Machine learning in medical imaging.
+* Giving back to the community.
+* Improving my diet (a little bit).
+* Getting better at time management.
 
 No time left. See you tomorrow.
