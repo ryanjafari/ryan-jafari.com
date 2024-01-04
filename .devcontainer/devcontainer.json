@@ -3,6 +3,9 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "containerEnv": {
+    "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -24,5 +27,14 @@
         "jock.svg"
       ]
     }
-  }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "24.0.7"
+    }
+  },
+  "mounts": [
+    "type=bind,src=/run/host-services/ssh-auth.sock,dst=/run/host-services/ssh-auth.sock"
+  ],
+  "postAttachCommand": "git config --global --remove-section 'gpg.ssh'"
 }
