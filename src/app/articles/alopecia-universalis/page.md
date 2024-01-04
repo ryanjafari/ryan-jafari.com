@@ -1,7 +1,7 @@
 ---
 date: '2024-01-02'
-title: Getting Started in 2024
-description: It's been a hell of a ride. Here's to another one.
+title: 'Alopecia Universalis'
+description: "A personal reflection on my family's journey after our daughter's birth in 2020, detailing my wife's struggle with alopecia universalis and our learnings about support, resilience, and hope."
 layout: EntryLayout
 ---
 
