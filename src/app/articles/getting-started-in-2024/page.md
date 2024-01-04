@@ -31,6 +31,7 @@ Setting goals, tracking progress against them, and following through to the fini
 
 * This website and blog.
 * Machine learning in medical imaging.
+* Using ML via LLMs to automate MLOps with Kubernetes.
 * Giving back to the community.
 * Improving my diet (a little bit).
 * Getting better at time management.
