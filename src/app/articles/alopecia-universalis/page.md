@@ -1,5 +1,5 @@
 ---
-date: '2024-01-02'
+date: '2024-01-04'
 title: 'Alopecia Universalis'
 description: "A personal reflection on my family's journey after our daughter's birth in 2020, detailing my wife's struggle with alopecia universalis and our learnings about support, resilience, and hope."
 layout: EntryLayout
