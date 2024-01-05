@@ -1,6 +1,6 @@
 ---
 date: '2024-01-02'
-title: Getting Started in 2024
+title: 'Getting Started in 2024'
 description: It's been a hell of a ride. Here's to another one.
 layout: EntryLayout
 ---
