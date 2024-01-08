@@ -11,13 +11,13 @@ While my first Apple product was a Macintosh back in the day, fooling around wit
 
 We won't speak about the amount of days I spent running World of Warcraft on it.
 
-The point is, this was the beginning of my relationship, or my wallet's relationship, with Apple, a very "late-stage" capitalistic company. This was a time, in college, where I just wanted the coolest, most expensive gadgets. Exactly the same as now, lol. And holy moly the privilege, it was on my parents' dime as I brazenly exploited the boomer's ([more on them later]()) quest to "provide the best for their kids". Which is not the same as now. This face: 😅.
+The point is, this was the beginning of my relationship, or my wallet's relationship, with Apple, a very "late-stage" capitalistic company. This was a time, in college, where I just wanted the coolest, most expensive gadgets. Exactly the same as now, lol. And holy moly the privilege, it was on my parents' dime as I brazenly exploited the boomer's ([more on them later](#)) quest to "provide the best for their kids". Which is not the same as now. This face: 😅.
 
 Since 2004 then, I've been following Apple in the news, interacting with their retail, support, and even corporate staff, and of course working with essentially every product they've made in the interim.
 
 I'm out of time, but:
 
-[There are some things you should know about Apple.]()
+[[ryan-jafari.com/src/app/articles/there-are-some-things-you-should-know-about-apple/page|There Are Some Things You Should Know About Apple]]
 
 
 
