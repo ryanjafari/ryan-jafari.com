@@ -5,7 +5,7 @@ description: 'A candid reflection on my experiences with Apple, covering both th
 layout: EntryLayout
 ---
 
-[What follows is continued from this post.](/getting-to-know-apple)
+[What follows is continued from this post.](/articles/getting-to-know-apple)
 
 Apple is not your friend. While they do a number of terrible things that a company worth a trillion dollars will do, they undeniably provide some value in the process. Some assorted thoughts:
 
