@@ -5,7 +5,7 @@ description: 'A candid reflection on my experiences with Apple, covering both th
 layout: EntryLayout
 ---
 
-[[ryan-jafari.com/src/app/articles/getting-to-know-apple/page|What follows is continued from this post.]]
+[What follows is continued from this post.](/getting-to-know-apple)
 
 Apple is not your friend. While they do a number of terrible things that a company worth a trillion dollars will do, they undeniably provide some value in the process. Some assorted thoughts:
 
@@ -16,4 +16,4 @@ Apple is not your friend. While they do a number of terrible things that a compa
 * Their track record on "right to repair" is super fishy. The long and short of it is they've changed their tune, a little bit, but you can see right through it. It's kind of like a drug that is illegal until someone in government can find a way to get their cut off its sales. I used to live down the block from [this guy's shop](https://www.youtube.com/channel/UCl2mFZoRqjw_ELax4Yisf6w), who can fill you in a bit more.
 * Working until 4 am is a badge of honor. At first, various random rumors I heard on the internet, then confirmed by a friend of a friend who works there. Apple isn't a place you stay for a long time, just to put a few years on the resume.
 
-I'll try and keep this updated with some more thoughts as they come to me, but for now, I've got to run.
+I'll try and keep this updated with some more thoughts as they come to me, but for now, I've got to run. I await my cease & desist letter.

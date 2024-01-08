@@ -17,7 +17,7 @@ Since 2004 then, I've been following Apple in the news, interacting with their r
 
 I'm out of time, but:
 
-[[ryan-jafari.com/src/app/articles/there-are-some-things-you-should-know-about-apple/page|There Are Some Things You Should Know About Apple]]
+[There Are Some Things You Should Know About Apple](/there-are-some-things-you-should-know-about-apple)
 
 
 
