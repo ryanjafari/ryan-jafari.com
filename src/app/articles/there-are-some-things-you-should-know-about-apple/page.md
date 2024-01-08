@@ -5,6 +5,8 @@ description: 'A candid reflection on my experiences with Apple, covering both th
 layout: EntryLayout
 ---
 
+[[ryan-jafari.com/src/app/articles/getting-to-know-apple/page|What follows is continued from this post.]]
+
 Apple is not your friend. While they do a number of terrible things that a company worth a trillion dollars will do, they undeniably provide some value in the process. Some assorted thoughts:
 
 * Their user experience has been a little shaky since Steve, but they are still the best in the business. There is no possible way you can use an Android device and then an iPhone and tell me the difference isn't [night and day](https://www.reddit.com/r/ios/comments/t6hr5l/i_switched_from_android_to_ios_and_the_user/). A huge reason for this is their tight software/hardware integration.
