@@ -17,13 +17,13 @@ I've watched Apple for a long time. I follow them closely in the news, am a vora
 
 ## Corporate Practices
 
-🔴 [They used blood tantalum](https://www.newsweek.com/2015/02/13/where-apple-gets-tantalum-your-iphone-304351.html). I found out about this when researching a material for my wedding ring. Tantalum, known for its hardness and corrosion resistance, is used in your iPhone and was sold by refineries and smelters in the DR Congo to Apple to finance things Apple's customers wouldn't be too thrilled about. Yeah, and it's also what my wedding ring is made out of, whoops. Whether they still use precious metals from questionable sources? Who knows, but probably.
+🔴 [They used blood tantalum.](https://www.newsweek.com/2015/02/13/where-apple-gets-tantalum-your-iphone-304351.html) I found out about this when researching a material for my wedding ring. Tantalum, known for its hardness and corrosion resistance, is used in your iPhone and was sold by refineries and smelters in the DR Congo to Apple to finance things Apple's customers wouldn't be too thrilled about. Yeah, and it's also what my wedding ring is made out of, whoops. Whether they still use precious metals from questionable sources? Who knows, but probably.
 
 🟡 [And their whole green thing?](https://www.theverge.com/2020/10/16/21519466/apple-iphone-12-chargers-airpods-greenhouse-gas-emissions-e-waste) You wonder about it. "We no longer ship cables/adapters with our products to save the environment." Hmm... if it was cost cutting and bettering the Earth *without* making you drop the f-bomb when you have to buy three separate accessories to use the damn device you just bought... then it might be fine.
 
 🔴 [Remember all those supplier riots?] I don't know if COVID alone was to blame. It's probable Apple's insanely aggressive deal negotiations with vendors put tremendous pressure on workers, [formerly spearheaded by this guy before his regrettable comments](https://www.businessinsider.com/apple-exec-fired-big-breasted-women-joke-says-axing-mistake-2022-12). Apple is Apple for a reason, you know. Sometimes the little guy happens to be underneath their shoe.
 
-🟢 [Remember when they apologized for the trash can Mac Pro?](https://www.macrumors.com/2022/04/04/apple-apology-to-mac-pro-users-five-years-ago/). Absolutely wild times. I believe an apology from Apple was unprecedented then, and it never happened since. I guess their enterprise/creative business was really putting a sizable dent in their earnings?
+🟢 [Remember when they apologized for the trash can Mac Pro?](https://www.macrumors.com/2022/04/04/apple-apology-to-mac-pro-users-five-years-ago/) Absolutely wild times. I believe an apology from Apple was unprecedented then, and it never happened since. I guess their enterprise/creative business was really putting a sizable dent in their earnings?
 
 ## Support
 
