@@ -1,5 +1,5 @@
 {
-  "name": "rjaf-me",
+  "name": "ryan-jafari.com",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -37,5 +37,5 @@
     "type=bind,src=/run/host-services/ssh-auth.sock,dst=/run/host-services/ssh-auth.sock"
   ],
   "postAttachCommand": "git config --global --remove-section 'gpg.ssh'",
-  "runArgs": ["--init"]
+  "runArgs": ["--init", "--name", "ryan-jafari.com"]
 }
