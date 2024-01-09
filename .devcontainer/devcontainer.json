@@ -15,16 +15,18 @@
         "github.copilot-chat",
         "github.copilot",
         "gruntfuggly.todo-tree",
+        "jock.svg",
+        "linear.linear-open-issue",
         "mkxml.vscode-filesize",
         "ms-azuretools.vscode-docker",
         // TODO: TypeScript soon? Still thinking about it. If so, uncomment:
         // "ms-vscode.vscode-typescript-next",
         "streetsidesoftware.code-spell-checker",
+        "strigo.linear",
+        "tyriar.lorem-ipsum",
         "unifiedjs.vscode-mdx",
         "viablelab.capitalize",
-        "vsls-contrib.gistfs",
-        "tyriar.lorem-ipsum",
-        "jock.svg"
+        "vsls-contrib.gistfs"
       ]
     }
   },

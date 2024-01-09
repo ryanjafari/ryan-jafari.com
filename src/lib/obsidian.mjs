@@ -11,11 +11,12 @@ export default function obsidian(options = {}) {
   return (tree, file) => {
     // TODO: Can we also allow .mdx?
     if (file.extname !== '.md') {
-      console.debug('obsidian transformer not running; not a .md file')
+      // TODO: Figure out logging.
+      // console.debug('obsidian transformer not running; not a .md file')
       return
     }
 
-    console.debug('obsidian transformer running...')
+    // console.debug('obsidian transformer running...')
 
     // TODO: What about recursion?
     // TODO: Make this more efficient.
