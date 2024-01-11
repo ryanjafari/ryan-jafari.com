@@ -17,6 +17,7 @@
         "gruntfuggly.todo-tree",
         "jock.svg",
         "linear.linear-open-issue",
+        "mikestead.dotenv",
         "mkxml.vscode-filesize",
         "ms-azuretools.vscode-docker",
         // TODO: TypeScript soon? Still thinking about it. If so, uncomment:
@@ -38,6 +39,6 @@
   "mounts": [
     "type=bind,src=/run/host-services/ssh-auth.sock,dst=/run/host-services/ssh-auth.sock"
   ],
-  "postAttachCommand": "git config --global --remove-section 'gpg.ssh'",
+  "postAttachCommand": "git config --global --remove-section 'gpg.ssh' 2>/dev/null",
   "runArgs": ["--init", "--name", "ryan-jafari.com"]
 }

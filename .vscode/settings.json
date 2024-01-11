@@ -3,7 +3,15 @@
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
   "cSpell.checkOnlyEnabledFileTypes": true,
-  "cSpell.enableFiletypes": ["!*", "mdx", "jsx", "tsx", "!jsonc"],
+  "cSpell.enableFiletypes": [
+    "!*",
+    "mdx",
+    "jsx",
+    "tsx",
+    "!jsonc",
+    "!javascript",
+    "!typescript"
+  ],
   "cSpell.ignoreWords": [
     "clsx",
     "couldn",
@@ -19,7 +27,15 @@
     "visityaml"
   ],
   "cSpell.useGitignore": true,
-  "cSpell.words": ["edivv", "Jafari", "rjaf", "rjaf.me", "tripwing", "webp"],
+  "cSpell.words": [
+    "CONVERTKIT",
+    "edivv",
+    "Jafari",
+    "rjaf",
+    "rjaf.me",
+    "tripwing",
+    "webp"
+  ],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
@@ -32,6 +48,8 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": true,
   "files.associations": {
+    ".env.example": "dotenv",
+    ".env.local": "dotenv",
     "*.css": "tailwindcss"
   },
   "launch": {
