@@ -32,9 +32,19 @@ jobs:
         echo "Raw diff output:"
         git diff --name-status HEAD^ HEAD
     
-        # Get the file changes between the last two commits
-        changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
-
+        # Initialize an empty variable to store changed files
+        changed_files=""
+    
+        # Use a subshell to capture output of git diff and grep
+        # The '|| true' ensures that the command doesn't cause an error exit
+        changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$' || true)
+    
+        # Check if there are any MD/MDX files
+        if [ -z "$changed_files" ]; then
+          echo "No MD/MDX files changed"
+          exit 0  # Exit with a success status
+        fi
+        
         # Check if there are any MD/MDX files
         if [ -z "$changed_files" ]; then
           echo "No MD/MDX files changed"
