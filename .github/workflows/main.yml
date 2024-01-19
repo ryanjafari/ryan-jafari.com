@@ -86,8 +86,19 @@ jobs:
         CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
       run: |
         # Use the environment variables
-        article_date=$article_date
-        article_title=$article_title
-        article_description=$article_description
+        article_date="$article_date"
+        article_title="$article_title"
+        article_description="$article_description"
     
-        # Your ConvertKit API call using the variables above...
+        # Prepare the email content (adjust according to ConvertKit's requirements)
+        email_subject="New Blog Post: $article_title"
+        email_body="<p>Published on: $article_date</p><p>$article_description</p>"
+    
+        # ConvertKit API call
+        curl -X POST "API_ENDPOINT" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "api_key": "${{ env.CONVERTKIT_API_KEY }}",
+                "subject": "'"$email_subject"'",
+                "body": "'"$email_body"'"
+              }'
