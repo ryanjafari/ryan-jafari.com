@@ -71,10 +71,10 @@ jobs:
             continue
           fi
     
-          # Example output setting:
-          echo "::set-output name=article_date::$article_date"
-          echo "::set-output name=article_title::$article_title"
-          echo "::set-output name=article_description::$article_description"
+          # Write outputs to the GITHUB_OUTPUT file
+          echo "article_date=$article_date" >> $GITHUB_OUTPUT
+          echo "article_title=$article_title" >> $GITHUB_OUTPUT
+          echo "article_description=$article_description" >> $GITHUB_OUTPUT
     
         done
 
@@ -82,8 +82,9 @@ jobs:
       env:
         CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
       run: |
-        article_date="${{ steps.extract_data.outputs.article_date }}"
-        article_title="${{ steps.extract_data.outputs.article_title }}"
-        article_description="${{ steps.extract_data.outputs.article_description }}"
+        # Use the environment variables
+        article_date=$article_date
+        article_title=$article_title
+        article_description=$article_description
     
         # Your ConvertKit API call using the variables above...
