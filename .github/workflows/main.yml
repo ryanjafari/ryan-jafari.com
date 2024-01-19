@@ -20,7 +20,7 @@ jobs:
     - name: Detect Changes
       run: |
         #!/bin/bash
-    
+
         # Fetch the last two commits
         git fetch --depth=2
     
@@ -34,6 +34,9 @@ jobs:
           exit 0  # Exit with a success status
         fi
     
+        # Get the date of the last commit
+        last_commit_date=$(git log -1 --format=%cd --date=short)
+    
         # Process each changed MD/MDX file
         echo "$changed_files" | while read -r status file; do
           echo "Processing $status $file..."
@@ -41,6 +44,24 @@ jobs:
           # Skip files with 'draft' in the filename
           if [[ "$file" == *"draft"* ]]; then
             echo "Skipping draft file: $file"
+            continue
+          fi
+    
+          # Extract YAML front matter
+          IFS=$'\n' read -r -d '' -a front_matter < <(sed -n '/^---$/,/^---$/p' "$file" && printf '\0')
+          
+          # Extract the date from the front matter
+          article_date=""
+          for line in "${front_matter[@]}"; do
+            if [[ "$line" == "date:"* ]]; then
+              article_date=$(echo "$line" | cut -d "'" -f 2)
+              break
+            fi
+          done
+    
+          # Check if article date is older than the last commit date
+          if [[ "$article_date" < "$last_commit_date" ]]; then
+            echo "Skipping older article: $file"
             continue
           fi
     
