@@ -9,103 +9,106 @@ jobs:
   notify-subscribers:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - id: checkout_repository
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
+      - id: set_up_nodejs
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-    - name: Detect Changes
-      run: |
-        #!/bin/bash
-
-        # Fetch the last two commits
-        git fetch --depth=2
-    
-        # Get the file changes between the last two commits
-        changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$' || true)
-    
-        # Check if there are any MD/MDX files
-        if [ -z "$changed_files" ]; then
-          echo "No MD/MDX files changed"
-          exit 0
-        fi
-    
-        # Get the date of the last commit
-        last_commit_date=$(git log -1 --format=%cd --date=short)
-    
-        # Process each changed MD/MDX file
-        echo "$changed_files" | while read -r status file; do
-          echo "Processing: $status $file..."
-    
-          # Skip files with 'draft' in the filename
-          if [[ "$file" == *"draft"* ]]; then
-            echo "Skipping draft/invalid file: $file"
-            continue
+      - id: detect_changes
+      - name: Detect Changes
+        run: |
+          #!/bin/bash
+  
+          # Fetch the last two commits
+          git fetch --depth=2
+      
+          # Get the file changes between the last two commits
+          changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$' || true)
+      
+          # Check if there are any MD/MDX files
+          if [ -z "$changed_files" ]; then
+            echo "No MD/MDX files changed"
+            exit 0
           fi
-    
-          # Extract YAML front matter
-          IFS=$'\n' read -r -d '' -a front_matter < <(sed -n '/^---$/,/^---$/p' "$file" && printf '\0')
-          
-          # Initialize variables for date, title, and description
-          article_date=""
-          article_title=""
-          article_description=""
-    
-          # Extract date, title, and description from the front matter
-          for line in "${front_matter[@]}"; do
-            if [[ "$line" == "date:"* ]]; then
-              article_date=$(echo "$line" | cut -d "'" -f 2)
-            elif [[ "$line" == "title:"* ]]; then
-              article_title=$(echo "$line" | cut -d "'" -f 2)
-            elif [[ "$line" == "description:"* ]]; then
-              article_description=$(echo "$line" | cut -d "'" -f 2)
+      
+          # Get the date of the last commit
+          last_commit_date=$(git log -1 --format=%cd --date=short)
+      
+          # Process each changed MD/MDX file
+          echo "$changed_files" | while read -r status file; do
+            echo "Processing: $status $file..."
+      
+            # Skip files with 'draft' in the filename
+            if [[ "$file" == *"draft"* ]]; then
+              echo "Skipping draft/invalid file: $file"
+              continue
             fi
+      
+            # Extract YAML front matter
+            IFS=$'\n' read -r -d '' -a front_matter < <(sed -n '/^---$/,/^---$/p' "$file" && printf '\0')
+            
+            # Initialize variables for date, title, and description
+            article_date=""
+            article_title=""
+            article_description=""
+      
+            # Extract date, title, and description from the front matter
+            for line in "${front_matter[@]}"; do
+              if [[ "$line" == "date:"* ]]; then
+                article_date=$(echo "$line" | cut -d "'" -f 2)
+              elif [[ "$line" == "title:"* ]]; then
+                article_title=$(echo "$line" | cut -d "'" -f 2)
+              elif [[ "$line" == "description:"* ]]; then
+                article_description=$(echo "$line" | cut -d "'" -f 2)
+              fi
+            done
+      
+            # Check if article date is older than the last commit date
+            if [[ "$article_date" < "$last_commit_date" ]]; then
+              echo "Skipping older article: $file"
+              continue
+            fi
+      
+            # Write outputs to the GITHUB_OUTPUT file
+            echo "article_date=$article_date" >> $GITHUB_OUTPUT
+            echo "article_title=$article_title" >> $GITHUB_OUTPUT
+            echo "article_description=$article_description" >> $GITHUB_OUTPUT
+  
+            echo "Will send article: $article_title"
+            echo "Written on: $article_date"
           done
-    
-          # Check if article date is older than the last commit date
-          if [[ "$article_date" < "$last_commit_date" ]]; then
-            echo "Skipping older article: $file"
-            continue
-          fi
-    
-          # Write outputs to the GITHUB_OUTPUT file
-          echo "article_date=$article_date" >> $GITHUB_OUTPUT
-          echo "article_title=$article_title" >> $GITHUB_OUTPUT
-          echo "article_description=$article_description" >> $GITHUB_OUTPUT
 
-          echo "Will send article: $article_title"
-          echo "Written on: $article_date"
-          
-        done
-
-    - name: Send Email via ConvertKit
-      if: env.article_date != '' && env.article_title != '' && env.article_description != ''
-      env:
-        CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
-        CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
-        CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
-      run: |
-        # Use the environment variables
-        # article_date="$article_date"
-        # article_title="$article_title"
-        # article_description="$article_description"
-    
-        # Prepare the email content
-        email_subject="New Blog Post: $article_title"
-        email_body="<p>Published on: $article_date</p><p>$article_description</p>"
-    
-        # Construct the API endpoint URL
-        ck_api_endpoint="${CONVERTKIT_API_BASE_URL}${CONVERTKIT_API_BROADCASTS_ENDPOINT}"
-    
-        # ConvertKit API call
-        curl -X POST "$ck_api_endpoint" \
-          -H "Content-Type: application/json" \
-          -d '{
-                "api_key": "'"$CONVERTKIT_API_KEY"'",
-                "subject": "'"$email_subject"'",
-                "body": "'"$email_body"'"
-              }'
+      - id: send_email_via_convertkit
+      - name: Send Email via ConvertKit
+        if: ${{ steps.detect_changes.outputs.article_date != '' && steps.detect_changes.outputs.article_title != '' && steps.detect_changes.outputs.article_description != '' }}
+        env:
+          CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
+          CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
+          CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
+        run: |
+          # Use the environment variables
+          # article_date="$article_date"
+          # article_title="$article_title"
+          # article_description="$article_description"
+      
+          # Prepare the email content
+          email_subject="New Blog Post: $article_title"
+          email_body="<p>Published on: $article_date</p><p>$article_description</p>"
+      
+          # Construct the API endpoint URL
+          ck_api_endpoint="${CONVERTKIT_API_BASE_URL}${CONVERTKIT_API_BROADCASTS_ENDPOINT}"
+      
+          # ConvertKit API call
+          curl -X POST "$ck_api_endpoint" \
+            -H "Content-Type: application/json" \
+            -d '{
+                  "api_key": "'"$CONVERTKIT_API_KEY"'",
+                  "subject": "'"$email_subject"'",
+                  "body": "'"$email_body"'"
+                }'
 
