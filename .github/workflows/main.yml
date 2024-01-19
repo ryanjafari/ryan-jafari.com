@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: checkout_repository
-        name: Checkout Repository
+        name: Checkout repository
         uses: actions/checkout@v2
 
       - id: set_up_nodejs
@@ -19,17 +19,17 @@ jobs:
         with:
           node-version: '14'
 
-      - id: detect_changes
-        name: Detect Changes
+      - id: detect_changes_to_articles
+        name: Detect changes to articles
         run: |
           #!/bin/bash
-  
+      
           # Fetch the last two commits
           git fetch --depth=2
       
-          # Get the file changes between the last two commits
-          changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$' || true)
-      
+          # Get the file changes in src/app/articles directory between the last two commits
+          changed_files=$(git diff --name-status HEAD^ HEAD -- 'src/app/articles' | grep -E '\.md$|\.mdx$' || true)
+
           # Check if there are any MD/MDX files
           if [ -z "$changed_files" ]; then
             echo "No MD/MDX files changed"
@@ -82,9 +82,9 @@ jobs:
           done
 
       - id: check_article_data
-        name: Check Article Data
+        name: Check article data
         run: |
-          if [[ "${{ steps.detect_changes.outputs.article_data }}" ]]; then
+          if [[ "${{ steps.detect_changes_to_articles.outputs.article_data }}" ]]; then
             echo "ARTICLE_READY=true" >> $GITHUB_ENV
           else
             echo "ARTICLE_READY=false" >> $GITHUB_ENV
@@ -98,7 +98,7 @@ jobs:
           CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
           CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
         run: |
-          IFS='|' read -r article_date article_title article_description <<< "${{ steps.detect_changes.outputs.article_data }}"
+          IFS='|' read -r article_date article_title article_description <<< "${{ steps.detect_changes_to_articles.outputs.article_data }}"
       
           # Prepare the email content
           email_subject="New Blog Post: $article_title"
