@@ -1,0 +1,55 @@
+name: Blog Update Notification
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  notify-subscribers:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Detect Changes
+      run: |
+        #!/bin/bash
+    
+        # Fetch the last two commits
+        git fetch --depth=2
+    
+        # Get the file changes between the last two commits
+        # This identifies added (A), modified (M), renamed (R), etc. files
+        changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
+    
+        # Check if there are any MD/MDX files
+        if [ -z "$changed_files" ]; then
+          echo "No MD/MDX files changed"
+          exit 0
+        fi
+    
+        # Process each changed MD/MDX file
+        echo "$changed_files" | while read -r status file; do
+          echo "Processing $status $file..."
+          # Here, you can add additional commands to process each file
+          # For example, extract title, summary, URL, etc., from the file
+    
+          # Example: Extract title (assuming title is the first line of the file)
+          title=$(head -n 1 "$file")
+          echo "Title: $title"
+    
+          # You can also determine the URL or any other metadata you need
+          # Remember to store this data for later use (like sending emails)
+        done
+
+    - name: Send Email via ConvertKit
+      env:
+        CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
+      run: |
+        # Add your script/command to send emails using ConvertKit's API
