@@ -84,7 +84,7 @@ jobs:
     - name: Send Email via ConvertKit
       env:
         CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
-        CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
+        CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_BASE_URL }}
         CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
       run: |
         # Use the environment variables
@@ -92,15 +92,19 @@ jobs:
         article_title="$article_title"
         article_description="$article_description"
     
-        # Prepare the email content (adjust according to ConvertKit's requirements)
-        # email_subject="New Blog Post: $article_title"
-        # email_body="<p>Published on: $article_date</p><p>$article_description</p>"
+        # Prepare the email content
+        email_subject="New Blog Post: $article_title"
+        email_body="<p>Published on: $article_date</p><p>$article_description</p>"
     
-        # # ConvertKit API call
-        # curl -X POST "${{ env.CONVERTKIT_API_BASE_URL }}" \
-        #   -H "Content-Type: application/json" \
-        #   -d '{
-        #         "api_key": "${{ env.CONVERTKIT_API_KEY }}",
-        #         "subject": "'"$email_subject"'",
-        #         "body": "'"$email_body"'"
-        #       }'
+        # Construct the API endpoint URL
+        ck_api_endpoint="${CONVERTKIT_API_BASE_URL}${CONVERTKIT_API_BROADCASTS_ENDPOINT}"
+    
+        # ConvertKit API call
+        curl -X POST "$ck_api_endpoint" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "api_key": "'"$CONVERTKIT_API_KEY"'",
+                "subject": "'"$email_subject"'",
+                "body": "'"$email_body"'"
+              }'
+
