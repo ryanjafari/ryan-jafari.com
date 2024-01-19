@@ -34,7 +34,13 @@ jobs:
     
         # Get the file changes between the last two commits
         changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
-    
+
+        # Check if there are any MD/MDX files
+        if [ -z "$changed_files" ]; then
+          echo "No MD/MDX files changed"
+          exit 0  # Exit with a success status
+        fi
+        
         # # Debug: Output the filtered diff result
         # echo "Filtered diff output (MD/MDX files):"
         # echo "$changed_files"
