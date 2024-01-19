@@ -82,6 +82,7 @@ jobs:
         done
 
     - name: Send Email via ConvertKit
+      if: env.article_date != '' && env.article_title != '' && env.article_description != ''
       env:
         CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
         CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
