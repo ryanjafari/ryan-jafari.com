@@ -83,9 +83,18 @@ jobs:
             echo "Written on: $article_date"
           done
 
+      - id: check_article_data
+        name: Check Article Data
+        run: |
+          if [[ "${{ steps.detect_changes.outputs.article_date }}" != '' && "${{ steps.detect_changes.outputs.article_title }}" != '' && "${{ steps.detect_changes.outputs.article_description }}" != '' ]]; then
+            echo "ARTICLE_READY=true" >> $GITHUB_ENV
+          else
+            echo "ARTICLE_READY=false" >> $GITHUB_ENV
+          fi
+
       - id: send_email_via_convertkit
         name: Send Email via ConvertKit
-        if: ${{ steps.detect_changes.outputs.article_date != '' && steps.detect_changes.outputs.article_title != '' && steps.detect_changes.outputs.article_description != '' }}
+        if: env.ARTICLE_READY == 'true'
         env:
           CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
           CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
