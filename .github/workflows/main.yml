@@ -84,7 +84,7 @@ jobs:
     - name: Send Email via ConvertKit
       env:
         CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
-        CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_BASE_URL }}
+        CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
         CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
       run: |
         # Use the environment variables
@@ -97,7 +97,7 @@ jobs:
         email_body="<p>Published on: $article_date</p><p>$article_description</p>"
     
         # Construct the API endpoint URL
-        ck_api_endpoint="${{ env.CONVERTKIT_API_BASE_URL }}${{ env.CONVERTKIT_API_BROADCASTS_ENDPOINT }}"
+        ck_api_endpoint="${CONVERTKIT_API_BASE_URL}${CONVERTKIT_API_BROADCASTS_ENDPOINT}"
     
         # ConvertKit API call
         curl -X POST "$ck_api_endpoint" \
