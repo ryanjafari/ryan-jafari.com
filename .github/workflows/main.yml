@@ -25,13 +25,12 @@ jobs:
         git fetch --depth=2
     
         # Get the file changes between the last two commits
-        # The '|| true' ensures that the command doesn't cause an error exit
         changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$' || true)
     
         # Check if there are any MD/MDX files
         if [ -z "$changed_files" ]; then
           echo "No MD/MDX files changed"
-          exit 0  # Exit with a success status
+          exit 0
         fi
     
         # Get the date of the last commit
@@ -39,23 +38,30 @@ jobs:
     
         # Process each changed MD/MDX file
         echo "$changed_files" | while read -r status file; do
-          echo "Processing $status $file..."
+          echo "Processing: $status $file..."
     
           # Skip files with 'draft' in the filename
           if [[ "$file" == *"draft"* ]]; then
-            echo "Skipping draft file: $file"
+            echo "Skipping draft/invalid file: $file"
             continue
           fi
     
           # Extract YAML front matter
           IFS=$'\n' read -r -d '' -a front_matter < <(sed -n '/^---$/,/^---$/p' "$file" && printf '\0')
           
-          # Extract the date from the front matter
+          # Initialize variables for date, title, and description
           article_date=""
+          article_title=""
+          article_description=""
+    
+          # Extract date, title, and description from the front matter
           for line in "${front_matter[@]}"; do
             if [[ "$line" == "date:"* ]]; then
               article_date=$(echo "$line" | cut -d "'" -f 2)
-              break
+            elif [[ "$line" == "title:"* ]]; then
+              article_title=$(echo "$line" | cut -d "'" -f 2)
+            elif [[ "$line" == "description:"* ]]; then
+              article_description=$(echo "$line" | cut -d "'" -f 2)
             fi
           done
     
@@ -65,17 +71,19 @@ jobs:
             continue
           fi
     
-          # Add your commands to process each file
+          # Example output setting:
+          echo "::set-output name=article_date::$article_date"
+          echo "::set-output name=article_title::$article_title"
+          echo "::set-output name=article_description::$article_description"
     
-          # Example: Extract title (assuming title is the first line of the file)
-          title=$(head -n 1 "$file" || echo "No title found")
-          echo "Title: $title"
-    
-          # Additional processing...
         done
 
     - name: Send Email via ConvertKit
       env:
         CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
       run: |
-        # Add your script/command to send emails using ConvertKit's API
+        article_date="${{ steps.extract_data.outputs.article_date }}"
+        article_title="${{ steps.extract_data.outputs.article_title }}"
+        article_description="${{ steps.extract_data.outputs.article_description }}"
+    
+        # Your ConvertKit API call using the variables above...
