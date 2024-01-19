@@ -24,10 +24,7 @@ jobs:
         # Fetch the last two commits
         git fetch --depth=2
     
-        # Initialize an empty variable to store changed files
-        changed_files=""
-    
-        # Use a subshell to capture output of git diff and grep
+        # Get the file changes between the last two commits
         # The '|| true' ensures that the command doesn't cause an error exit
         changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$' || true)
     
@@ -40,6 +37,13 @@ jobs:
         # Process each changed MD/MDX file
         echo "$changed_files" | while read -r status file; do
           echo "Processing $status $file..."
+    
+          # Skip files with 'draft' in the filename
+          if [[ "$file" == *"draft"* ]]; then
+            echo "Skipping draft file: $file"
+            continue
+          fi
+    
           # Add your commands to process each file
     
           # Example: Extract title (assuming title is the first line of the file)
