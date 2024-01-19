@@ -75,7 +75,10 @@ jobs:
           echo "article_date=$article_date" >> $GITHUB_OUTPUT
           echo "article_title=$article_title" >> $GITHUB_OUTPUT
           echo "article_description=$article_description" >> $GITHUB_OUTPUT
-    
+
+          echo "Will send article: $article_title"
+          echo "Written on: $article_date"
+          
         done
 
     - name: Send Email via ConvertKit
