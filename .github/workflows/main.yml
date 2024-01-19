@@ -89,9 +89,9 @@ jobs:
         CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
       run: |
         # Use the environment variables
-        article_date="$article_date"
-        article_title="$article_title"
-        article_description="$article_description"
+        # article_date="$article_date"
+        # article_title="$article_title"
+        # article_description="$article_description"
     
         # Prepare the email content
         email_subject="New Blog Post: $article_title"
