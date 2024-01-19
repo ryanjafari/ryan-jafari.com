@@ -5,7 +5,7 @@ description: "A personal reflection on my family's journey after our daughter's 
 layout: EntryLayout
 ---
 
-After the birth of our baby girl in 2020, my wife started noticing her hair was falling out. She could basically pull on it a little bit, and it would give way. The roomba certainly took notice too; I started noticing the unit getting jammed up with unusual amounts of hair.
+After the birth of our baby girl in 2020, my wife started noticing her hair was falling out. She could basically pull on it a little bit, and it would give way. The Roomba certainly took notice too; I started noticing the unit getting jammed up with unusual amounts of hair.
 
 Honestly, I didn't think much of it initially. The past couple of months had been pretty stressful, especially for her; the baby was breech, so they did this thing where they try to flip the baby manually before the due date. Like a team of nurses pushing and pulling on her stomach. It was absolutely awful to watch. I felt like throwing up. Apparently, it didn't feel too great for her either. The idea was to see if we could avoid a C-section, but no dice. We couldn't get our little sweetheart to turn around.
 
