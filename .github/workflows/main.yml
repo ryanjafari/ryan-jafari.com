@@ -24,9 +24,9 @@ jobs:
         # Fetch the last two commits
         git fetch --depth=2
     
-        # # Get the file changes between the last two commits
-        # # This identifies added (A), modified (M), renamed (R), etc. files
-        # changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
+        # Get the file changes between the last two commits
+        # This identifies added (A), modified (M), renamed (R), etc. files
+        changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
     
         # # Check if there are any MD/MDX files
         # if [ -z "$changed_files" ]; then
