@@ -97,7 +97,7 @@ jobs:
         email_body="<p>Published on: $article_date</p><p>$article_description</p>"
     
         # Construct the API endpoint URL
-        ck_api_endpoint="${env.CONVERTKIT_API_BASE_URL}${env.CONVERTKIT_API_BROADCASTS_ENDPOINT}"
+        ck_api_endpoint="${{ env.CONVERTKIT_API_BASE_URL }}${{ env.CONVERTKIT_API_BROADCASTS_ENDPOINT }}"
     
         # ConvertKit API call
         curl -X POST "$ck_api_endpoint" \
