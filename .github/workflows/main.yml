@@ -32,8 +32,8 @@ jobs:
         echo "Raw diff output:"
         git diff --name-status HEAD^ HEAD
     
-        # # Get the file changes between the last two commits
-        # changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
+        # Get the file changes between the last two commits
+        changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
     
         # # Debug: Output the filtered diff result
         # echo "Filtered diff output (MD/MDX files):"
