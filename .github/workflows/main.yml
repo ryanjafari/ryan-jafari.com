@@ -24,14 +24,6 @@ jobs:
         # Fetch the last two commits
         git fetch --depth=2
     
-        # Debug: Check the last two commit IDs
-        echo "Last two commits:"
-        git log -n 2 --pretty=format:"%H"
-    
-        # Debug: Output the raw diff to check if it's working
-        echo "Raw diff output:"
-        git diff --name-status HEAD^ HEAD
-    
         # Initialize an empty variable to store changed files
         changed_files=""
     
@@ -44,16 +36,18 @@ jobs:
           echo "No MD/MDX files changed"
           exit 0  # Exit with a success status
         fi
-        
-        # Check if there are any MD/MDX files
-        if [ -z "$changed_files" ]; then
-          echo "No MD/MDX files changed"
-          exit 0  # Exit with a success status
-        fi
-        
-        # # Debug: Output the filtered diff result
-        # echo "Filtered diff output (MD/MDX files):"
-        # echo "$changed_files"
+    
+        # Process each changed MD/MDX file
+        echo "$changed_files" | while read -r status file; do
+          echo "Processing $status $file..."
+          # Add your commands to process each file
+    
+          # Example: Extract title (assuming title is the first line of the file)
+          title=$(head -n 1 "$file" || echo "No title found")
+          echo "Title: $title"
+    
+          # Additional processing...
+        done
 
     - name: Send Email via ConvertKit
       env:
