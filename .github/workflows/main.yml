@@ -28,9 +28,9 @@ jobs:
         echo "Last two commits:"
         git log -n 2 --pretty=format:"%H"
     
-        # # Debug: Output the raw diff to check if it's working
-        # echo "Raw diff output:"
-        # git diff --name-status HEAD^ HEAD
+        # Debug: Output the raw diff to check if it's working
+        echo "Raw diff output:"
+        git diff --name-status HEAD^ HEAD
     
         # # Get the file changes between the last two commits
         # changed_files=$(git diff --name-status HEAD^ HEAD | grep -E '\.md$|\.mdx$')
