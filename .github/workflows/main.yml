@@ -10,17 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: checkout_repository
-      - name: Checkout Repository
+        name: Checkout Repository
         uses: actions/checkout@v2
 
       - id: set_up_nodejs
-      - name: Set up Node.js
+        name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
       - id: detect_changes
-      - name: Detect Changes
+        name: Detect Changes
         run: |
           #!/bin/bash
   
@@ -84,7 +84,7 @@ jobs:
           done
 
       - id: send_email_via_convertkit
-      - name: Send Email via ConvertKit
+        name: Send Email via ConvertKit
         if: ${{ steps.detect_changes.outputs.article_date != '' && steps.detect_changes.outputs.article_title != '' && steps.detect_changes.outputs.article_description != '' }}
         env:
           CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
@@ -111,4 +111,3 @@ jobs:
                   "subject": "'"$email_subject"'",
                   "body": "'"$email_body"'"
                 }'
-
