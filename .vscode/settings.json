@@ -2,6 +2,9 @@
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
   "cSpell.checkOnlyEnabledFileTypes": true,
   "cSpell.enableFiletypes": [
     "!*",
@@ -52,6 +55,7 @@
     ".env.local": "dotenv",
     "*.css": "tailwindcss"
   },
+  "github-actions.workflows.pinned.workflows": [".github/workflows/main.yml"],
   "launch": {
     "version": "0.2.0",
     "configurations": [
