@@ -21,13 +21,13 @@ jobs:
 
       - id: detect_article_changes
         name: Detect article changes
-        run: bash ./github/workflows/detect_article_changes.sh
+        run: bash ./.github/workflows/detect_article_changes.sh
 
       - id: check_article_data
         name: Check article data
         env:
           ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
-        run: bash ./github/workflows/check_article_data.sh
+        run: bash ./.github/workflows/check_article_data.sh
 
       - id: send_email
         name: Send Email via ConvertKit
@@ -39,4 +39,4 @@ jobs:
           CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
           CONVERTKIT_API_BROADCASTS_ENDPOINT: \
             ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
-        run: |
+        run: bash ./.github/workflows/send_email.sh
