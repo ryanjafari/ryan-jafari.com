@@ -31,7 +31,7 @@ jobs:
 
       - id: send_email
         name: Send Email via ConvertKit
-        if: ${{ env.ARTICLE_DATA == 'true' }}
+        if: ${{ env.ARTICLE_DATA }}
         env:
           ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
           # ARTICLE_READY: ${{ env.ARTICLE_READY }}
