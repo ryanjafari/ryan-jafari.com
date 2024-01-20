@@ -53,6 +53,7 @@ echo "$changed_files" | while read -r status file; do
   # Write outputs to the GITHUB_OUTPUT file
   echo "article_data=$article_date|$article_title|$article_description" >>"$GITHUB_OUTPUT"
 
-  echo "Will send article: $article_title"
+  echo "Sending article: $file..."
+  echo "Titled: $article_title"
   echo "Written on: $article_date"
 done
