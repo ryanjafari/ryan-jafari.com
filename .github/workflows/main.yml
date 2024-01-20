@@ -23,19 +23,12 @@ jobs:
         name: Detect article changes
         run: bash ./.github/workflows/detect_article_changes.sh
 
-      # - id: check_article_data
-      #   name: Check article data
-      #   env:
-      #     ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
-      #   run: bash ./.github/workflows/check_article_data.sh
-
       - id: send_email
         name: Send Email via ConvertKit
         if: ${{ env.ARTICLE_DATA }}
         env:
           ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
-          # ARTICLE_READY: ${{ env.ARTICLE_READY }}
-          CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
-          CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
-          CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
+          CK_API_KEY: ${{ secrets.CK_API_KEY }}
+          CK_API_BASE_URL: ${{ vars.CK_API_BASE_URL }}
+          CK_API_BROADCASTS_ENDPOINT: ${{ vars.CK_API_BROADCASTS_ENDPOINT }}
         run: bash ./.github/workflows/send_email.sh

@@ -7,13 +7,13 @@ email_subject="New Blog Post: $article_title"
 email_body="<p>Published on: $article_date</p><p>$article_description</p>"
 
 # Construct the API endpoint URL
-ck_api_endpoint="${CONVERTKIT_API_BASE_URL}${CONVERTKIT_API_BROADCASTS_ENDPOINT}"
+ck_api_endpoint="${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}"
 
 # ConvertKit API call
 curl -X POST "$ck_api_endpoint" \
   -H "Content-Type: application/json" \
   -d '{
-        "api_key": "'"$CONVERTKIT_API_KEY"'",
+        "api_key": "'"$CK_API_KEY"'",
         "subject": "'"$email_subject"'",
         "body": "'"$email_body"'"
       }'
