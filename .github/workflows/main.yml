@@ -37,6 +37,5 @@ jobs:
           # ARTICLE_READY: ${{ env.ARTICLE_READY }}
           CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
           CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
-          CONVERTKIT_API_BROADCASTS_ENDPOINT: \
-            ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
+          CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
         run: bash ./.github/workflows/send_email.sh
