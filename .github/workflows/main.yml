@@ -21,7 +21,7 @@ jobs:
 
       - id: detect_changes_to_articles
         name: Detect changes to articles
-        run: bash ./github/workflows/detect_changes.sh
+        run: bash ./detect_changes.sh
 
       - id: check_article_data
         name: Check article data
