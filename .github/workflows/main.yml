@@ -19,42 +19,24 @@ jobs:
         with:
           node-version: '14'
 
-      - id: detect_changes_to_articles
-        name: Detect changes to articles
-        run: bash detect_changes.sh
+      - id: detect_article_changes
+        name: Detect article changes
+        run: bash ./github/workflows/detect_article_changes.sh
 
       - id: check_article_data
         name: Check article data
-        run: |
-          if [[ "${{ steps.detect_changes_to_articles.outputs.article_data }}" ]]; then
-            echo "ARTICLE_READY=true" >> $GITHUB_ENV
-          else
-            echo "ARTICLE_READY=false" >> $GITHUB_ENV
-          fi
+        env:
+          ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
+        run: bash ./github/workflows/check_article_data.sh
 
-      - id: send_email_via_convertkit
+      - id: send_email
         name: Send Email via ConvertKit
         if: ${{ env.ARTICLE_READY == 'true' }}
         env:
+          ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
           ARTICLE_READY: ${{ env.ARTICLE_READY }}
           CONVERTKIT_API_KEY: ${{ secrets.CONVERTKIT_API_KEY }}
           CONVERTKIT_API_BASE_URL: ${{ vars.CONVERTKIT_API_BASE_URL }}
-          CONVERTKIT_API_BROADCASTS_ENDPOINT: ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
+          CONVERTKIT_API_BROADCASTS_ENDPOINT: \
+            ${{ vars.CONVERTKIT_API_BROADCASTS_ENDPOINT }}
         run: |
-          IFS='|' read -r article_date article_title article_description <<< "${{ steps.detect_changes_to_articles.outputs.article_data }}"
-
-          # Prepare the email content
-          email_subject="New Blog Post: $article_title"
-          email_body="<p>Published on: $article_date</p><p>$article_description</p>"
-
-          # Construct the API endpoint URL
-          ck_api_endpoint="${CONVERTKIT_API_BASE_URL}${CONVERTKIT_API_BROADCASTS_ENDPOINT}"
-
-          # ConvertKit API call
-          curl -X POST "$ck_api_endpoint" \
-            -H "Content-Type: application/json" \
-            -d '{
-                  "api_key": "'"$CONVERTKIT_API_KEY"'",
-                  "subject": "'"$email_subject"'",
-                  "body": "'"$email_body"'"
-                }'
