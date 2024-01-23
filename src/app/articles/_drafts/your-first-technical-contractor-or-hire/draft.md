@@ -1,0 +1,1 @@
+"I am working on a start up in the health and wellness space. I am here in Mineola (Williston Park to be precise) any chance I can buy you a coffee or meal and ask for some advice on who/what skills I might need to find in my first technical contractor or hire?"
