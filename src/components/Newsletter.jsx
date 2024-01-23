@@ -1,6 +1,7 @@
 'use client'
 
 import { subscribeToNewsletter } from '@/app/actions'
+import clsx from 'clsx'
 import { useState } from 'react'
 import { Button } from './Button'
 
@@ -27,7 +28,7 @@ function MailIcon(props) {
   )
 }
 
-export function Newsletter() {
+export function Newsletter({ className, ...props }) {
   const [hasError, setHasError] = useState(false)
 
   const submit = async (formData) => {
@@ -51,7 +52,10 @@ export function Newsletter() {
   return (
     <form
       action={submit}
-      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+      className={clsx(
+        'rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40',
+        className,
+      )}
     >
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <MailIcon className="h-6 w-6 flex-none" />
