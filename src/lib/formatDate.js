@@ -4,11 +4,17 @@ export function formatDate(dateInput) {
   // Check if dateInput is a Date object
   if (dateInput instanceof Date) {
     dateString = dateInput.toISOString().split('T')[0]
-  } else if (typeof dateInput === 'string') {
-    dateString = dateInput
+  } else if (typeof dateInput === 'string' || typeof dateInput === 'number') {
+    dateString = dateInput.toString()
   } else {
     console.error('Invalid date type:', dateInput)
     return ''
+  }
+
+  // Check if the dateString is in 'YYYY' format
+  const isYearOnly = /^\d{4}$/.test(dateString)
+  if (isYearOnly) {
+    return dateString
   }
 
   // Check if the dateString is in 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:mm:ss.sssZ' format
@@ -30,14 +36,8 @@ export function formatDate(dateInput) {
       timeZone: 'UTC',
     })
   } else {
-    // Check if the dateString is in 'YYYY' format
-    const isYearOnly = /^\d{4}$/.test(dateString)
-    if (isYearOnly) {
-      return dateString
-    } else {
-      // Handle invalid date format
-      console.error('Invalid date format:', dateString)
-      return ''
-    }
+    // Handle invalid date format
+    console.error('Invalid date format:', dateString)
+    return ''
   }
 }
