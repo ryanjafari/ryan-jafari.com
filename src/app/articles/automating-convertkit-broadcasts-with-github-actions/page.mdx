@@ -1,7 +1,7 @@
 ---
 date: 2024-01-23
 title: Automating ConvertKit Broadcasts with GitHub Actions
-description: Get the lowdown on automating your blog updates with GitHub Actions and ConvertKit. I’ll show you how to catch changes in your posts, pull the important bits, and shoot emails to your followers, all while keeping your workflow slick and smart.
+description: Get the lowdown on automating your blog updates with GitHub Actions and ConvertKit. I'll show you how to catch changes in your posts, pull the important bits, and shoot emails to your followers, all while keeping your workflow slick and smart.
 layout: EntryLayout
 ---
 
@@ -17,7 +17,6 @@ on:
   push:
     branches:
       - main
-
 # ...
 ```
 
@@ -29,7 +28,6 @@ Right after that step you're gonna need to install Node for what comes next, so 
 
 ```yaml
 # ...
-
 jobs:
   notify-subscribers:
     runs-on: ubuntu-latest
@@ -42,14 +40,13 @@ jobs:
             .github
             src/app/articles
           sparse-checkout-cone-mode: false
-          
+
       - id: set_up_nodejs
         name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-
-		# ...
+      # ...
 ```
 
 ## Detecting Article Changes
@@ -57,23 +54,19 @@ jobs:
 Nice. Now getting a little meatier, the `detect_article_changes` step executes a bash script that checks for modifications in your blog articles, ensuring only relevant changes trigger the subsequent steps.
 
 ```yaml
-		# ...
-		
-      - id: detect_article_changes
-        name: Detect article changes
-        run: bash ./.github/workflows/detect_article_changes.sh
-        
-		# ...
+# ...
+- id: detect_article_changes
+  name: Detect article changes
+  run: bash ./.github/workflows/detect_article_changes.sh
+# ...
 ```
 
- I'm not going to go nuts breaking down the script, but I'll provide it for you [here](detect_article_changes.sh). You will likely need to customize it a bit for your setup, but it should be a good starting point. Don't forget to `chmod +x` before pushing it up. The key lines are:
+I'm not going to go nuts breaking down the script, but I'll provide it for you [here](/code/detect_article_changes.sh). You will likely need to customize it a bit for your setup, but it should be a good starting point. Don't forget to `chmod +x` before pushing it up. The key lines are:
 
 ```bash
 # ...
-
 # Get the file changes in src/app/articles directory between the last two commits
 changed_files=$(git diff --name-status HEAD^ HEAD -- 'src/app/articles' | grep -E '\.md$|\.mdx$' || true)
-
 # ...
 ```
 
@@ -81,10 +74,8 @@ and:
 
 ```bash
 # ...
-
 # Get the date of the last commit
 last_commit_date=$(git log -1 --format=%cd --date=short)
-
 # ...
 ```
 
@@ -95,20 +86,19 @@ last_commit_date=$(git log -1 --format=%cd --date=short)
 Last but not least we have this bad boy. This step is only executed if we've actually had an article meet our criteria (it's new) and we've set `env.ARTICLE_DATA` previously with the post's metadata. After that, environment variables are set for integrating with ConvertKit's API: `CK_API_KEY` is securely stored in GitHub `secrets`, while the base URL and endpoint variables are defined in either regular old environment variables or repository `vars`.
 
 ```yaml
-		# ...
-		
-      - id: send_ck_email
-        name: Send email via ConvertKit
-        if: ${{ env.ARTICLE_DATA }}
-        env:
-          ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
-          CK_API_KEY: ${{ secrets.CK_API_KEY }}
-          CK_API_BASE_URL: ${{ vars.CK_API_BASE_URL }}
-          CK_API_BROADCASTS_ENDPOINT: ${{ vars.CK_API_BROADCASTS_ENDPOINT }}
-        run: bash ./.github/workflows/send_ck_email.sh
+# ...
+- id: send_ck_email
+  name: Send email via ConvertKit
+  if: ${{ env.ARTICLE_DATA }}
+  env:
+    ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
+    CK_API_KEY: ${{ secrets.CK_API_KEY }}
+    CK_API_BASE_URL: ${{ vars.CK_API_BASE_URL }}
+    CK_API_BROADCASTS_ENDPOINT: ${{ vars.CK_API_BROADCASTS_ENDPOINT }}
+  run: bash ./.github/workflows/send_ck_email.sh
 ```
 
-[Here's that script](send_ck_email.sh). It's pretty straightforward and uses `curl` to hit the endpoint with data pulled from the `ARTICLE_DATA` environment variable. Gonna need to `chmod +x` that one too.
+[Here's that script](/code/send_ck_email.sh). It's pretty straightforward and uses `curl` to hit the endpoint with data pulled from the `ARTICLE_DATA` environment variable. Gonna need to `chmod +x` that one too.
 
 ## Conclusion
 
