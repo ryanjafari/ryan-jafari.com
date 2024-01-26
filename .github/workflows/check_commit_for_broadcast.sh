@@ -4,7 +4,7 @@ commit_message=$(git log -1 --pretty=%B)
 
 printf "The commit message is:\n%s" "$commit_message"
 
-if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (.*\.md) ]]; then
+if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (src/app/articles/.+\.(md|mdx)) ]]; then
   article_path=${BASH_REMATCH[1]}
   echo "$article_path"
 
@@ -15,5 +15,5 @@ if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (.*\.md) ]]; then
     echo "File does not exist: $article_path."
   fi
 else
-  echo "No article to broadcast"
+  echo "No valid article to broadcast"
 fi
