@@ -36,6 +36,7 @@ jobs:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
         with:
           script: |
+            const js-yaml = require('js-yaml')
             const script = require('./.github/workflows/parseFrontMatter.js')
             console.log(script({github, context}))
 
