@@ -2,11 +2,9 @@
 
 commit_message=$(git log -1 --pretty=%B)
 
-printf "The commit message is:\n%s" "$commit_message"
-
 if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (src/app/articles/.+\.(md|mdx))(\s|$) ]]; then
   article_path=${BASH_REMATCH[1]}
-  echo "$article_path"
+  echo "Processing valid article: $article_path..."
 
   if [[ -f $article_path ]]; then
     echo "article_path=$article_path" >>"$GITHUB_OUTPUT"
@@ -15,5 +13,5 @@ if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (src/app/articles/.+\.(md|mdx))(\s
     echo "File does not exist: $article_path."
   fi
 else
-  echo "No valid article to broadcast"
+  echo "No valid article to broadcast!"
 fi
