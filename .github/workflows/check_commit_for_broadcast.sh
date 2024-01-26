@@ -2,6 +2,8 @@
 
 commit_message=$(git log -1 --pretty=%B)
 
+printf "The commit message is:\n\"%s\"\n" "$commit_message"
+
 if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (src/app/articles/.+\.(md|mdx))(\s|$) ]]; then
   article_path=${BASH_REMATCH[1]}
   echo "Processing valid article: $article_path..."
