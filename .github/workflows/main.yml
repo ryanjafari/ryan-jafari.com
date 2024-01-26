@@ -28,6 +28,8 @@ jobs:
         name: Check commit for broadcast
         run: bash ./.github/workflows/check_commit_for_broadcast.sh
 
+      - run: pnpm install js-yaml
+
       - id: parse_front_matter
         name: Parse front matter
         uses: actions/github-script@v7.0.1
