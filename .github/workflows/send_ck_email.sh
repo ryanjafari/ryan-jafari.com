@@ -1,8 +1,12 @@
 #!/bin/bash
 
 article_data=$(extract_article_data "$ARTICLE_PATH")
+echo "[CK-Broadcast] Article data: $article_data"
 
 IFS='|' read -r article_date article_title article_description <<<"$article_data"
+echo "[CK-Broadcast] Article date: $article_date"
+echo "[CK-Broadcast] Article title: $article_title"
+echo "[CK-Broadcast] Article description: $article_description"
 
 # Prepare the email content
 email_subject="New Blog Post: $article_title"
