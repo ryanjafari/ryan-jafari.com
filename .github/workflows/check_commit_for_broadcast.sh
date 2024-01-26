@@ -4,7 +4,7 @@ commit_message=$(git log -1 --pretty=%B)
 
 if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (src/app/articles/[^[:space:]]+\.[^[:space:]]+)([[:space:]]|$) ]]; then
   path="${BASH_REMATCH[1]}"
-  echo "[CK-Broadcast] Got path: $path"
+  echo "[CK-Broadcast] Commit message format matched with path: $path"
 
   if [[ "$path" == *.md || "$path" == *.mdx ]]; then
     echo "[CK-Broadcast] Valid article file type: $path"
