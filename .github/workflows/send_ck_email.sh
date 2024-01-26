@@ -1,38 +1,6 @@
 #!/bin/bash
 
-extract_article_data() {
-  local path=$1
-  local front_matter=()
-  local key=""
-  local value=""
-  local article_data=()
-
-  # Extract YAML front matter
-  IFS=$'\n' read -r -d '' -a front_matter < <(sed -n '/^---$/,/^---$/p' "$path" && printf '\0')
-
-  # Process each line in the front matter
-  for line in "${front_matter[@]}"; do
-    if [[ "$line" == "---" ]]; then
-      continue
-    elif [[ "$line" =~ ^[a-zA-Z_]+: ]]; then
-      if [[ -n "$key" ]]; then
-        article_data[$key]="$value"
-      fi
-      key=$(echo "$line" | cut -d ':' -f 1)
-      value=$(echo "$line" | cut -d ':' -f 2- | sed -e 's/^ //' -e 's/'\''/\\'\''/g')
-    else
-      value+=" $line"
-    fi
-  done
-  if [[ -n "$key" ]]; then
-    article_data[$key]="$value"
-  fi
-
-  # Combine the required fields into a single string
-  echo "${article_data[date]}|${article_data[title]}|${article_data[description]}"
-}
-
-article_data=$(extract_article_data "$ARTICLE_PATH")
+article_data=$(node parseFrontMatter.js "$ARTICLE_PATH")
 IFS='|' read -r article_date article_title article_description <<<"$article_data"
 echo "[CK-Broadcast] Article data: $article_data"
 
