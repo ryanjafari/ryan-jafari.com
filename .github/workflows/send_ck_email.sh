@@ -3,28 +3,37 @@
 extract_article_data() {
   local path=$1
   local front_matter=()
-  local article_date=""
-  local article_title=""
-  local article_description=""
+  local key=""
+  local value=""
+  local article_data=()
 
   # Extract YAML front matter
   IFS=$'\n' read -r -d '' -a front_matter < <(sed -n '/^---$/,/^---$/p' "$path" && printf '\0')
 
-  # Extract date, title, and description from the front matter
+  # Process each line in the front matter
   for line in "${front_matter[@]}"; do
-    if [[ "$line" == "date:"* ]]; then
-      article_date=$(echo "$line" | cut -d "'" -f 2)
-    elif [[ "$line" == "title:"* ]]; then
-      article_title=$(echo "$line" | cut -d "'" -f 2)
-    elif [[ "$line" == "description:"* ]]; then
-      article_description=$(echo "$line" | cut -d "'" -f 2)
+    if [[ "$line" == "---" ]]; then
+      continue
+    elif [[ "$line" =~ ^[a-zA-Z_]+: ]]; then
+      if [[ -n "$key" ]]; then
+        article_data[$key]="$value"
+      fi
+      key=$(echo "$line" | cut -d ':' -f 1)
+      value=$(echo "$line" | cut -d ':' -f 2- | xargs)
+    else
+      value+=" $line"
     fi
   done
+  if [[ -n "$key" ]]; then
+    article_data[$key]="$value"
+  fi
 
-  echo "$article_date|$article_title|$article_description"
+  # Combine the required fields into a single string
+  echo "${article_data[date]}|${article_data[title]}|${article_data[description]}"
 }
 
 article_data=$(extract_article_data "$ARTICLE_PATH")
+IFS='|' read -r article_date article_title article_description <<<"$article_data"
 echo "[CK-Broadcast] Article data: $article_data"
 
 IFS='|' read -r article_date article_title article_description <<<"$article_data"
