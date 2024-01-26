@@ -19,7 +19,7 @@ extract_article_data() {
         article_data[$key]="$value"
       fi
       key=$(echo "$line" | cut -d ':' -f 1)
-      value=$(echo "$line" | cut -d ':' -f 2- | xargs)
+      value=$(echo "$line" | cut -d ':' -f 2- | sed -e 's/^ //' -e 's/'\''/\\'\''/g')
     else
       value+=" $line"
     fi
