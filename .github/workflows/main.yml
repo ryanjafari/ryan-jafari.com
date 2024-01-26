@@ -20,34 +20,19 @@ jobs:
 
       - id: set_up_nodejs
         name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4.0.1
         with:
-          node-version: '14'
+          node-version: '21.6.1'
 
-      # - id: detect_article_changes
-      #   name: Detect article changes
-      #   run: bash ./.github/workflows/detect_article_changes.sh
-
-      # - id: check_commit
-      #   name: Check commit message
-      #   run: |
-      #     commit_message=$(git log -1 --pretty=%B)
-      #     echo "commit_message=$commit_message" >> $GITHUB_ENV
-      #     if [[ "$commit_message" == *"[CK-Broadcast]"* ]]; then
-      #       echo "SEND_NOTIFICATION=true" >> $GITHUB_ENV
-      #     else
-      #       echo "SEND_NOTIFICATION=false" >> $GITHUB_ENV
-      #     fi
-
-      - id: extract_article_path
-        name: Extract article path
-        run: bash ./.github/workflows/extract_article_path.sh
+      - id: check_commit_for_broadcast
+        name: Check commit for broadcast
+        run: bash ./.github/workflows/check_commit_for_broadcast.sh
 
       - id: send_ck_email
         name: Send email via ConvertKit
         if: ${{ env.ARTICLE_PATH }}
         env:
-          ARTICLE_PATH: ${{ steps.extract_article_path.outputs.article_path }}
+          ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
           CK_API_KEY: ${{ secrets.CK_API_KEY }}
           CK_API_BASE_URL: ${{ vars.CK_API_BASE_URL }}
           CK_API_BROADCASTS_ENDPOINT: ${{ vars.CK_API_BROADCASTS_ENDPOINT }}
