@@ -25,8 +25,7 @@ else
 fi
 
 if [[ -z "$article_path" ]]; then
-  echo "[CK-Broadcast] No article path found. Will not broadcast."
-  echo "article_path=" >>"$GITHUB_OUTPUT"
+  echo "[CK-Broadcast] No article path found. Will not broadcast. Skipping next step."
 else
   echo "[CK-Broadcast] Article path found. Will broadcast."
 fi
