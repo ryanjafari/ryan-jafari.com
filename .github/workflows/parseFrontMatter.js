@@ -3,7 +3,7 @@ module.exports = ({ github, context }) => {
   const yaml = require('js-yaml')
 
   const { ARTICLE_PATH } = process.env
-  const content = fs.readFileSync(filePath, 'utf8')
+  const content = fs.readFileSync(ARTICLE_PATH, 'utf8')
   const frontMatter = yaml.load(content.split('---')[1])
 
   console.log(
