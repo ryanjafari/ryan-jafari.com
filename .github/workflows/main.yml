@@ -24,15 +24,38 @@ jobs:
         with:
           node-version: '14'
 
-      - id: detect_article_changes
-        name: Detect article changes
-        run: bash ./.github/workflows/detect_article_changes.sh
+      # - id: detect_article_changes
+      #   name: Detect article changes
+      #   run: bash ./.github/workflows/detect_article_changes.sh
+
+      # - id: check_commit
+      #   name: Check commit message
+      #   run: |
+      #     commit_message=$(git log -1 --pretty=%B)
+      #     echo "commit_message=$commit_message" >> $GITHUB_ENV
+      #     if [[ "$commit_message" == *"[CK-Broadcast]"* ]]; then
+      #       echo "SEND_NOTIFICATION=true" >> $GITHUB_ENV
+      #     else
+      #       echo "SEND_NOTIFICATION=false" >> $GITHUB_ENV
+      #     fi
+
+      - id: extract_article_path
+        name: Extract article path
+        run: |
+          commit_message=$(git log -1 --pretty=%B)
+          if [[ "$commit_message" =~ \[CK-Broadcast\]\ (.*) ]]; then
+            article_path=${BASH_REMATCH[1]}
+            echo "article_path=$article_path" >> $GITHUB_OUTPUT
+            echo "Will broadcast article: $article_path"
+          else
+            echo "No article to broadcast"
+          fi
 
       - id: send_ck_email
         name: Send email via ConvertKit
-        if: ${{ env.ARTICLE_DATA }}
+        if: ${{ env.ARTICLE_PATH }}
         env:
-          ARTICLE_DATA: ${{ steps.detect_article_changes.outputs.article_data }}
+          ARTICLE_PATH: ${{ steps.extract_article_path.outputs.article_path }}
           CK_API_KEY: ${{ secrets.CK_API_KEY }}
           CK_API_BASE_URL: ${{ vars.CK_API_BASE_URL }}
           CK_API_BROADCASTS_ENDPOINT: ${{ vars.CK_API_BROADCASTS_ENDPOINT }}
