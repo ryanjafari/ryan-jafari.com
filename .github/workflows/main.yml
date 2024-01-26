@@ -39,7 +39,7 @@ jobs:
         with:
           script: |
             const script = require('./.github/workflows/parseFrontMatter.js')
-            console.log(script({github, context}))
+            return script({github, context})
 
       - id: send_ck_email
         name: Send email via ConvertKit
