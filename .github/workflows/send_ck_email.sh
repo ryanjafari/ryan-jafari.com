@@ -1,6 +1,6 @@
 #!/bin/bash
 
-article_data=$(node parseFrontMatter.js "$ARTICLE_PATH")
+article_data=$(node ./.github/worfklows/parseFrontMatter.js "$ARTICLE_PATH")
 IFS='|' read -r article_date article_title article_description <<<"$article_data"
 echo "[CK-Broadcast] Article data: $article_data"
 
