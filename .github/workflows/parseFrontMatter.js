@@ -1,6 +1,8 @@
 module.exports = ({ github, context }) => {
   const fs = require('fs')
   const yaml = require('js-yaml')
+
+  const { ARTICLE_PATH } = process.env
 }
 
 // const filePath = process.argv[2]
