@@ -36,7 +36,7 @@ jobs:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
         with:
           script: |
-            const script = require('./path/to/script.js')
+            const script = require('./.github/workflows/parseFrontMatter.js')
             console.log(script({github, context}))
 
       - id: send_ck_email
