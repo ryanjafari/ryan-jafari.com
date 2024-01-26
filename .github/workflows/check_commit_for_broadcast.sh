@@ -2,9 +2,9 @@
 
 commit_message=$(git log -1 --pretty=%B)
 
-echo "The commit message is: $commit_message"
+printf "The commit message is:\n%s" "$commit_message"
 
-if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (.+)$ ]]; then
+if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (.*\.md) ]]; then
   article_path=${BASH_REMATCH[1]}
   echo "$article_path"
 
