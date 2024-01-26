@@ -10,8 +10,8 @@ if [[ "$commit_message" =~ ^\[CK-Broadcast\]\ (src/app/articles/[^[:space:]]+\.[
     echo "[CK-Broadcast] Valid article file type: $path"
 
     if [[ -f "$path" ]]; then
-      echo "[CK-Broadcast] Article exists: $path"
       article_path="$path"
+      echo "[CK-Broadcast] Article exists: $article_path"
       echo "article_path=$article_path" >>"$GITHUB_OUTPUT"
     else
       echo "[CK-Broadcast] Article does not exist: $path"
