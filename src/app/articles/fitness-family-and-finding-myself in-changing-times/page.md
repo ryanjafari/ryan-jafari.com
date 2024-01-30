@@ -1,10 +1,10 @@
 ---
 date: 2024-01-30
-title: Change: Fitness, Family, and Finding Myself
-description: It’s been a wild few years – we welcomed our little girl into the world, dove into the chaos of renovating our first house, and faced some really tough times, including a wake-up call about my health. It’s been a mix of amazing moments and real challenges, and I’ve learned a ton about myself that I already knew. The story so far:
+title: Fitness, Family, and Finding Myself in Changing Times
+description: It’s been a wild few years – we welcomed our little girl into the world, dove into the chaos of renovating our first house, and faced some really tough times, including a wake-up call about my health. It’s been a mix of amazing moments and real challenges, and I’ve learned a ton about myself that I already knew. The story so far...
 ---
 
- A few years back, life was pretty sweet. My wife and I were living it up in a great apartment, not far from where we are now. Everything was just right – nice place, cool stuff, top-notch amenities. We were the picture of happiness: healthy, in love, and both gainfully employed. But as life tends to do, things started to shift.
+A few years back, life was pretty sweet. My wife and I were living it up in a great apartment, not far from where we are now. Everything was just right – nice place, cool stuff, top-notch amenities. We were the picture of happiness: healthy, in love, and both gainfully employed. But as life tends to do, things started to shift.
 
 Around the same time, we dove headfirst into buying a house. Talk about uncharted territory... It was a whirlwind of financial strains and renovations, transforming an old house into our home. We put down a lot of money, navigating this totally new and unprecedented journey. And yeah, the timing? It was intense. We were right in the thick of it, with our baby girl on the way. I remember we had her in the apartment, and shortly after she was born, we moved into the house. From baby steps to big leaps, it was change after change. Crazy times, for sure.
 
