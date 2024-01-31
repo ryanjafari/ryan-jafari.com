@@ -1,7 +1,7 @@
-// const fetch = require('fetch');
-const chalk = require('chalk')
+// Assuming fetch is available globally or replace with an appropriate import
+import chalk from 'chalk'
 
-module.exports = async ({ github, context }) => {
+export const sendCkEmail = async ({ github, context }) => {
   const {
     CK_API_KEY,
     CK_API_BASE_URL,
@@ -13,11 +13,9 @@ module.exports = async ({ github, context }) => {
 
   console.log(chalk.blue('Front Matter:'), frontMatter)
 
-  // Prepare the email content
   const emailSubject = `New Blog Post: ${frontMatter.title}`
   const emailBody = `<p>Published on: ${frontMatter.date}</p><p>${frontMatter.description}</p>`
 
-  // Construct the API endpoint URL
   const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}`
 
   console.log(chalk.yellow('Sending email to ConvertKit...'))
