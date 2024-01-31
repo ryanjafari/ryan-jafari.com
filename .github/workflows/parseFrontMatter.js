@@ -1,7 +1,7 @@
 import fs from 'fs'
 import yaml from 'js-yaml'
 
-export default parseFrontMatter = ({ github, context }) => {
+export default function parseFrontMatter({ github, context }) {
   const { ARTICLE_PATH } = process.env
 
   const content = fs.readFileSync(ARTICLE_PATH, 'utf8')
