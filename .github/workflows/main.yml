@@ -31,12 +31,12 @@ jobs:
         with:
           node-version: '21.6.1'
 
-      # - id: install_js_yaml
-      #   name: Install js-yaml
-      #   env:
-      #     ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
-      #   if: ${{ env.ARTICLE_PATH }}
-      #   run: npm install js-yaml
+      - id: install_workflow_packages
+        name: Install workflow packages
+        env:
+          ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
+        if: ${{ env.ARTICLE_PATH }}
+        run: npm install js-yaml chalk
 
       - id: parse_front_matter
         name: Parse front matter
