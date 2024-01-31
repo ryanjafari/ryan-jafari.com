@@ -2,10 +2,10 @@ import chalk from 'chalk'
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
 
-function customLog(message) {
+function customLog(...messages) {
   const app = chalk.gray('[ryan-jafari.com]')
   const job = chalk.white('[ck-broadcast]')
-  console.log(`${app} ${job} ${message}`)
+  console.log(`${app} ${job} ${messages}`)
 }
 
 export default async function parseFrontMatter({ github, context }) {
