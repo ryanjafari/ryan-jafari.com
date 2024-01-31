@@ -1,8 +1,5 @@
-// module.exports = ({ github, context }) => {
-//   const { ARTICLE_FRONT_MATTER } = process.env
-//   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
-//   console.log(frontMatter)
-// }
+// const fetch = require('fetch');
+const chalk = require('chalk')
 
 module.exports = async ({ github, context }) => {
   const {
@@ -11,13 +8,19 @@ module.exports = async ({ github, context }) => {
     CK_API_BROADCASTS_ENDPOINT,
     ARTICLE_FRONT_MATTER,
   } = process.env
+
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
 
-  console.log(frontMatter)
+  console.log(chalk.blue('Front Matter:'), frontMatter)
 
+  // Prepare the email content
   const emailSubject = `New Blog Post: ${frontMatter.title}`
   const emailBody = `<p>Published on: ${frontMatter.date}</p><p>${frontMatter.description}</p>`
+
+  // Construct the API endpoint URL
   const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}`
+
+  console.log(chalk.yellow('Sending email to ConvertKit...'))
 
   const response = await fetch(ckApiEndpoint, {
     method: 'POST',
@@ -30,8 +33,9 @@ module.exports = async ({ github, context }) => {
   })
 
   if (!response.ok) {
+    console.error(chalk.red(`HTTP error! status: ${response.status}`))
     throw new Error(`HTTP error! status: ${response.status}`)
   } else {
-    console.log('Email sent successfully!')
+    console.log(chalk.green('Email sent successfully!'))
   }
 }
