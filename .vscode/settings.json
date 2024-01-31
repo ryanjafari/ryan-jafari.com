@@ -2,6 +2,9 @@
   "[dockerfile]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
   "[markdown]": {
     // TODO:
     // "editor.defaultFormatter": "davidanson.vscode-markdownlint"

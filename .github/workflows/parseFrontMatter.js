@@ -1,7 +1,7 @@
-module.exports = ({ github, context }) => {
-  const fs = require('fs')
-  const yaml = require('js-yaml')
+import fs from 'fs'
+import yaml from 'js-yaml'
 
+export const parseFrontMatter = ({ github, context }) => {
   const { ARTICLE_PATH } = process.env
 
   const content = fs.readFileSync(ARTICLE_PATH, 'utf8')
