@@ -4,8 +4,6 @@
 //   console.log(frontMatter)
 // }
 
-const fetch = require('node-fetch')
-
 module.exports = async ({ github, context }) => {
   const {
     CK_API_KEY,
