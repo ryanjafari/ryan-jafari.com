@@ -25,7 +25,7 @@ else
 fi
 
 if [[ -z "$article_path" ]]; then
-  echo "[CK-Broadcast] No article path found. Will not broadcast. Skipping next step."
+  echo "[CK-Broadcast] No article path found. Will not broadcast. Skipping rest of steps."
 else
   echo "[CK-Broadcast] Article path found. Will broadcast."
 fi
