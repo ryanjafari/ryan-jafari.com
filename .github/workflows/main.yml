@@ -46,7 +46,7 @@ jobs:
         if: ${{ env.ARTICLE_PATH }}
         with:
           script: |
-            const parseFrontMatter = import('./.github/workflows/parseFrontMatter.js')
+            const { default: parseFrontMatter } = import('./.github/workflows/parseFrontMatter.js')
             return parseFrontMatter({github, context})
 
       - id: send_ck_email
