@@ -44,6 +44,7 @@ jobs:
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
           GITHUB_WORKSPACE: ${{ github.workspace }}
+          FORCE_COLOR: 3
         if: ${{ env.ARTICLE_PATH }}
         with:
           script: |
