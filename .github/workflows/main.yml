@@ -46,8 +46,8 @@ jobs:
         if: ${{ env.ARTICLE_PATH }}
         with:
           script: |
-            const script = import('./.github/workflows/parseFrontMatter.js')
-            return script({github, context})
+            import parseFrontmatter from './.github/workflows/parseFrontMatter.js'
+            return parseFrontMatter({github, context})
 
       - id: send_ck_email
         name: Send email via ConvertKit
