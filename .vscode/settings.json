@@ -5,6 +5,9 @@
   "[dotenv]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
   },
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
   "[markdown]": {
     // TODO:
     // "editor.defaultFormatter": "davidanson.vscode-markdownlint"

@@ -11,11 +11,13 @@ export const sendCkEmail = async ({ github, context }) => {
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
 
-  console.log(chalk.blue('Front Matter:'), frontMatter)
+  console.log(chalk.blue('Article front matter:'), frontMatter)
 
+  // Prepare the email content
   const emailSubject = `New Blog Post: ${frontMatter.title}`
   const emailBody = `<p>Published on: ${frontMatter.date}</p><p>${frontMatter.description}</p>`
 
+  // Construct the API endpoint URL
   const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}`
 
   console.log(chalk.yellow('Sending email to ConvertKit...'))

@@ -43,10 +43,12 @@ jobs:
         uses: actions/github-script@v7.0.1
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
         if: ${{ env.ARTICLE_PATH }}
         with:
           script: |
-            const base = '${{ github.workspace }}/.github/workflows/'
+            const workspace = process.env.GITHUB_WORKSPACE
+            const base = `${workspace}/.github/workflows/`
             const path = `${base}/parseFrontMatter.js`
             const { default: parseFrontMatter } = await import(path)
             return await parseFrontMatter({ github, context })
