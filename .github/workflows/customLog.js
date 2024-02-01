@@ -39,11 +39,6 @@ async function logResponseDetails(response) {
       customLog('HTML Description:', descriptionMatch[1])
     }
   }
-
-  // Logging headers
-  for (let [key, value] of response.headers) {
-    customLog(`Header: ${key}`, value)
-  }
 }
 
 // Usage remains the same
