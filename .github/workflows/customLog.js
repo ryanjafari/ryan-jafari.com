@@ -15,18 +15,27 @@ async function logResponseDetails(response) {
   customLog('Redirected:', response.redirected)
   customLog('Response OK:', response.ok)
 
-  // For headers
+  // Check if response is JSON
+  const contentType = response.headers.get('content-type')
+  if (contentType && contentType.includes('application/json')) {
+    try {
+      const body = await response.json()
+      customLog('Response Body:', body)
+    } catch (error) {
+      customLog('Error parsing response body:', error.message)
+    }
+  } else {
+    // Handle non-JSON responses
+    const textResponse = await response.text()
+    customLog('Non-JSON Response:', textResponse)
+  }
+
+  // Logging headers
   for (let [key, value] of response.headers) {
     customLog(`Header: ${key}`, value)
   }
-
-  // For body (assuming JSON response)
-  try {
-    const body = await response.json()
-    customLog('Response Body:', body)
-  } catch (error) {
-    customLog('Error parsing response body:', error.message)
-  }
 }
+
+// Usage remains the same
 
 export { customLog, logResponseDetails }
