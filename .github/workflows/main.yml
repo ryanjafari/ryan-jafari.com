@@ -37,6 +37,7 @@ jobs:
 
       - id: install_job_packages
         name: Install job packages
+        working-directory: ./.github/workflows
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
         if: ${{ env.ARTICLE_PATH }}
