@@ -1,6 +1,6 @@
 // Assuming fetch is available globally or replace with an appropriate import
 import chalk from 'chalk'
-import { customLog } from './customLog.js'
+import { customLog, logResponseDetails } from './customLog.js'
 
 export default async function sendCkEmail({ github, context }) {
   customLog(chalk.yellow('Sending email to ConvertKit...'))
@@ -39,7 +39,7 @@ export default async function sendCkEmail({ github, context }) {
     body: JSON.stringify({
       api_key: CK_API_KEY, // docs say api_secret but it doesn't work
       content: emailBody,
-      description: '[ck-broadcast] GitHub Workflow Job',
+      description: '[ck-broadcast] GitHub Workflow Job', // internal description
       email_address: null, // use the default email address
       email_layout_template: null, // use the default email layout template
       public: true, // add to ck creator profile newsletter feed
