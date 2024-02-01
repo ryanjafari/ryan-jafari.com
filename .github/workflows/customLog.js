@@ -27,7 +27,17 @@ async function logResponseDetails(response) {
   } else {
     // Handle non-JSON responses
     const textResponse = await response.text()
-    customLog('Non-JSON Response:', textResponse)
+    const titleMatch = textResponse.match(/<title>(.*?)<\/title>/i)
+    const descriptionMatch = textResponse.match(
+      /<meta name="description" content="(.*?)"/i,
+    )
+
+    if (titleMatch) {
+      customLog('HTML Title:', titleMatch[1])
+    }
+    if (descriptionMatch) {
+      customLog('HTML Description:', descriptionMatch[1])
+    }
   }
 
   // Logging headers
