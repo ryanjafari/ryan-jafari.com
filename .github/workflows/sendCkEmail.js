@@ -1,6 +1,6 @@
 // Assuming fetch is available globally or replace with an appropriate import
 import chalk from 'chalk'
-import { customLog, logResponseDetails } from './customLog.js'
+import { customLog } from './customLog.js'
 
 export default async function sendCkEmail({ github, context }) {
   customLog(chalk.yellow('Sending email to ConvertKit...'))
@@ -49,7 +49,7 @@ export default async function sendCkEmail({ github, context }) {
   })
 
   customLog(chalk.yellow('Received response from ConvertKit...'))
-  await logResponseDetails(response)
+  await logResponseDetails(response) // Log the details of the response
 
   if (!response.ok) {
     customLog(chalk.red('HTTP error! status:'), response.status)
