@@ -5,7 +5,9 @@ import chalk from 'chalk'
 function customLog(...args) {
   const app = chalk.gray('[ryan-jafari.com]')
   const job = chalk.white('[ck-broadcast]')
-  console.log(app, job, ...args)
+  const [firstArg, ...restArgs] = args
+  const message = chalk.white(firstArg)
+  console.log(app, job, message, ...args)
 }
 
 async function logResponseDetails(response) {
