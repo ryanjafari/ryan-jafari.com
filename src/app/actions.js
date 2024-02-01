@@ -27,6 +27,13 @@ export async function subscribeToNewsletter(formData) {
 
     if (!response.ok) {
       throw new Error(data.error || 'No message returned from ConvertKit')
+    } else {
+      // console.log(
+      //   '%c[ryan-jafari.com]%c [subscribe]',
+      //   'color: rgb(120, 120, 120)',
+      //   'color: inherit',
+      //   data,
+      // )
     }
   } catch (error) {
     // console.error(

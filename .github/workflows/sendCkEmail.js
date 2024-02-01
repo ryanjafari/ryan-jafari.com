@@ -48,7 +48,7 @@ export default async function sendCkEmail({ github, context }) {
     }),
   })
 
-  customLog(chalk.yellow('Received response from ConvertKit...'))
+  customLog(chalk.cyanBright('Received response from ConvertKit...'))
   await logResponseDetails(response) // Log the details of the response
 
   if (!response.ok) {
