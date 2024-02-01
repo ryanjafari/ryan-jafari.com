@@ -1,6 +1,6 @@
 // Assuming fetch is available globally or replace with an appropriate import
 import chalk from 'chalk'
-import customLog from './customLog.js'
+import { customLog, logResponseDetails } from './customLog.js'
 
 export default async function sendCkEmail({ github, context }) {
   customLog(chalk.yellow('Sending email to ConvertKit...'))
@@ -37,7 +37,7 @@ export default async function sendCkEmail({ github, context }) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      api_secret: CK_API_KEY,
+      api_key: CK_API_KEY, // docs say api_secret but it doesn't work
       content: emailBody,
       description: '[ck-broadcast] GitHub Workflow Job',
       email_address: null, // use the default email address
@@ -49,7 +49,7 @@ export default async function sendCkEmail({ github, context }) {
   })
 
   customLog(chalk.yellow('Received response from ConvertKit...'))
-  customLog(chalk.yellow('Response body:'), response.body)
+  await logResponseDetails(response)
 
   if (!response.ok) {
     customLog(chalk.red('HTTP error! status:'), response.status)
