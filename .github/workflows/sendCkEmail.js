@@ -37,16 +37,24 @@ export default async function sendCkEmail({ github, context }) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      api_key: CK_API_KEY,
+      api_secret: CK_API_KEY,
+      content: emailBody,
+      description: '[ck-broadcast] GitHub Workflow Job',
+      email_address: null, // use the default email address
+      email_layout_template: null, // use the default email layout template
+      public: true, // add to ck creator profile newsletter feed
       subject: emailSubject,
       body: emailBody,
     }),
   })
 
+  customLog(chalk.yellow('Received response from ConvertKit...'))
+  customLog(chalk.yellow('Response body:'), response.body)
+
   if (!response.ok) {
-    customLog(chalk.red('Error sending email to ConvertKit!'), response)
+    customLog(chalk.red('HTTP error! status:'), response.status)
     throw new Error(`HTTP error! status: ${response.status}`)
   } else {
-    customLog(chalk.green('Email sent to ConvertKit!'), response)
+    customLog(chalk.green('Success! status:'), response.status)
   }
 }
