@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { customLog, logResponseDetails } from './customLog.js'
 
 export default async function sendCkEmail({ github, context }) {
-  customLog(chalk.yellow('Sending email to ConvertKit...'))
+  customLog(chalk.black('Sending email to ConvertKit...'))
 
   const {
     CK_API_KEY,
@@ -32,7 +32,7 @@ export default async function sendCkEmail({ github, context }) {
   const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}`
   customLog(chalk.blue('ck api endpoint:'), ckApiEndpoint)
 
-  customLog(chalk.yellow('Sending request to ConvertKit...'))
+  customLog(chalk.magenta('Sending request to ConvertKit...'))
   const response = await fetch(ckApiEndpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
