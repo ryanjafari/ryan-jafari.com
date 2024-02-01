@@ -7,7 +7,7 @@ function customLog(...args) {
   const job = chalk.white('[ck-broadcast]')
   const [firstArg, ...restArgs] = args
   const message = chalk.white(firstArg)
-  console.log(app, job, message, ...restArgs)
+  console.log(app, job, message, chalk.reset(...restArgs))
 }
 
 async function logResponseDetails(response) {
