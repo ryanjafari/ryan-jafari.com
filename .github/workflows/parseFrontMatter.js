@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
-import customLog from './customLog.js'
+import { customLog } from './customLog.js'
 
 export default async function parseFrontMatter({ github, context }) {
   customLog(chalk.yellow('Parsing article front matter...'))
