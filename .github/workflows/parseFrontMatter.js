@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
 
-function customLog(args) {
+function customLog(...args) {
   const app = chalk.gray('[ryan-jafari.com]')
   const job = chalk.white('[ck-broadcast]')
   console.log(app, job, ...args)
