@@ -28,6 +28,7 @@ jobs:
 
       - id: check_commit_for_broadcast
         name: Check commit for broadcast
+        working-directory: ./
         run: bash ./check_commit_for_broadcast.sh
 
       - id: set_up_nodejs
