@@ -23,7 +23,7 @@ export default async function sendCkEmail({ github, context }) {
   customLog(chalk.blue('article front matter:'), frontMatter)
 
   // Prepare the email content
-  const emailSubject = `New Blog Post: ${frontMatter.title}`
+  const emailSubject = frontMatter.title
   const emailBody = `<p>Published on: ${frontMatter.date}</p><p>${frontMatter.description}</p>`
   customLog(chalk.blue('email subject:'), emailSubject)
   customLog(chalk.blue('email body:'), emailBody)
