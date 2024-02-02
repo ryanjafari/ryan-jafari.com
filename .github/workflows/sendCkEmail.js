@@ -1,6 +1,8 @@
 // Assuming fetch is available globally or replace with an appropriate import
 import chalk from 'chalk'
+import pino from 'pino'
 import { customLog, logResponseDetails } from './customLog.js'
+const logger = pino()
 
 export default async function sendCkEmail({ github, context }) {
   customLog(chalk.black('Sending email to ConvertKit...'))
@@ -14,16 +16,19 @@ export default async function sendCkEmail({ github, context }) {
     CK_EMAIL_ADDRESS,
     NEXT_PUBLIC_SITE_URL,
   } = process.env
-  customLog(`debug`, 'article front matter env:', ARTICLE_FRONT_MATTER)
-  customLog(`debug`, 'article path env:', ARTICLE_PATH)
-  customLog(`debug`, 'ck api key env:', CK_API_KEY)
-  customLog(`debug`, 'ck api base url env:', CK_API_BASE_URL)
-  customLog(`debug`, 'ck api broadcasts endpoint env:', CK_API_BC_ENDPOINT)
-  customLog(`debug`, 'ck email address env:', CK_EMAIL_ADDRESS)
-  customLog(`debug`, 'next public site url env:', NEXT_PUBLIC_SITE_URL)
+
+  logger.debug({ ARTICLE_FRONT_MATTER })
+
+  // customLog(`debug`, 'article front matter env:', ARTICLE_FRONT_MATTER)
+  // customLog(`debug`, 'article path env:', ARTICLE_PATH)
+  // customLog(`debug`, 'ck api key env:', CK_API_KEY)
+  // customLog(`debug`, 'ck api base url env:', CK_API_BASE_URL)
+  // customLog(`debug`, 'ck api broadcasts endpoint env:', CK_API_BC_ENDPOINT)
+  // customLog(`debug`, 'ck email address env:', CK_EMAIL_ADDRESS)
+  // customLog(`debug`, 'next public site url env:', NEXT_PUBLIC_SITE_URL)
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
-  customLog(chalk.blue('article front matter:'), frontMatter)
+  customLog(`debug`, 'article front matter:', frontMatter)
 
   // Prepare the email content
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
@@ -64,6 +69,6 @@ export default async function sendCkEmail({ github, context }) {
     customLog(chalk.red('HTTP error! status:'), response.status)
     throw new Error(`HTTP error! status: ${response.status}`)
   } else {
-    customLog(chalk.green('Success! status:'), response.status)
+    customLog(`done`, 'Success! status:', response.status)
   }
 }

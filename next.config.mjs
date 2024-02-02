@@ -12,6 +12,11 @@ import obsidian from './src/lib/obsidian.mjs'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md'],
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 }
 
 const obsidianOptions = {

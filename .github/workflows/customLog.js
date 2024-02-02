@@ -7,10 +7,11 @@ function customLog(level, ...args) {
   const job = '[ck-broadcast]'
   const [message, ...restArgs] = args
   const levelColors = {
-    debug: chalk.cyan,
+    debug: chalk.blue,
     info: chalk.white,
     warn: chalk.yellow,
     error: chalk.red,
+    done: chalk.green, // 'done' for success messages
   }
 
   const colorize = levelColors[level] || levelColors.info
