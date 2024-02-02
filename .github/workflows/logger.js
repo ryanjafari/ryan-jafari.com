@@ -8,6 +8,7 @@ const logger = pino({
       colorize: true,
     },
   },
+  messageFormat: (log, messageKey) => `hello ${log[messageKey]}`,
 })
 
 export default logger
