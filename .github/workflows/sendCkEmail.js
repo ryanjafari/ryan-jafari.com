@@ -10,20 +10,17 @@ export default async function sendCkEmail({ github, context }) {
     ARTICLE_PATH,
     CK_API_KEY,
     CK_API_BASE_URL,
-    CK_API_BROADCASTS_ENDPOINT,
+    CK_API_BC_ENDPOINT,
     CK_EMAIL_ADDRESS,
     NEXT_PUBLIC_SITE_URL,
   } = process.env
-  customLog(chalk.blue('article front matter env:'), ARTICLE_FRONT_MATTER)
-  customLog(chalk.blue('article path env:'), ARTICLE_PATH)
-  customLog(chalk.blue('ck api key env:'), CK_API_KEY)
-  customLog(chalk.blue('ck api base url env:'), CK_API_BASE_URL)
-  customLog(
-    chalk.blue('ck api broadcasts endpoint env:'),
-    CK_API_BROADCASTS_ENDPOINT,
-  )
-  customLog(chalk.blue('ck email address env:'), CK_EMAIL_ADDRESS)
-  customLog(chalk.blue('site url env:'), NEXT_PUBLIC_SITE_URL)
+  customLog(`debug`, 'article front matter env:', ARTICLE_FRONT_MATTER)
+  customLog(`debug`, 'article path env:', ARTICLE_PATH)
+  customLog(`debug`, 'ck api key env:', CK_API_KEY)
+  customLog(`debug`, 'ck api base url env:', CK_API_BASE_URL)
+  customLog(`debug`, 'ck api broadcasts endpoint env:', CK_API_BC_ENDPOINT)
+  customLog(`debug`, 'ck email address env:', CK_EMAIL_ADDRESS)
+  customLog(`debug`, 'site url env:', NEXT_PUBLIC_SITE_URL)
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
   customLog(chalk.blue('article front matter:'), frontMatter)
@@ -49,7 +46,7 @@ export default async function sendCkEmail({ github, context }) {
       api_key: CK_API_KEY, // docs say api_secret but it doesn't work
       content: content, // email content
       description: '[ck-broadcast] GitHub Workflow Job', // internal description
-      email_address: null, // use the default email address
+      email_address: CK_EMAIL_ADDRESS, // use the default email address
       email_layout_template: null, // use the default email layout template
       public: true, // add to ck creator profile newsletter feed
       published_at: frontMatter.date, // article published date

@@ -2,11 +2,19 @@
 import chalk from 'chalk'
 
 // TODO: Incorporate levels
-function customLog(...args) {
+function customLog(level, ...args) {
   const app = chalk.gray('[ryan-jafari.com]')
   const job = '[ck-broadcast]'
   const [message, ...restArgs] = args
-  console.log(app, job, message, ...restArgs)
+  const levelColors = {
+    debug: chalk.cyan,
+    info: chalk.white,
+    warn: chalk.yellow,
+    error: chalk.red,
+  }
+
+  const colorize = levelColors[level] || levelColors.info
+  console.log(app, job, colorize(message), ...restArgs)
 }
 
 async function logResponseDetails(response) {
