@@ -28,7 +28,7 @@ export default async function sendCkEmail({ github, context }) {
   // customLog(`debug`, 'next public site url env:', NEXT_PUBLIC_SITE_URL)
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
-  customLog(`debug`, 'article front matter:', frontMatter)
+  // customLog(`debug`, 'article front matter:', frontMatter)
 
   // Prepare the email content
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
@@ -36,14 +36,14 @@ export default async function sendCkEmail({ github, context }) {
   const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
   const subject = frontMatter.title
 
-  customLog(chalk.blue('broadcast content:'), content)
-  customLog(chalk.blue('broadcast subject:'), subject)
+  // customLog(chalk.blue('broadcast content:'), content)
+  // customLog(chalk.blue('broadcast subject:'), subject)
 
   // Construct the API endpoint URL
   const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BC_ENDPOINT}`
-  customLog(chalk.blue('ck api endpoint:'), ckApiEndpoint)
+  // customLog(chalk.blue('ck api endpoint:'), ckApiEndpoint)
 
-  customLog(chalk.magenta('Sending request to ConvertKit...'))
+  // customLog(chalk.magenta('Sending request to ConvertKit...'))
   const response = await fetch(ckApiEndpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -62,13 +62,13 @@ export default async function sendCkEmail({ github, context }) {
     }),
   })
 
-  customLog(chalk.cyanBright('Received response from ConvertKit...'))
+  // customLog(chalk.cyanBright('Received response from ConvertKit...'))
   await logResponseDetails(response) // Log the details of the response
 
   if (!response.ok) {
-    customLog(chalk.red('HTTP error! status:'), response.status)
+    // customLog(chalk.red('HTTP error! status:'), response.status)
     throw new Error(`HTTP error! status: ${response.status}`)
   } else {
-    customLog(`done`, 'Success! status:', response.status)
+    // customLog(`done`, 'Success! status:', response.status)
   }
 }
