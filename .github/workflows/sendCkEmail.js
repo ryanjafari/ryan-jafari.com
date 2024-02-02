@@ -14,14 +14,12 @@ export default async function sendCkEmail({ github, context }) {
   } = process.env
 
   logger.debug({ ARTICLE_FRONT_MATTER })
-
-  // customLog(`debug`, 'article front matter env:', ARTICLE_FRONT_MATTER)
-  // customLog(`debug`, 'article path env:', ARTICLE_PATH)
-  // customLog(`debug`, 'ck api key env:', CK_API_KEY)
-  // customLog(`debug`, 'ck api base url env:', CK_API_BASE_URL)
-  // customLog(`debug`, 'ck api broadcasts endpoint env:', CK_API_BC_ENDPOINT)
-  // customLog(`debug`, 'ck email address env:', CK_EMAIL_ADDRESS)
-  // customLog(`debug`, 'next public site url env:', NEXT_PUBLIC_SITE_URL)
+  logger.debug({ ARTICLE_PATH })
+  logger.debug({ CK_API_KEY })
+  logger.debug({ CK_API_BASE_URL })
+  logger.debug({ CK_API_BC_ENDPOINT })
+  logger.debug({ CK_EMAIL_ADDRESS })
+  logger.debug({ NEXT_PUBLIC_SITE_URL })
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
   // customLog(`debug`, 'article front matter:', frontMatter)
