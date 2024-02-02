@@ -6,26 +6,31 @@ export default async function sendCkEmail({ github, context }) {
   customLog(chalk.black('Sending email to ConvertKit...'))
 
   const {
+    ARTICLE_FRONT_MATTER,
+    ARTICLE_PATH,
     CK_API_KEY,
     CK_API_BASE_URL,
     CK_API_BROADCASTS_ENDPOINT,
-    ARTICLE_FRONT_MATTER,
-    ARTICLE_PATH,
+    CK_EMAIL_ADDRESS,
+    NEXT_PUBLIC_SITE_URL,
   } = process.env
+  customLog(chalk.blue('article front matter env:'), ARTICLE_FRONT_MATTER)
+  customLog(chalk.blue('article path env:'), ARTICLE_PATH)
   customLog(chalk.blue('ck api key env:'), CK_API_KEY)
   customLog(chalk.blue('ck api base url env:'), CK_API_BASE_URL)
   customLog(
     chalk.blue('ck api broadcasts endpoint env:'),
     CK_API_BROADCASTS_ENDPOINT,
   )
-  customLog(chalk.blue('article front matter env:'), ARTICLE_FRONT_MATTER)
+  customLog(chalk.blue('ck email address env:'), CK_EMAIL_ADDRESS)
+  customLog(chalk.blue('site url env:'), NEXT_PUBLIC_SITE_URL)
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
   customLog(chalk.blue('article front matter:'), frontMatter)
 
   // Prepare the email content
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
-  const url = `https://ryan-jafari.com/articles/${slug}`
+  const url = `${NEXT_PUBLIC_SITE_URL}/articles/${slug}`
   const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
   const subject = frontMatter.title
 
