@@ -6,6 +6,7 @@ const logger = pino({
     target: './pino-pretty-transport',
     options: {
       colorize: true,
+      colorizeObjects: true,
     },
   },
 })

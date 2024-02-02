@@ -7,6 +7,6 @@ export default (opts) =>
     //messageFormat: (log, messageKey) => `hello ${log[messageKey]}`,
     messageFormat: (log, messageKey, levelLabel) => {
       // do some log message customization
-      return `hello dawg ${log[messageKey]} ${log[levelLabel]} ${log.levelLabel} ${log.pid}`
+      return `hello ${log}`
     },
   })
