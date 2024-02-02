@@ -20,7 +20,7 @@ export default async function sendCkEmail({ github, context }) {
   customLog(`debug`, 'ck api base url env:', CK_API_BASE_URL)
   customLog(`debug`, 'ck api broadcasts endpoint env:', CK_API_BC_ENDPOINT)
   customLog(`debug`, 'ck email address env:', CK_EMAIL_ADDRESS)
-  customLog(`debug`, 'site url env:', NEXT_PUBLIC_SITE_URL)
+  customLog(`debug`, 'next public site url env:', NEXT_PUBLIC_SITE_URL)
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
   customLog(chalk.blue('article front matter:'), frontMatter)
@@ -35,7 +35,7 @@ export default async function sendCkEmail({ github, context }) {
   customLog(chalk.blue('broadcast subject:'), subject)
 
   // Construct the API endpoint URL
-  const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}`
+  const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BC_ENDPOINT}`
   customLog(chalk.blue('ck api endpoint:'), ckApiEndpoint)
 
   customLog(chalk.magenta('Sending request to ConvertKit...'))
