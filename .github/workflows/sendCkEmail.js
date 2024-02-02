@@ -13,6 +13,8 @@ export default async function sendCkEmail({ github, context }) {
     NEXT_PUBLIC_SITE_URL,
   } = process.env
 
+  logger.info('Sending email to ConvertKit...')
+
   logger.debug({ ARTICLE_FRONT_MATTER })
   logger.debug({ ARTICLE_PATH })
   logger.debug({ CK_API_KEY })
