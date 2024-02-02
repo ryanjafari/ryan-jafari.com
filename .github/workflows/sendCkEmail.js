@@ -13,7 +13,7 @@ export default async function sendCkEmail({ github, context }) {
     NEXT_PUBLIC_SITE_URL,
   } = process.env
 
-  logger.info(ARTICLE_FRONT_MATTER, 'hi')
+  logger.info({ ARTICLE_FRONT_MATTER })
 
   // customLog(`debug`, 'article front matter env:', ARTICLE_FRONT_MATTER)
   // customLog(`debug`, 'article path env:', ARTICLE_PATH)
