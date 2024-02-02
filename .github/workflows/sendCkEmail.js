@@ -21,8 +21,9 @@ export default async function sendCkEmail({ github, context }) {
   logger.debug({ CK_EMAIL_ADDRESS })
   logger.debug({ NEXT_PUBLIC_SITE_URL })
 
+  // const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
   const frontMatter = ARTICLE_FRONT_MATTER
-  // customLog(`debug`, 'article front matter:', frontMatter)
+  logger.debug({ frontMatter })
 
   // Prepare the email content
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
