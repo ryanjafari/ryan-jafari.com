@@ -8,7 +8,7 @@ const logger = pino({
       colorize: true,
     },
   },
-  messageFormat: '{levelLabel} - {if pid}{pid} - {end}url:{req.url}',
+  messageFormat: 'lalal',
 })
 
 export default logger
