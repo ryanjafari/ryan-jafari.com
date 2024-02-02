@@ -1,11 +1,9 @@
 // Assuming fetch is available globally or replace with an appropriate import
-import chalk from 'chalk'
 import pino from 'pino'
-import { customLog, logResponseDetails } from './customLog.js'
 const logger = pino()
 
 export default async function sendCkEmail({ github, context }) {
-  customLog(chalk.black('Sending email to ConvertKit...'))
+  // customLog(chalk.black('Sending email to ConvertKit...'))
 
   const {
     ARTICLE_FRONT_MATTER,
@@ -17,7 +15,7 @@ export default async function sendCkEmail({ github, context }) {
     NEXT_PUBLIC_SITE_URL,
   } = process.env
 
-  logger.debug({ ARTICLE_FRONT_MATTER })
+  logger.info('hi')
 
   // customLog(`debug`, 'article front matter env:', ARTICLE_FRONT_MATTER)
   // customLog(`debug`, 'article path env:', ARTICLE_PATH)
@@ -63,7 +61,7 @@ export default async function sendCkEmail({ github, context }) {
   })
 
   // customLog(chalk.cyanBright('Received response from ConvertKit...'))
-  await logResponseDetails(response) // Log the details of the response
+  // await logResponseDetails(response) // Log the details of the response
 
   if (!response.ok) {
     // customLog(chalk.red('HTTP error! status:'), response.status)
