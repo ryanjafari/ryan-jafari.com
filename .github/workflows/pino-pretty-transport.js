@@ -1,4 +1,5 @@
 import pinoPretty from 'pino-pretty'
+import util from 'util'
 
 export default (opts) =>
   pinoPretty({
@@ -7,6 +8,6 @@ export default (opts) =>
     //messageFormat: (log, messageKey) => `hello ${log[messageKey]}`,
     messageFormat: (log, messageKey, levelLabel) => {
       // do some log message customization
-      return `hello ${log}`
+      return `hello ${util.inspect(log)}`
     },
   })
