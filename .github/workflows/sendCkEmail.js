@@ -10,6 +10,7 @@ export default async function sendCkEmail({ github, context }) {
     CK_API_BASE_URL,
     CK_API_BROADCASTS_ENDPOINT,
     ARTICLE_FRONT_MATTER,
+    ARTICLE_PATH,
   } = process.env
   customLog(chalk.blue('ck api key env:'), CK_API_KEY)
   customLog(chalk.blue('ck api base url env:'), CK_API_BASE_URL)
@@ -23,10 +24,13 @@ export default async function sendCkEmail({ github, context }) {
   customLog(chalk.blue('article front matter:'), frontMatter)
 
   // Prepare the email content
-  const emailSubject = frontMatter.title
-  const emailBody = `<p>Published on: ${frontMatter.date}</p><p>${frontMatter.description}</p>`
-  customLog(chalk.blue('email subject:'), emailSubject)
-  customLog(chalk.blue('email body:'), emailBody)
+  const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
+  const url = `https://ryan-jafari.com/articles/${slug}`
+  const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
+  const subject = frontMatter.title
+
+  customLog(chalk.blue('broadcast content:'), content)
+  customLog(chalk.blue('broadcast subject:'), subject)
 
   // Construct the API endpoint URL
   const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BROADCASTS_ENDPOINT}`
@@ -38,13 +42,16 @@ export default async function sendCkEmail({ github, context }) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       api_key: CK_API_KEY, // docs say api_secret but it doesn't work
-      content: emailBody,
+      content: content, // email content
       description: '[ck-broadcast] GitHub Workflow Job', // internal description
       email_address: null, // use the default email address
       email_layout_template: null, // use the default email layout template
       public: true, // add to ck creator profile newsletter feed
-      subject: emailSubject,
-      body: emailBody,
+      published_at: frontMatter.date, // article published date
+      send_at: null, // create a draft broadcast
+      subject: subject, // email subject
+      thumbnail_alt: null, // public thumbnail image alt
+      thumbnail_url: null, // public thumbnail image url
     }),
   })
 
