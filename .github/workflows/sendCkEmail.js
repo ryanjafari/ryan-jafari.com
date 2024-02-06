@@ -1,7 +1,7 @@
 import createFileLogger from './logger.js'
 
 const fileLogger = createFileLogger(import.meta.url)
-const log = fileLogger.child({ task: '[ck-broadcast]' })
+const log = fileLogger.child({ task: 'ck-broadcast' })
 
 export default async function sendCkEmail({ github, context }) {
   // customLog(chalk.black('Sending email to ConvertKit...'))
