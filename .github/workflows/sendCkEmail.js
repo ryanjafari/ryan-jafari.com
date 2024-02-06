@@ -1,4 +1,7 @@
-import logger from './logger.js'
+import createFileLogger from './logger.js'
+
+const fileLogger = createFileLogger(import.meta.url)
+const log = fileLogger.child({ task: '[ck-broadcast]' })
 
 export default async function sendCkEmail({ github, context }) {
   // customLog(chalk.black('Sending email to ConvertKit...'))
@@ -13,24 +16,29 @@ export default async function sendCkEmail({ github, context }) {
     NEXT_PUBLIC_SITE_URL,
   } = process.env
 
-  logger.info('Sending email to ConvertKit...')
+  log.info('Sending email to ConvertKit...')
 
-  logger.debug({ ARTICLE_FRONT_MATTER })
-  logger.debug({ ARTICLE_PATH })
-  logger.debug({ CK_API_KEY })
-  logger.debug({ CK_API_BASE_URL })
-  logger.debug({ CK_API_BC_ENDPOINT })
-  logger.debug({ CK_EMAIL_ADDRESS })
-  logger.debug({ NEXT_PUBLIC_SITE_URL })
+  log.debug({ ARTICLE_FRONT_MATTER })
+  log.debug({ ARTICLE_PATH })
+  log.debug({ CK_API_KEY })
+  log.debug({ CK_API_BASE_URL })
+  log.debug({ CK_API_BC_ENDPOINT })
+  log.debug({ CK_EMAIL_ADDRESS })
+  log.debug({ NEXT_PUBLIC_SITE_URL })
 
   const frontMatter = JSON.parse(ARTICLE_FRONT_MATTER)
-  logger.debug({ frontMatter })
+  log.debug({ frontMatter })
 
   // Prepare the email content
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
   const url = `${NEXT_PUBLIC_SITE_URL}/articles/${slug}`
   const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
   const subject = frontMatter.title
+
+  log.debug({ slug })
+  log.debug({ url })
+  log.debug({ content })
+  log.debug({ subject })
 
   // customLog(chalk.blue('broadcast content:'), content)
   // customLog(chalk.blue('broadcast subject:'), subject)
@@ -58,13 +66,18 @@ export default async function sendCkEmail({ github, context }) {
     }),
   })
 
+  log.info('Received response from ConvertKit...')
+  log.debug({ response })
+
   // customLog(chalk.cyanBright('Received response from ConvertKit...'))
   // await logResponseDetails(response) // Log the details of the response
 
   if (!response.ok) {
+    log.error('HTTP error! status:', response.status)
     // customLog(chalk.red('HTTP error! status:'), response.status)
     throw new Error(`HTTP error! status: ${response.status}`)
   } else {
+    log.info('Success! status:', response.status)
     // customLog(`done`, 'Success! status:', response.status)
   }
 }
