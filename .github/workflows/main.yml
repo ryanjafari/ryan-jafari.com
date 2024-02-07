@@ -49,16 +49,18 @@ jobs:
 
       - id: parse_front_matter
         name: Parse front matter
-        uses: actions/github-script@v7.0.1
+        # uses: actions/github-script@v7.0.1
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
         if: ${{ env.ARTICLE_PATH }}
-        with:
-          script: |
-            const workflows_path = process.env.WORKFLOWS_PATH
-            const script = `${workflows_path}/parseFrontMatter.js`
-            const { default: parseFrontMatter } = await import(script)
-            return await parseFrontMatter({ github, context })
+        run: |
+          node "$WORKFLOWS_PATH"/parseFrontMatter.js | node "$WORKFLOWS_PATH"/formatLogs.js
+        # with:
+        #   script: |
+        #     const workflows_path = process.env.WORKFLOWS_PATH
+        #     const script = `${workflows_path}/parseFrontMatter.js`
+        #     const { default: parseFrontMatter } = await import(script)
+        #     return await parseFrontMatter({ github, context })
 
       - id: send_ck_email
         name: Send email via ConvertKit

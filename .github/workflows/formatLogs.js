@@ -38,80 +38,83 @@ rl.on('line', (line) => {
   delete logCopy.cwd
   delete logCopy.dirname
 
-  // deleteFirstKey(logCopy, 'name')
-  // Delete the "task" field from the output
-
   // Get the color and symbol for the log level
   const { color, symbol } = colorMap[logCopy.levelLabel]
+
+  // Add the "level" indicator, symbol, and label in the right color
+  const formattedLevel = color(`█ ${symbol} ${logCopy.levelLabel}`)
   delete logCopy.levelLabel
 
-  // Add the "level" indicator and symbol in the right color
-  const formattedLevel = color(`█ ${symbol}`)
-
-  //console.log(logCopy)
-  // Add the "name" field flanked by brackets in gray
-  const formattedName = gray(`[${logCopy.name}]`)
+  // Add the "name" field flanked by parenthesis in gray
+  const formattedName = gray(`(${logCopy.name})`)
   delete logCopy.name
+
+  // Add the "env" field to the right of "name" flanked by braces in gray
+  const formattedEnv = gray(`{${logCopy.env}}`)
+  delete logCopy.env
 
   // Add the "task" field to the right of "name" flanked by arrows in gray
   const formattedTask = gray(`>${logCopy.task}<`)
   delete logCopy.task
 
-  // Add the "filename" field to the right of "task" flanked by brackets in gray
+  // Add the "filename" field to the right of "task" flanked by pipes in gray
   const formattedFileName = gray(`|${logCopy.filename}|`)
   delete logCopy.filename
 
-  // Convert the date and time to a localized string
-  const formattedDateTime = new Date(logCopy.time).toLocaleString('en-US', {
-    timeZone: 'America/New_York',
-  })
+  // Convert Unix timestamp in milliseconds to a Date object
+  const date = new Date(logCopy.time)
   delete logCopy.time
 
-  // Split the formattedDateTime into date and time parts
-  const [datePart, timePart] = formattedDateTime.split(', ')
+  // Adjust for New York time zone (assuming UTC-5 for EST or UTC-4 for EDT)
+  // For more accurate timezone handling, consider moment-timezone or luxon
+  // New York is generally UTC-5 hours; 300 minutes
+  const nyOffset = date.getTimezoneOffset() + 300
+  const nyDate = new Date(date.getTime() - nyOffset * 60 * 1000)
 
-  // Add "on" before the date and "at" before the time
-  const formattedDate = datePart
-  const formattedTime = timePart
+  // Extract hours, minutes, seconds, and milliseconds for New York time
+  const hours = nyDate.getHours().toString().padStart(2, '0')
+  const minutes = nyDate.getMinutes().toString().padStart(2, '0')
+  const seconds = nyDate.getSeconds().toString().padStart(2, '0')
+  const milliseconds = nyDate.getMilliseconds().toString().padStart(3, '0')
 
-  // Add the message from "msg" field after a colon
-  const formattedMessage = log.msg || 'no message provided'
+  // Combine into the desired format
+  const formattedTime = gray(`[${hours}:${minutes}:${seconds}.${milliseconds}]`)
+
+  // Add the message from "msg" field after a dash
+  const formattedMessage = log.msg
   delete logCopy.msg
 
   // Pretty print the rest of the keys; they are data we want to print
-  const formattedKeys = inspect(logCopy, {
+  // Putting on single line with breakLength: inf makes it easier to indent
+  const formattedKeysRaw = inspect(logCopy, {
     colors: true,
     compact: false,
     depth: 2,
+    breakLength: Infinity,
   })
 
-  // Syntax highlight the JSON string using colorette
-  // const formattedKeysHighlighted = formattedKeys
-  //   .replace(/"([^"]+)":/g, (match, capture) => `"${blue(capture)}":`)
-  //   .replace(/: (\d+\.?\d*)/g, (match, ca  pture) => `: ${green(capture)}`)
-  //   .replace(
-  //     /: (true|false|null)/g,
-  //     (match, capture) => `: ${magenta(capture)}`,
-  //   )
-  //   .replace(/(\{|\}|\[|\])/g, (match) => gray(match))
+  // Split the formattedKeysRaw into lines and add indentation
+  // Define your desired indentation (e.g., two spaces)
+  const indentation = '  '
+  const formattedKeys = formattedKeysRaw
+    .split('\n')
+    .map((line) => indentation + line)
+    .join('\n')
 
   console.log(
     formattedLevel,
+    '@',
+    formattedTime,
     '➔',
     formattedName,
+    'in',
+    formattedEnv,
     'for',
     formattedTask,
     'in',
     formattedFileName,
-    'on',
-    formattedDate,
-    '@',
-    formattedTime,
-    ':',
+    '-',
     formattedMessage,
     `\n${formattedKeys}`,
-    //yellow(util.inspect(logCopy, { colors: true })),
   )
-
-  // console.log(util.inspect(form, {colors:true}));
 })
