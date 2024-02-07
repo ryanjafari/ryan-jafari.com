@@ -8,6 +8,7 @@ on:
 env:
   FORCE_COLOR: 3
   WORKFLOWS_PATH: '${{ github.workspace }}/.github/workflows'
+  PINO_LOG_LEVEL: ${{ vars.PINO_LOG_LEVEL }}
 
 jobs:
   notify-subscribers:

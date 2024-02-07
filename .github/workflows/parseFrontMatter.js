@@ -11,7 +11,7 @@ export default async function parseFrontMatter() {
   log.info('Parsing article front matter...')
 
   const { ARTICLE_PATH } = process.env
-  log.info({ ARTICLE_PATH })
+  log.debug({ ARTICLE_PATH })
 
   const content = await fsp.readFile(ARTICLE_PATH, 'utf8')
   const parts = content.split('---')
