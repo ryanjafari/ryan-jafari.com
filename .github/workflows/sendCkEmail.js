@@ -1,4 +1,4 @@
-import { logResponseDetails } from './customLog.js'
+import { logResponseDetails } from './logResponseDetails.js'
 import createFileLogger from './logger.js'
 
 const log = createFileLogger(import.meta.url).child({
