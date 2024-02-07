@@ -38,11 +38,15 @@ rl.on('line', (line) => {
   delete logCopy.cwd
   delete logCopy.dirname
 
-  // Get the color and symbol for the log level
+  // Get the color, symbol, and label for the log level
   const { color, symbol } = colorMap[logCopy.levelLabel]
 
-  // Add the "level" indicator, symbol, and label in the right color
-  const formattedLevel = color(`█ ${symbol} ${logCopy.levelLabel}`)
+  // Pad the level label to ensure it has a fixed length of 5 characters
+  // Assuming all labels are at most 5 characters long
+  const paddedLevelLabel = logCopy.levelLabel.padEnd(5, ' ')
+
+  // Add the "level" indicator, symbol, and padded label in the right color
+  const formattedLevel = color(`█ ${symbol} ${paddedLevelLabel}`)
   delete logCopy.levelLabel
 
   // Add the "name" field flanked by parenthesis in gray
