@@ -63,20 +63,30 @@ const response = await fetch(ckApiEndpoint, {
   }),
 })
 
-log.info('Received response from ConvertKit...')
+// Make sure to use try-catch to handle the potential thrown error
+try {
+  // Your fetch request and other operations...
+
+  log.info('Received response from ConvertKit...')
+
+  // Replace the direct calls with the checkResponseAndLog method
+  await checkResponseAndLog(response)
+} catch (error) {
+  // Handle errors, such as logging or further actions
+  log.error('An error occurred:', error.message)
+  throw error
+}
 
 // TODO: Incorporate this into `log` object, use debug
-await checkResponseAndLog(response) // Log the details of the response
+// Await the logResponseDetails to ensure it completes before moving on
+await logResponseDetails(response) // This will wait until logResponseDetails is done
+
+if (!response.ok) {
+  log.error(response.status, 'HTTP error! status:')
+  throw new Error(`HTTP error! status: ${response.status}`)
+} else {
+  log.info(response.status, 'Success! status:')
+}
 
 // The main block where you're using logResponseDetails and checking the response
-async function checkResponseAndLog(response) {
-  // Await the logResponseDetails to ensure it completes before moving on
-  await logResponseDetails(response) // This will wait until logResponseDetails is done
-
-  if (!response.ok) {
-    log.error(response.status, 'HTTP error! status:')
-    throw new Error(`HTTP error! status: ${response.status}`)
-  } else {
-    log.info(response.status, 'Success! status:')
-  }
-}
+async function checkResponseAndLog(response) {}
