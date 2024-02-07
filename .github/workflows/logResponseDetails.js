@@ -11,13 +11,14 @@ async function logResponseDetails(response) {
   // customLog('Response URL:', response.url)
   // customLog('Redirected:', response.redirected)
   // customLog('Response OK:', response.ok)
-  log.debug(response)
+  log.debug(response.status)
+  log.debug(response.statusText)
 
   // Check if response is JSON
   const contentType = response.headers.get('content-type')
   if (contentType && contentType.includes('application/json')) {
     try {
-      log.info('Parsing response body as JSON...')
+      log.info('Parsing response body as JSON...', response.url)
 
       const body = await response.json()
       log.debug(body)
