@@ -7,6 +7,9 @@ async function logResponseDetails(response) {
 
   log.debug(response.status)
   log.debug(response.statusText)
+
+  throw new Error('Test error')
+
   log.debug(response.url)
   log.debug(response.redirected)
   log.debug(response.ok)
