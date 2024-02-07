@@ -13,6 +13,7 @@ async function logResponseDetails(response) {
   // customLog('Response OK:', response.ok)
   log.debug(response.status)
   log.debug(response.statusText)
+  log.debug(response)
 
   // Check if response is JSON
   const contentType = response.headers.get('content-type')
