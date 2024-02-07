@@ -69,24 +69,18 @@ try {
 
   log.info('Received response from ConvertKit...')
 
-  // Replace the direct calls with the checkResponseAndLog method
-  await checkResponseAndLog(response)
+  // TODO: Incorporate this into `log` object, use debug
+  // Await the logResponseDetails to ensure it completes before moving on
+  await logResponseDetails(response) // This will wait until logResponseDetails is done
+
+  if (!response.ok) {
+    log.error(response.status, 'HTTP error! status:')
+    throw new Error(`HTTP error! status: ${response.status}`)
+  } else {
+    log.info(response.status, 'Success! status:')
+  }
 } catch (error) {
   // Handle errors, such as logging or further actions
   log.error('An error occurred:', error.message)
   throw error
 }
-
-// TODO: Incorporate this into `log` object, use debug
-// Await the logResponseDetails to ensure it completes before moving on
-await logResponseDetails(response) // This will wait until logResponseDetails is done
-
-if (!response.ok) {
-  log.error(response.status, 'HTTP error! status:')
-  throw new Error(`HTTP error! status: ${response.status}`)
-} else {
-  log.info(response.status, 'Success! status:')
-}
-
-// The main block where you're using logResponseDetails and checking the response
-async function checkResponseAndLog(response) {}
