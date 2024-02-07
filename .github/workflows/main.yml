@@ -30,8 +30,8 @@ jobs:
 
       - id: check_commit_for_broadcast
         name: Check commit for broadcast
-        working-directory: ./
-        run: bash "$WORKFLOWS_PATH"/check_commit_for_broadcast.sh
+        working-directory: ${{ env.WORKFLOWS_PATH }}
+        run: bash ./check_commit_for_broadcast.sh
 
       - id: set_up_nodejs
         name: Set up Node.js
@@ -52,7 +52,6 @@ jobs:
       - id: parse_front_matter
         name: Parse front matter
         working-directory: ${{ env.REPO_PATH }}
-        # uses: actions/github-script@v7.0.1
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
         if: ${{ env.ARTICLE_PATH }}
