@@ -1,19 +1,11 @@
-import createFileLogger from './logger.js'
-
-const log = createFileLogger(import.meta.url).child({
-  task: 'logging-response-details',
-})
-async function logResponseDetails(response) {
+async function logResponseDetails(log, response) {
   log.info('Logging response details...')
 
-  // customLog('Status Code:', response.status)
-  // customLog('Status Text:', response.statusText)
-  // customLog('Response URL:', response.url)
-  // customLog('Redirected:', response.redirected)
-  // customLog('Response OK:', response.ok)
   log.debug(response.status)
   log.debug(response.statusText)
-  log.debug(response)
+  log.debug(response.url)
+  log.debug(response.redirected)
+  log.debug(response.ok)
 
   // Check if response is JSON
   const contentType = response.headers.get('content-type')

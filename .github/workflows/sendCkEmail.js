@@ -63,7 +63,7 @@ const response = await fetch(ckApiEndpoint, {
 })
 
 log.info('Received response from ConvertKit...')
-await logResponseDetails(response) // Log the details of the response
+await logResponseDetails(log, response) // Log the details of the response
 
 if (!response.ok) {
   log.error('HTTP error! status:', response.status)
