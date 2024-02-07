@@ -3,8 +3,9 @@ import fsp from 'fs/promises'
 import yaml from 'js-yaml'
 import createFileLogger from './logger.js'
 
-const fileLogger = createFileLogger(import.meta.url)
-const log = fileLogger.child({ task: 'ck-broadcast' })
+const log = createFileLogger(import.meta.url).child({
+  task: 'ck-broadcast',
+})
 
 log.info('Parsing article front matter...')
 
