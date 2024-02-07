@@ -7,7 +7,9 @@ import createFileLogger from './logger.js'
 const fileLogger = createFileLogger(import.meta.url)
 const log = fileLogger.child({ task: 'ck-broadcast' })
 
-export default async function parseFrontMatter({ github, context }) {
+parseFrontMatter()
+
+export default async function parseFrontMatter() {
   log.info('Parsing article front matter...')
 
   const { ARTICLE_PATH } = process.env
