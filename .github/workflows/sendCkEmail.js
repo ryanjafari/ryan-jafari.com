@@ -64,10 +64,7 @@ const response = await fetch(ckApiEndpoint, {
 })
 
 log.info('Received response from ConvertKit...')
-await log.debug({ response })
-
-// customLog(chalk.cyanBright('Received response from ConvertKit...'))
-// await logResponseDetails(response) // Log the details of the response
+await logResponseDetails(response) // Log the details of the response
 
 if (!response.ok) {
   log.error('HTTP error! status:', response.status)
