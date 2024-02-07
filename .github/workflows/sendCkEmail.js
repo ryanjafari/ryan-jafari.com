@@ -16,8 +16,6 @@ const {
   NEXT_PUBLIC_SITE_URL,
 } = process.env
 
-log.info('Sending email to ConvertKit...')
-
 log.debug({ ARTICLE_FRONT_MATTER })
 log.debug({ ARTICLE_PATH })
 log.debug({ CK_API_KEY })

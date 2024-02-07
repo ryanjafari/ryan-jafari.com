@@ -85,36 +85,55 @@ rl.on('line', (line) => {
   delete logCopy.msg
 
   // Pretty print the rest of the keys; they are data we want to print
-  // Putting on single line with breakLength: inf makes it easier to indent
-  const formattedKeysRaw = inspect(logCopy, {
-    colors: true,
-    compact: false,
-    depth: 2,
-    breakLength: Infinity,
-  })
+  // Only proceed if logCopy is not empty
+  if (Object.keys(logCopy).length > 0) {
+    const formattedKeysRaw = inspect(logCopy, {
+      colors: true,
+      compact: false,
+      depth: 2,
+      breakLength: Infinity, // This ensures that objects are printed on a single long line, making them easier to indent if necessary
+    })
 
-  // Split the formattedKeysRaw into lines and add indentation
-  // Define your desired indentation (e.g., two spaces)
-  const indentation = '  '
-  const formattedKeys = formattedKeysRaw
-    .split('\n')
-    .map((line) => indentation + line)
-    .join('\n')
+    // Split the formattedKeysRaw into lines and add indentation
+    // Define your desired indentation (e.g., two spaces)
+    const indentation = '  '
+    const formattedKeys = formattedKeysRaw
+      .split('\n')
+      .map((line) => indentation + line)
+      .join('\n')
 
-  console.log(
-    formattedLevel,
-    '@',
-    formattedTime,
-    '➔',
-    formattedName,
-    'in',
-    formattedEnv,
-    'for',
-    formattedTask,
-    'in',
-    formattedFileName,
-    '-',
-    formattedMessage,
-    `\n${formattedKeys}`,
-  )
+    console.log(
+      formattedLevel,
+      '@',
+      formattedTime,
+      '➔',
+      formattedName,
+      'in',
+      formattedEnv,
+      'for',
+      formattedTask,
+      'in',
+      formattedFileName,
+      '-',
+      formattedMessage,
+      `\n${formattedKeys}`,
+    )
+  } else {
+    // If logCopy is empty, print the log message without formattedKeys
+    console.log(
+      formattedLevel,
+      '@',
+      formattedTime,
+      '➔',
+      formattedName,
+      'in',
+      formattedEnv,
+      'for',
+      formattedTask,
+      'in',
+      formattedFileName,
+      '-',
+      formattedMessage,
+    )
+  }
 })
