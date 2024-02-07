@@ -67,7 +67,7 @@ jobs:
 
       - id: send_ck_email
         name: Send email via ConvertKit
-        uses: actions/github-script@v7.0.1
+        # uses: actions/github-script@v7.0.1
         env:
           ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.frontMatter }}
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
@@ -78,9 +78,11 @@ jobs:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
         # && ${{ env.ARTICLE_PATH }}
         if: ${{ env.ARTICLE_FRONT_MATTER }}
-        with:
-          script: |
-            const workflows_path = process.env.WORKFLOWS_PATH
-            const script = `${workflows_path}/sendCkEmail.js`
-            const { default: sendCkEmail } = await import(script)
-            return await sendCkEmail({ github, context })
+        run: |
+          node "$WORKFLOWS_PATH"/sendCkEmail.js | node "$WORKFLOWS_PATH"/formatLogs.js
+        # with:
+        #   script: |
+        #     const workflows_path = process.env.WORKFLOWS_PATH
+        #     const script = `${workflows_path}/sendCkEmail.js`
+        #     const { default: sendCkEmail } = await import(script)
+        #     return await sendCkEmail({ github, context })
