@@ -2,7 +2,7 @@ import createFileLogger from './logger.js'
 
 const log = createFileLogger(import.meta.url)
 
-async function logResponseDetails(log, response) {
+async function logResponseDetails(response) {
   log.info('Logging response details...')
 
   log.debug(response.status)
