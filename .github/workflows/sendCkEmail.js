@@ -40,9 +40,6 @@ log.debug({ url })
 log.debug({ content })
 log.debug({ subject })
 
-// customLog(chalk.blue('broadcast content:'), content)
-// customLog(chalk.blue('broadcast subject:'), subject)
-
 // Construct the API endpoint URL
 const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BC_ENDPOINT}`
 // customLog(chalk.blue('ck api endpoint:'), ckApiEndpoint)
@@ -67,7 +64,7 @@ const response = await fetch(ckApiEndpoint, {
 })
 
 log.info('Received response from ConvertKit...')
-log.debug({ response })
+await log.debug({ response })
 
 // customLog(chalk.cyanBright('Received response from ConvertKit...'))
 // await logResponseDetails(response) // Log the details of the response
