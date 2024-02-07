@@ -1,8 +1,6 @@
-import createFileLogger from './logger'
+import createFileLogger from './logger.js'
 
-const log = createFileLogger(import.meta.url).child({
-  task: 'ck-broadcast',
-})
+const log = createFileLogger(import.meta.url)
 
 async function logResponseDetails(log, response) {
   log.info('Logging response details...')

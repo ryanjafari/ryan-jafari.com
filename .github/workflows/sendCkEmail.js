@@ -1,9 +1,8 @@
 import { logResponseDetails } from './logResponseDetails.js'
 import createFileLogger from './logger.js'
+import { saveToGitHubOutput } from './saveToGitHubOutput.js'
 
-const log = createFileLogger(import.meta.url).child({
-  task: '',
-})
+const log = createFileLogger(import.meta.url)
 
 log.info('Sending email to ConvertKit...')
 
@@ -33,6 +32,8 @@ const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
 const url = `${NEXT_PUBLIC_SITE_URL}/articles/${slug}`
 const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
 const subject = frontMatter.title
+
+saveToGitHubOutput('articleUrl', url)
 
 log.debug({ slug })
 log.debug({ url })
@@ -64,7 +65,7 @@ const response = await fetch(ckApiEndpoint, {
 
 log.info('Received response from ConvertKit...')
 
-// TODO: Incorporate this into `log` object
+// TODO: Incorporate this into `log` object, use debug
 await logResponseDetails(response) // Log the details of the response
 
 if (!response.ok) {

@@ -1,9 +1,7 @@
 import fs from 'fs'
 import createFileLogger from './logger.js'
 
-const log = createFileLogger(import.meta.url).child({
-  task: '',
-})
+const log = createFileLogger(import.meta.url)
 
 /**
  * Saves a variable to the GitHub Actions output file.

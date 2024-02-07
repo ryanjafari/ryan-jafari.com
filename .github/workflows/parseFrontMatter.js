@@ -1,14 +1,9 @@
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
 import createFileLogger from './logger.js'
-import { saveToGitHubOutput } from './saveToOutput.js'
+import { saveToGitHubOutput } from './saveToGitHubOutput.js'
 
-const jobName = process.env.GITHUB_JOB
-const stepName = process.env.GITHUB_STEP
-
-const log = createFileLogger(import.meta.url).child({
-  task: `${jobName}/${stepName}`,
-})
+const log = createFileLogger(import.meta.url)
 
 log.info('Parsing article front matter...')
 
@@ -20,4 +15,4 @@ const parts = content.split('---')
 const frontMatter = yaml.load(parts[1])
 log.debug({ frontMatter })
 
-saveToGitHubOutput('frontMatter', frontMatter)
+saveToGitHubOutput('articleFrontMatter', frontMatter)

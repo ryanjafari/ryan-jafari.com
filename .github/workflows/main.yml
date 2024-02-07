@@ -14,8 +14,6 @@ env:
 jobs:
   notify-subscribers:
     runs-on: ubuntu-latest
-    env:
-      JOB_NAME: 'notify-subscribers'
     defaults:
       run:
         working-directory: ${{ env.WORKFLOWS_PATH }}
@@ -71,7 +69,7 @@ jobs:
         name: Send email via ConvertKit
         # uses: actions/github-script@v7.0.1
         env:
-          ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.frontMatter }}
+          ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.articleFrontMatter }}
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
           CK_API_KEY: ${{ secrets.CK_API_KEY }}
           CK_API_BASE_URL: ${{ vars.CK_API_BASE_URL }}
@@ -91,10 +89,10 @@ jobs:
 
       - id: post_to_linkedin
         name: Post Article to LinkedIn
+        working-directory: ${{ env.WORKFLOWS_PATH }}
         env:
-          ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.frontMatter }}
-          ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
+          ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.articleFrontMatter }}
+          ARTICLE_URL: ${{ steps.send_ck_email.outputs.articleUrl }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-          ARTICLE_URL: ${{ env.NEXT_PUBLIC_SITE_URL }}/${{ steps.check_commit_for_broadcast.outputs.article_path }}
         if: ${{ env.ARTICLE_FRONT_MATTER }}
-        run: node "$WORKFLOWS_PATH"/postToLinkedIn.js | node "$WORKFLOWS_PATH"/formatLogs.js
+        run: node ./postToLinkedIn.js | node ./formatLogs.js
