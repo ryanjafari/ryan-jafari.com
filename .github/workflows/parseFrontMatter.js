@@ -2,9 +2,13 @@ import chalk from 'chalk'
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
 import { customLog } from './customLog.js'
+import createFileLogger from './logger.js'
+
+const fileLogger = createFileLogger(import.meta.url)
+const log = fileLogger.child({ task: 'ck-broadcast' })
 
 export default async function parseFrontMatter({ github, context }) {
-  customLog(chalk.yellow('Parsing article front matter...'))
+  log.info('Parsing article front matter...')
 
   const { ARTICLE_PATH } = process.env
   customLog(chalk.blue('article path env:'), ARTICLE_PATH)
