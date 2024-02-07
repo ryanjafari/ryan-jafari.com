@@ -66,11 +66,17 @@ const response = await fetch(ckApiEndpoint, {
 log.info('Received response from ConvertKit...')
 
 // TODO: Incorporate this into `log` object, use debug
-await logResponseDetails(response) // Log the details of the response
+await checkResponseAndLog(response) // Log the details of the response
 
-if (!response.ok) {
-  log.error(response.status, 'HTTP error! status:')
-  throw new Error(`HTTP error! status: ${response.status}`)
-} else {
-  log.info(response.status, 'Success! status:')
+// The main block where you're using logResponseDetails and checking the response
+async function checkResponseAndLog(response) {
+  // Await the logResponseDetails to ensure it completes before moving on
+  await logResponseDetails(response) // This will wait until logResponseDetails is done
+
+  if (!response.ok) {
+    log.error(response.status, 'HTTP error! status:')
+    throw new Error(`HTTP error! status: ${response.status}`)
+  } else {
+    log.info(response.status, 'Success! status:')
+  }
 }
