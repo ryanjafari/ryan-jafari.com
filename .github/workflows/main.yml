@@ -14,6 +14,8 @@ env:
 jobs:
   notify-subscribers:
     runs-on: ubuntu-latest
+    env:
+      JOB_NAME: 'notify-subscribers'
     defaults:
       run:
         working-directory: ${{ env.WORKFLOWS_PATH }}
@@ -86,3 +88,13 @@ jobs:
         #     const script = `${workflows_path}/sendCkEmail.js`
         #     const { default: sendCkEmail } = await import(script)
         #     return await sendCkEmail({ github, context })
+
+      - id: post_to_linkedin
+        name: Post Article to LinkedIn
+        env:
+          ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.frontMatter }}
+          ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          ARTICLE_URL: ${{ env.NEXT_PUBLIC_SITE_URL }}/${{ steps.check_commit_for_broadcast.outputs.article_path }}
+        if: ${{ env.ARTICLE_FRONT_MATTER }}
+        run: node "$WORKFLOWS_PATH"/postToLinkedIn.js | node "$WORKFLOWS_PATH"/formatLogs.js

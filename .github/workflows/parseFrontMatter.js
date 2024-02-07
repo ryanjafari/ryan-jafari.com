@@ -1,10 +1,13 @@
-import fs from 'fs'
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
 import createFileLogger from './logger.js'
+import { saveToGitHubOutput } from './saveToOutput.js'
+
+const jobName = process.env.GITHUB_JOB
+const stepName = process.env.GITHUB_STEP
 
 const log = createFileLogger(import.meta.url).child({
-  task: 'ck-broadcast',
+  task: `${jobName}/${stepName}`,
 })
 
 log.info('Parsing article front matter...')
@@ -17,13 +20,4 @@ const parts = content.split('---')
 const frontMatter = yaml.load(parts[1])
 log.debug({ frontMatter })
 
-// Assuming frontMatter is your object
-const frontMatterString = JSON.stringify(frontMatter)
-log.debug({ frontMatterString })
-
-// Construct the output string; replace 'frontMatter' with your desired output name
-const outputString = `frontMatter=${frontMatterString}`
-log.debug({ outputString })
-
-// Write to the GITHUB_OUTPUT file
-fs.appendFileSync(process.env.GITHUB_OUTPUT, outputString + '\n')
+saveToGitHubOutput('frontMatter', frontMatter)

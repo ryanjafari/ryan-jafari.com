@@ -2,7 +2,7 @@ import { logResponseDetails } from './logResponseDetails.js'
 import createFileLogger from './logger.js'
 
 const log = createFileLogger(import.meta.url).child({
-  task: 'ck-broadcast',
+  task: '',
 })
 
 log.info('Sending email to ConvertKit...')
@@ -41,7 +41,7 @@ log.debug({ subject })
 
 // Construct the API endpoint URL
 const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BC_ENDPOINT}`
-// customLog(chalk.blue('ck api endpoint:'), ckApiEndpoint)
+log.debug(ckApiEndpoint)
 
 // customLog(chalk.magenta('Sending request to ConvertKit...'))
 const response = await fetch(ckApiEndpoint, {
@@ -63,13 +63,13 @@ const response = await fetch(ckApiEndpoint, {
 })
 
 log.info('Received response from ConvertKit...')
-await logResponseDetails(log, response) // Log the details of the response
+
+// TODO: Incorporate this into `log` object
+await logResponseDetails(response) // Log the details of the response
 
 if (!response.ok) {
-  log.error('HTTP error! status:', response.status)
-  // customLog(chalk.red('HTTP error! status:'), response.status)
+  log.error(response.status, 'HTTP error! status:')
   throw new Error(`HTTP error! status: ${response.status}`)
 } else {
-  log.info('Success! status:', response.status)
-  // customLog(`done`, 'Success! status:', response.status)
+  log.info(response.status, 'Success! status:')
 }

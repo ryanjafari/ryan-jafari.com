@@ -16,12 +16,14 @@ const createBaseLogger = pino({
   },
   useOnlyCustomLevels: false,
 
+  // TODO: Configure browser transport
   // browser: {
   //   write: (o: any) => {
   //     console.log(`${JSON.stringify(o)}`);
   //   }
   // }
 
+  // TODO: Configure additional transports
   // transport: {
   //   target: './pino-pretty-transport',
   //   options: {

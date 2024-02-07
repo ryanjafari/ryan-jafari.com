@@ -1,3 +1,9 @@
+import createFileLogger from './logger'
+
+const log = createFileLogger(import.meta.url).child({
+  task: 'ck-broadcast',
+})
+
 async function logResponseDetails(log, response) {
   log.info('Logging response details...')
 
@@ -11,31 +17,34 @@ async function logResponseDetails(log, response) {
   const contentType = response.headers.get('content-type')
   if (contentType && contentType.includes('application/json')) {
     try {
-      log.info('Parsing response body as JSON...', response.url)
+      log.info('Parsing response body as JSON...')
 
-      const body = await response.json()
-      log.debug(body)
+      const jsonResponse = await response.json()
+      log.debug(jsonResponse)
     } catch (error) {
-      log.error('Error parsing response body:', error.message)
+      log.error(error.message, 'Error parsing response body:')
 
       log.debug(error)
       throw error
     }
-  } else {
-    // Handle non-JSON responses
+  }
+  // Handle non-JSON responses
+  else {
     log.info('Parsing response body as text...')
 
     const textResponse = await response.text()
+    log.debug(textResponse)
+
     const titleMatch = textResponse.match(/<title>(.*?)<\/title>/i)
     const descriptionMatch = textResponse.match(
       /<meta name="description" content="(.*?)"/i,
     )
 
     if (titleMatch) {
-      log.debug('HTML Title:', titleMatch[1])
+      log.debug(titleMatch[1], 'HTML Title:')
     }
     if (descriptionMatch) {
-      log.debug('HTML Description:', descriptionMatch[1])
+      log.debug(descriptionMatch[1], 'HTML Description:')
     }
   }
 }
