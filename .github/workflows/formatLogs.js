@@ -32,23 +32,40 @@ rl.on('line', (line) => {
   const log = JSON.parse(line)
   const logCopy = { ...log }
 
-  // Define your desired indentation (e.g., two spaces)
-  const indentation = '  '
-
-  // Process the logCopy object
+  // Delete off the bat
   delete logCopy.level
   delete logCopy.cwd
   delete logCopy.dirname
+
+  // Get the color, symbol, and label for the log level
   const { color, symbol } = colorMap[logCopy.levelLabel]
+
+  // Pad the level label to ensure it has a fixed length of 5 characters
   const paddedLevelLabel = logCopy.levelLabel.padEnd(5, ' ')
+
+  // Add the "level" indicator, symbol, and padded label in the right color
   const formattedLevel = color(`█ ${symbol} ${paddedLevelLabel}`)
+  delete logCopy.levelLabel
+
+  // Conditionally format the "name" field
   const formattedName = logCopy.name ? gray(`(${logCopy.name})`) : ''
-  const formattedEnv = logCopy.env ? ` in {${gray(logCopy.env)}}` : ''
-  const formattedTask = logCopy.task ? ` for >${gray(logCopy.task)}<` : ''
+  delete logCopy.name
+
+  // Conditionally format the "env" field if it is not undefined
+  const formattedEnv = logCopy.env ? gray(` in {${logCopy.env}}`) : ''
+  delete logCopy.env
+
+  // Conditionally format the "task" field if it is not undefined
+  const formattedTask = logCopy.task ? gray(` for >${logCopy.task}<`) : ''
+  delete logCopy.task
+
+  // Add the "filename" field flanked by pipes in gray
   const formattedFileName = gray(` in |${logCopy.filename}|`)
+  delete logCopy.filename
 
   // Convert Unix timestamp in milliseconds to a Date object
   const date = new Date(logCopy.time)
+  delete logCopy.time
 
   // Adjust for New York time zone (assuming UTC-5 for EST or UTC-4 for EDT)
   // For more accurate timezone handling, consider moment-timezone or luxon
@@ -62,46 +79,63 @@ rl.on('line', (line) => {
   const seconds = nyDate.getSeconds().toString().padStart(2, '0')
   const milliseconds = nyDate.getMilliseconds().toString().padStart(3, '0')
 
+  // Combine into the desired format
   const formattedTime = gray(`[${hours}:${minutes}:${seconds}.${milliseconds}]`)
-  const formattedMessage = log.msg ? `- ${log.msg}` : ''
-  delete logCopy.levelLabel
-  delete logCopy.name
-  delete logCopy.env
-  delete logCopy.task
-  delete logCopy.filename
-  delete logCopy.time
+
+  // Add the message from "msg" field after a dash
+  const formattedMessage = log.msg
   delete logCopy.msg
 
-  // Check if logCopy is empty for pretty printing
-  let formattedKeys = ''
+  // Pretty print the rest of the keys; they are data we want to print
+  // Only proceed if logCopy is not empty
   if (Object.keys(logCopy).length > 0) {
     const formattedKeysRaw = inspect(logCopy, {
       colors: true,
       compact: false,
       depth: 2,
-      breakLength: Infinity,
+      breakLength: Infinity, // This ensures that objects are printed on a single long line, making them easier to indent if necessary
     })
-    formattedKeys = formattedKeysRaw
+
+    // Split the formattedKeysRaw into lines and add indentation
+    // Define your desired indentation (e.g., two spaces)
+    const indentation = '  '
+    const formattedKeys = formattedKeysRaw
       .split('\n')
       .map((line) => indentation + line)
       .join('\n')
-  }
 
-  // Build and print the final log message
-  console.log(
-    [
+    console.log(
       formattedLevel,
       '@',
       formattedTime,
       '➔',
       formattedName,
+      'in',
       formattedEnv,
+      'for',
       formattedTask,
+      'in',
       formattedFileName,
+      '-',
       formattedMessage,
-      formattedKeys ? `\n${formattedKeys}` : '',
-    ]
-      .filter(Boolean)
-      .join(' '),
-  )
+      `\n${formattedKeys}`,
+    )
+  } else {
+    // If logCopy is empty, print the log message without formattedKeys
+    console.log(
+      formattedLevel,
+      '@',
+      formattedTime,
+      '➔',
+      formattedName,
+      'in',
+      formattedEnv,
+      'for',
+      formattedTask,
+      'in',
+      formattedFileName,
+      '-',
+      formattedMessage,
+    )
+  }
 })
