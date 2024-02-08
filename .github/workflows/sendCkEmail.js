@@ -44,43 +44,44 @@ log.debug({ subject })
 const ckApiEndpoint = `${CK_API_BASE_URL}${CK_API_BC_ENDPOINT}`
 log.debug(ckApiEndpoint)
 
-// customLog(chalk.magenta('Sending request to ConvertKit...'))
-const response = await fetch(ckApiEndpoint, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    api_key: CK_API_KEY, // docs say api_secret but it doesn't work
-    content: content, // email content
-    description: '[ck-broadcast] GitHub Workflow Job', // internal description
-    email_address: CK_EMAIL_ADDRESS, // use the default email address
-    email_layout_template: null, // use the default email layout template
-    public: true, // add to ck creator profile newsletter feed
-    published_at: frontMatter.date, // article published date
-    send_at: null, // create a draft broadcast
-    subject: subject, // email subject
-    thumbnail_alt: null, // public thumbnail image alt
-    thumbnail_url: null, // public thumbnail image url
-  }),
-})
-
-// Make sure to use try-catch to handle the potential thrown error
 try {
-  // Your fetch request and other operations...
+  // customLog(chalk.magenta('Sending request to ConvertKit...'))
+  const response = await fetch(ckApiEndpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      api_key: CK_API_KEY, // docs say api_secret but it doesn't work
+      content: content, // email content
+      description: '[ck-broadcast] GitHub Workflow Job', // internal description
+      email_address: CK_EMAIL_ADDRESS, // use the default email address
+      email_layout_template: null, // use the default email layout template
+      public: true, // add to ck creator profile newsletter feed
+      published_at: frontMatter.date, // article published date
+      send_at: null, // create a draft broadcast
+      subject: subject, // email subject
+      thumbnail_alt: null, // public thumbnail image alt
+      thumbnail_url: null, // public thumbnail image url
+    }),
+  })
 
   log.info('Received response from ConvertKit...')
 
   // TODO: Incorporate this into `log` object, use debug
-  // Await the logResponseDetails to ensure it completes before moving on
-  await logResponseDetails(response) // This will wait until logResponseDetails is done
+  await logResponseDetails(response) // Log the details of the response
 
   if (!response.ok) {
-    log.error(response.status, 'HTTP error! status:')
-    throw new Error(`HTTP error! status: ${response.status}`)
+    log.error(response.status, 'Error! status:')
+    throw new Error('Failed to send email to ConvertKit')
   } else {
     log.info(response.status, 'Success! status:')
   }
 } catch (error) {
-  // Handle errors, such as logging or further actions
-  log.error('An error occurred:', error.message)
-  throw error
+  // Primarily handles fetch errors, since logResponseDetails errors are handled internally
+  log.error(
+    error.message,
+    'An error occurred while fetching the ConvertKit API:',
+  )
+
+  log.debug(error)
+  process.exit(1) // Exit with a status code indicating failure
 }
