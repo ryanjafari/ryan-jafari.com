@@ -105,8 +105,8 @@ rl.on('line', (line) => {
       .join('\n')}`
   }
 
-  // Build the final log message, conditionally including parts
-  const finalLogMessage = [
+  // Build the final log message, ensuring spaces are correctly included
+  const finalLogMessageParts = [
     formattedLevel,
     '@',
     formattedTime,
@@ -116,8 +116,9 @@ rl.on('line', (line) => {
     formattedTask,
     formattedFileName,
     formattedMessage,
-    formattedKeys,
-  ].join('')
+  ].filter((part) => part.trim() !== '') // Filter out any empty strings to avoid extra spaces
+
+  const finalLogMessage = finalLogMessageParts.join(' ') + formattedKeys // Add formattedKeys separately to avoid leading space
 
   console.log(finalLogMessage)
 })
