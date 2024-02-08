@@ -28,6 +28,7 @@ const colorMap = {
   silent: { color: gray, symbol: 'z' },
 }
 
+// Listen for lines from the standard input
 rl.on('line', (line) => {
   const log = JSON.parse(line)
   const logCopy = { ...log }
@@ -41,26 +42,27 @@ rl.on('line', (line) => {
   const { color, symbol } = colorMap[logCopy.levelLabel]
 
   // Pad the level label to ensure it has a fixed length of 5 characters
+  // Assuming all labels are at most 5 characters long
   const paddedLevelLabel = logCopy.levelLabel.padEnd(5, ' ')
 
   // Add the "level" indicator, symbol, and padded label in the right color
   const formattedLevel = color(`█ ${symbol} ${paddedLevelLabel}`)
   delete logCopy.levelLabel
 
-  // Conditionally format the "name" field
-  const formattedName = logCopy.name ? gray(`(${logCopy.name})`) : ''
+  // Add the "name" field flanked by parenthesis in gray
+  const formattedName = gray(`(${logCopy.name})`)
   delete logCopy.name
 
-  // Conditionally format the "env" field if it is not undefined
-  const formattedEnv = logCopy.env ? gray(` in {${logCopy.env}}`) : ''
+  // Add the "env" field to the right of "name" flanked by braces in gray
+  const formattedEnv = gray(`{${logCopy.env}}`)
   delete logCopy.env
 
-  // Conditionally format the "task" field if it is not undefined
-  const formattedTask = logCopy.task ? gray(` for >${logCopy.task}<`) : ''
+  // Add the "task" field to the right of "name" flanked by arrows in gray
+  const formattedTask = gray(`>${logCopy.task}<`)
   delete logCopy.task
 
-  // Add the "filename" field flanked by pipes in gray
-  const formattedFileName = gray(` in |${logCopy.filename}|`)
+  // Add the "filename" field to the right of "task" flanked by pipes in gray
+  const formattedFileName = gray(`|${logCopy.filename}|`)
   delete logCopy.filename
 
   // Convert Unix timestamp in milliseconds to a Date object
