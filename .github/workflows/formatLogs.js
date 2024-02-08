@@ -85,7 +85,7 @@ rl.on('line', (line) => {
   const formattedTime = gray(`[${hours}:${minutes}:${seconds}.${milliseconds}]`)
 
   // Add the message from "msg" field after a dash
-  const formattedMessage = log.msg
+  const formattedMessage = logCopy.msg
   delete logCopy.msg
 
   // Pretty print the rest of the keys; they are data we want to print
