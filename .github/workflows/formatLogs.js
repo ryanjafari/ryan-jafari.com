@@ -47,6 +47,9 @@ rl.on('line', (line) => {
   const formattedTask = logCopy.task ? ` for >${gray(logCopy.task)}<` : ''
   const formattedFileName = gray(` in |${logCopy.filename}|`)
 
+  // Convert Unix timestamp in milliseconds to a Date object
+  const date = new Date(logCopy.time)
+
   // Adjust for New York time zone (assuming UTC-5 for EST or UTC-4 for EDT)
   // For more accurate timezone handling, consider moment-timezone or luxon
   // New York is generally UTC-5 hours; 300 minutes
