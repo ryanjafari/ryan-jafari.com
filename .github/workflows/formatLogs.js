@@ -28,7 +28,6 @@ const colorMap = {
   silent: { color: gray, symbol: 'z' },
 }
 
-// Listen for lines from the standard input
 rl.on('line', (line) => {
   const log = JSON.parse(line)
   const logCopy = { ...log }
@@ -64,7 +63,22 @@ rl.on('line', (line) => {
   const formattedFileName = gray(` in |${logCopy.filename}|`)
   delete logCopy.filename
 
-  // The rest of your datetime formatting remains unchanged...
+  // Convert Unix timestamp in milliseconds to a Date object
+  const date = new Date(logCopy.time)
+  delete logCopy.time
+
+  // Adjust for New York time zone (assuming UTC-5 for EST or UTC-4 for EDT)
+  // For more accurate timezone handling, consider moment-timezone or luxon
+  // New York is generally UTC-5 hours; 300 minutes
+  const nyOffset = date.getTimezoneOffset() + 300
+  const nyDate = new Date(date.getTime() - nyOffset * 60 * 1000)
+
+  // Extract hours, minutes, seconds, and milliseconds for New York time
+  const hours = nyDate.getHours().toString().padStart(2, '0')
+  const minutes = nyDate.getMinutes().toString().padStart(2, '0')
+  const seconds = nyDate.getSeconds().toString().padStart(2, '0')
+  const milliseconds = nyDate.getMilliseconds().toString().padStart(3, '0')
+
   // Combine into the desired format
   const formattedTime = gray(`[${hours}:${minutes}:${seconds}.${milliseconds}]`)
 
