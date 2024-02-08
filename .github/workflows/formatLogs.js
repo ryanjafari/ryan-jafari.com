@@ -105,21 +105,28 @@ rl.on('line', (line) => {
       .join('\n')}`
   }
 
-  // Build the final log message, ensuring correct spacing
-  const finalLogMessage =
-    [
-      formattedLevel,
-      '@',
-      formattedTime,
-      '➔',
-      formattedName, // Assuming formattedName will always be present but check if adjustments needed
-      formattedEnv.trim() ? 'in' + formattedEnv : '', // Prepend 'in' only if formattedEnv is not empty
-      formattedTask.trim() ? 'for' + formattedTask : '', // Prepend 'for' only if formattedTask is not empty
-      formattedFileName,
-      formattedMessage,
-    ]
-      .filter((part) => part.trim())
-      .join(' ') + formattedKeys // Ensure parts are trimmed and non-empty before joining
+  // Initialize an array to hold parts of the final message
+  let finalLogMessageParts = [
+    formattedLevel,
+    '@',
+    formattedTime,
+    '➔',
+    formattedName,
+  ]
+
+  // Only add the "in", "for", and other parts if they are not empty
+  if (formattedEnv.trim()) {
+    finalLogMessageParts.push('in', formattedEnv.trim())
+  }
+  if (formattedTask.trim()) {
+    finalLogMessageParts.push('for', formattedTask.trim())
+  }
+
+  // Always include the filename and message
+  finalLogMessageParts.push(formattedFileName, formattedMessage)
+
+  // Join the parts with a single space, ensuring no extra spaces are introduced
+  const finalLogMessage = finalLogMessageParts.join(' ') + formattedKeys
 
   console.log(finalLogMessage)
 })
