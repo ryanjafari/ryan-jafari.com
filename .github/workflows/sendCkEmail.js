@@ -1,4 +1,3 @@
-import fetch from 'node-fetch' // Assuming Node.js environment
 import { logResponseDetails } from './logResponseDetails.js'
 import createFileLogger from './logger.js'
 import { saveToGitHubOutput } from './saveToGitHubOutput.js'
