@@ -32,62 +32,31 @@ rl.on('line', (line) => {
   const log = JSON.parse(line)
   const logCopy = { ...log }
 
-  // Delete off the bat
+  // Define your desired indentation (e.g., two spaces)
+  const indentation = '  '
+
+  // Process the logCopy object
   delete logCopy.level
   delete logCopy.cwd
   delete logCopy.dirname
-
-  // Get the color, symbol, and label for the log level
   const { color, symbol } = colorMap[logCopy.levelLabel]
-
-  // Pad the level label to ensure it has a fixed length of 5 characters
   const paddedLevelLabel = logCopy.levelLabel.padEnd(5, ' ')
-
-  // Add the "level" indicator, symbol, and padded label in the right color
   const formattedLevel = color(`█ ${symbol} ${paddedLevelLabel}`)
-  delete logCopy.levelLabel
-
-  // Conditionally format the "name" field
   const formattedName = logCopy.name ? gray(`(${logCopy.name})`) : ''
-  delete logCopy.name
-
-  // Conditionally format the "env" field if it is not undefined
-  const formattedEnv = logCopy.env ? gray(` in {${logCopy.env}}`) : ''
-  delete logCopy.env
-
-  // Conditionally format the "task" field if it is not undefined
-  const formattedTask = logCopy.task ? gray(` for >${logCopy.task}<`) : ''
-  delete logCopy.task
-
-  // Add the "filename" field flanked by pipes in gray
+  const formattedEnv = logCopy.env ? ` in {${gray(logCopy.env)}}` : ''
+  const formattedTask = logCopy.task ? ` for >${gray(logCopy.task)}<` : ''
   const formattedFileName = gray(` in |${logCopy.filename}|`)
-  delete logCopy.filename
-
-  // Convert Unix timestamp in milliseconds to a Date object
-  const date = new Date(logCopy.time)
-  delete logCopy.time
-
-  // Adjust for New York time zone (assuming UTC-5 for EST or UTC-4 for EDT)
-  // For more accurate timezone handling, consider moment-timezone or luxon
-  // New York is generally UTC-5 hours; 300 minutes
-  const nyOffset = date.getTimezoneOffset() + 300
-  const nyDate = new Date(date.getTime() - nyOffset * 60 * 1000)
-
-  // Extract hours, minutes, seconds, and milliseconds for New York time
-  const hours = nyDate.getHours().toString().padStart(2, '0')
-  const minutes = nyDate.getMinutes().toString().padStart(2, '0')
-  const seconds = nyDate.getSeconds().toString().padStart(2, '0')
-  const milliseconds = nyDate.getMilliseconds().toString().padStart(3, '0')
-
-  // Combine into the desired format
   const formattedTime = gray(`[${hours}:${minutes}:${seconds}.${milliseconds}]`)
-
-  // Add the message from "msg" field after a dash
   const formattedMessage = log.msg ? `- ${log.msg}` : ''
+  delete logCopy.levelLabel
+  delete logCopy.name
+  delete logCopy.env
+  delete logCopy.task
+  delete logCopy.filename
+  delete logCopy.time
   delete logCopy.msg
 
-  // Pretty print the rest of the keys; they are data we want to print
-  // Only proceed if logCopy is not empty
+  // Check if logCopy is empty for pretty printing
   let formattedKeys = ''
   if (Object.keys(logCopy).length > 0) {
     const formattedKeysRaw = inspect(logCopy, {
@@ -96,37 +65,27 @@ rl.on('line', (line) => {
       depth: 2,
       breakLength: Infinity,
     })
-
-    // Split the formattedKeysRaw into lines and add indentation
-    const indentation = '  '
-    formattedKeys = `\n${formattedKeysRaw
+    formattedKeys = formattedKeysRaw
       .split('\n')
       .map((line) => indentation + line)
-      .join('\n')}`
+      .join('\n')
   }
 
-  // Initialize an array to hold parts of the final message
-  let finalLogMessageParts = [
-    formattedLevel,
-    '@',
-    formattedTime,
-    '➔',
-    formattedName,
-  ]
-
-  // Only add the "in", "for", and other parts if they are not empty
-  if (formattedEnv.trim()) {
-    finalLogMessageParts.push('in', formattedEnv.trim())
-  }
-  if (formattedTask.trim()) {
-    finalLogMessageParts.push('for', formattedTask.trim())
-  }
-
-  // Always include the filename and message
-  finalLogMessageParts.push(formattedFileName, formattedMessage)
-
-  // Join the parts with a single space, ensuring no extra spaces are introduced
-  const finalLogMessage = finalLogMessageParts.join(' ') + formattedKeys
-
-  console.log(finalLogMessage)
+  // Build and print the final log message
+  console.log(
+    [
+      formattedLevel,
+      '@',
+      formattedTime,
+      '➔',
+      formattedName,
+      formattedEnv,
+      formattedTask,
+      formattedFileName,
+      formattedMessage,
+      formattedKeys ? `\n${formattedKeys}` : '',
+    ]
+      .filter(Boolean)
+      .join(' '),
+  )
 })
