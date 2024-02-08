@@ -105,20 +105,21 @@ rl.on('line', (line) => {
       .join('\n')}`
   }
 
-  // Build the final log message, ensuring spaces are correctly included
-  const finalLogMessageParts = [
-    formattedLevel,
-    '@',
-    formattedTime,
-    '➔',
-    formattedName,
-    formattedEnv,
-    formattedTask,
-    formattedFileName,
-    formattedMessage,
-  ].filter((part) => part.trim() !== '') // Filter out any empty strings to avoid extra spaces
-
-  const finalLogMessage = finalLogMessageParts.join(' ') + formattedKeys // Add formattedKeys separately to avoid leading space
+  // Build the final log message, ensuring correct spacing
+  const finalLogMessage =
+    [
+      formattedLevel,
+      '@',
+      formattedTime,
+      '➔',
+      formattedName, // Assuming formattedName will always be present but check if adjustments needed
+      formattedEnv.trim() ? 'in' + formattedEnv : '', // Prepend 'in' only if formattedEnv is not empty
+      formattedTask.trim() ? 'for' + formattedTask : '', // Prepend 'for' only if formattedTask is not empty
+      formattedFileName,
+      formattedMessage,
+    ]
+      .filter((part) => part.trim())
+      .join(' ') + formattedKeys // Ensure parts are trimmed and non-empty before joining
 
   console.log(finalLogMessage)
 })
