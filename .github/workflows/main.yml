@@ -64,6 +64,7 @@ jobs:
         # TODO: Only run if step before is successful.
         if: ${{ env.ARTICLE_PATH }}
         run: |
+          set -o pipefail
           node "$WORKFLOWS_PATH"/parseFrontMatter.js | node "$WORKFLOWS_PATH"/formatLogs.js
         # with:
         #   script: |
