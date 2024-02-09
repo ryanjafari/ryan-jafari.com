@@ -68,9 +68,10 @@ async function sendEmailToConvertKit() {
       }),
     })
 
-    log.info('Received response from ConvertKit...')
+    log.info(response, 'Received response from ConvertKit...')
 
     const responseBody = await parseResponse(response)
+    log.info(responseBody, 'Received response body from ConvertKit...')
 
     // await logResponseDetails(response)
 

@@ -4,12 +4,14 @@ const log = createFileLogger(import.meta.url)
 
 async function parseResponse(response) {
   try {
-    log.info('Parsing response...')
+    log.debug('Parsing response...')
 
     const contentType = response.headers.get('content-type')
     if (contentType && contentType.includes('application/json')) {
+      log.debug('Content-Type: application/json')
       return await parseJsonResponse(response)
     } else {
+      log.debug('Content-Type: text/*')
       return await parseTextResponse(response)
     }
   } catch (error) {
@@ -27,7 +29,7 @@ async function parseResponse(response) {
 
 async function parseJsonResponse(response) {
   try {
-    log.info('Parsing response body as JSON...')
+    log.debug('Parsing response body as JSON...')
     const jsonResponse = await response.json()
     log.debug(jsonResponse)
     return jsonResponse // Return the parsed JSON response
@@ -39,7 +41,7 @@ async function parseJsonResponse(response) {
 
 async function parseTextResponse(response) {
   try {
-    log.info('Parsing response body as text...')
+    log.debug('Parsing response body as text...')
     const textResponse = await response.text()
     log.debug(textResponse)
     // logHtmlDetails(textResponse)
