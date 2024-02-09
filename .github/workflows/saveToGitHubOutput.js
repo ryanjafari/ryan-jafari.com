@@ -1,5 +1,5 @@
 import fs from 'fs'
-import createFileLogger from './logger.js'
+import { createFileLogger } from './logger.js'
 
 const log = createFileLogger(import.meta.url)
 
