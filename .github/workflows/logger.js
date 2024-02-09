@@ -12,11 +12,14 @@ const responseSerializer = (response) => {
     'url' in response
   ) {
     return {
+      bodyUsed: response.bodyUsed,
+      headers: Object.fromEntries(response.headers.entries()),
+      ok: response.ok,
+      redirected: response.redirected,
       status: response.status,
       statusText: response.statusText,
+      type: response.type,
       url: response.url,
-      redirected: response.redirected,
-      ok: response.ok,
     }
   }
   // If it's not a response object, return it unchanged
