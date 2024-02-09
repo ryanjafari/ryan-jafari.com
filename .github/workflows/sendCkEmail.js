@@ -1,4 +1,4 @@
-import { logResponseDetails } from './logResponseDetails.js'
+import { parseResponse } from './logResponseDetails.js'
 import createFileLogger from './logger.js'
 import { saveToGitHubOutput } from './saveToGitHubOutput.js'
 
@@ -69,19 +69,20 @@ async function sendEmailToConvertKit() {
     })
 
     log.info('Received response from ConvertKit...')
-    await logResponseDetails(response)
+
+    const responseBody = await parseResponse(response)
+
+    // await logResponseDetails(response)
 
     if (!response.ok) {
-      log.error(response.status, 'Error! status:')
+      log.error(response, 'Error! response:')
       throw new Error('Failed to send email to ConvertKit')
     } else {
-      log.info(response.status, 'Success! status:')
+      log.info(response, 'Success! response:')
     }
   } catch (error) {
-    log.error(
-      error.message,
-      'An error occurred while fetching the ConvertKit API:',
-    )
+    // For now, exit because we are in a GitHub Actions context, and we want to fail the job if an error occurs. Later, we will probably handle the error more gracefully as we'll be in a real application context.
+    log.error(error, 'An error occurred while fetching the ConvertKit API:')
     process.exit(1)
   }
 }

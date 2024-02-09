@@ -2,34 +2,38 @@ import createFileLogger from './logger.js'
 
 const log = createFileLogger(import.meta.url)
 
-async function logResponseDetails(response) {
-  log.info('Logging response details...')
+async function parseResponse(response) {
+  try {
+    log.info('Parsing response...')
 
-  logBasicResponseDetails(response)
-
-  const contentType = response.headers.get('content-type')
-  if (contentType && contentType.includes('application/json')) {
-    await parseJsonResponse(response)
-  } else {
-    await parseTextResponse(response)
+    const contentType = response.headers.get('content-type')
+    if (contentType && contentType.includes('application/json')) {
+      return await parseJsonResponse(response)
+    } else {
+      return await parseTextResponse(response)
+    }
+  } catch (error) {
+    handleError(error, 'Error parsing response:')
   }
 }
 
-function logBasicResponseDetails(response) {
-  log.debug(response.status)
-  log.debug(response.statusText)
-  log.debug(response.url)
-  log.debug(response.redirected)
-  log.debug(response.ok)
-}
+// function logBasicResponseDetails(response) {
+//   log.debug(response.status)
+//   log.debug(response.statusText)
+//   log.debug(response.url)
+//   log.debug(response.redirected)
+//   log.debug(response.ok)
+// }
 
 async function parseJsonResponse(response) {
   try {
     log.info('Parsing response body as JSON...')
     const jsonResponse = await response.json()
     log.debug(jsonResponse)
+    return jsonResponse // Return the parsed JSON response
   } catch (error) {
     handleError(error, 'Error parsing response body as JSON:')
+    // No need to return or throw here, as handleError will throw the error.
   }
 }
 
@@ -38,25 +42,26 @@ async function parseTextResponse(response) {
     log.info('Parsing response body as text...')
     const textResponse = await response.text()
     log.debug(textResponse)
-    logHtmlDetails(textResponse)
+    // logHtmlDetails(textResponse)
+    return textResponse // Return the parsed text response
   } catch (error) {
     handleError(error, 'Error parsing response body as text:')
+    // Since handleError rethrows the error, no need for further action here.
   }
 }
 
-function logHtmlDetails(text) {
-  const titleMatch = text.match(/<title>(.*?)<\/title>/i)
-  const descriptionMatch = text.match(
-    /<meta name="description" content="(.*?)"/i,
-  )
-  if (titleMatch) log.debug(titleMatch[1], 'HTML Title:')
-  if (descriptionMatch) log.debug(descriptionMatch[1], 'HTML Description:')
-}
+// function logHtmlDetails(text) {
+//   const titleMatch = text.match(/<title>(.*?)<\/title>/i)
+//   const descriptionMatch = text.match(
+//     /<meta name="description" content="(.*?)"/i,
+//   )
+//   if (titleMatch) log.debug(titleMatch[1], 'HTML Title:')
+//   if (descriptionMatch) log.debug(descriptionMatch[1], 'HTML Description:')
+// }
 
 function handleError(error, message) {
-  log.error(error.message, message)
-  log.debug(error)
+  log.error(error, message)
   throw error
 }
 
-export { logResponseDetails }
+export { parseResponse }
