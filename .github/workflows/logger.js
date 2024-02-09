@@ -9,11 +9,24 @@ const responseSerializer = (response) => {
     response &&
     typeof response === 'object' &&
     'status' in response &&
-    'url' in response
+    'url' in response &&
+    'headers' in response // For defensive programming
   ) {
+    // Convert headers to an object and redact sensitive headers
+    const headers = Object.fromEntries(response.headers.entries())
+    const sensitiveHeaders = ['etag', 'x-request-id'] // Define sensitive headers here
+    const redactedHeaders = { ...headers }
+
+    // Redact sensitive headers
+    sensitiveHeaders.forEach((header) => {
+      if (redactedHeaders.hasOwnProperty(header)) {
+        redactedHeaders[header] = '[REDACTED]'
+      }
+    })
+
     return {
       bodyUsed: response.bodyUsed,
-      headers: Object.fromEntries(response.headers.entries()),
+      headers: redactedHeaders, // Use the redacted headers object
       ok: response.ok,
       redirected: response.redirected,
       status: response.status,
