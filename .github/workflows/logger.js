@@ -2,11 +2,34 @@ import path from 'path'
 import pino from 'pino'
 import { fileURLToPath } from 'url'
 
+// Define a custom serializer for the "response" key
+const responseSerializer = (response) => {
+  // Check if the input looks like a Fetch API Response object
+  if (
+    response &&
+    typeof response === 'object' &&
+    'status' in response &&
+    'url' in response
+  ) {
+    return {
+      status: response.status,
+      statusText: response.statusText,
+      url: response.url,
+      redirected: response.redirected,
+      ok: response.ok,
+    }
+  }
+  // If it's not a response object, return it unchanged
+  return response
+}
+
 const createBaseLogger = pino({
   name: 'r-j.com',
   level: process.env.PINO_LOG_LEVEL || 'info',
+  serializers: {
+    response: responseSerializer, // Use the custom serializer for "response"
+  },
   base: {
-    // cwd: process.cwd(),
     env: process.env.NODE_ENV,
   },
   formatters: {
@@ -34,10 +57,8 @@ const createBaseLogger = pino({
 })
 
 const createFileLogger = (importMetaUrl) => {
-  // const dirname = path.dirname(fileURLToPath(importMetaUrl))
   const filename = path.basename(fileURLToPath(importMetaUrl))
-  const baseLogger = createBaseLogger.child({ filename })
-  return baseLogger
+  return createBaseLogger.child({ filename })
 }
 
 export default createFileLogger
