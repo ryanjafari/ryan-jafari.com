@@ -32,6 +32,7 @@ jobs:
         name: Check commit for broadcast
         working-directory: ${{ env.REPO_PATH }}
         run: bash "$WORKFLOWS_PATH"/check_commit_for_broadcast.sh
+        # continue-on-error: true
 
       - id: set_up_nodejs
         name: Set up Node.js
@@ -47,6 +48,7 @@ jobs:
         working-directory: ${{ env.WORKFLOWS_PATH }}
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
+        # TODO: Only run if step before is successful.
         if: ${{ env.ARTICLE_PATH }}
         run: npm install
 
@@ -55,6 +57,7 @@ jobs:
         working-directory: ${{ env.REPO_PATH }}
         env:
           ARTICLE_PATH: ${{ steps.check_commit_for_broadcast.outputs.article_path }}
+        # TODO: Only run if step before is successful.
         if: ${{ env.ARTICLE_PATH }}
         run: |
           node "$WORKFLOWS_PATH"/parseFrontMatter.js | node "$WORKFLOWS_PATH"/formatLogs.js
@@ -79,6 +82,7 @@ jobs:
         # && ${{ env.ARTICLE_PATH }}
         if: ${{ env.ARTICLE_FRONT_MATTER }}
         run: |
+          set -o pipefail
           node "$WORKFLOWS_PATH"/sendCkEmail.js | node "$WORKFLOWS_PATH"/formatLogs.js
         # with:
         #   script: |
