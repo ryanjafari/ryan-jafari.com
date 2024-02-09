@@ -2,6 +2,26 @@ import path from 'path'
 import pino from 'pino'
 import { fileURLToPath } from 'url'
 
+const responseBodySerializer = (body) => {
+  // Detect if the body is likely HTML
+  if (typeof body === 'string' && body.includes('<html')) {
+    // Extract HTML details
+    const titleMatch = body.match(/<title>(.*?)<\/title>/i)
+    const descriptionMatch = body.match(
+      /<meta name="description" content="(.*?)"/i,
+    )
+
+    // Build the details object
+    const details = {}
+    if (titleMatch) details.title = titleMatch[1]
+    if (descriptionMatch) details.description = descriptionMatch[1]
+
+    return details // Return extracted details
+  }
+  // If not HTML or unable to extract, return original body or some indication
+  return body.startsWith('{') ? 'JSON Content' : 'Non-HTML Content'
+}
+
 // Define a custom serializer for the "response" key
 const responseSerializer = (response) => {
   // Check if the input looks like a Fetch API Response object
@@ -44,6 +64,7 @@ const createBaseLogger = pino({
   level: process.env.PINO_LOG_LEVEL || 'info',
   serializers: {
     response: responseSerializer, // Use the custom serializer for "response"
+    responseBody: responseBodySerializer, // Use the custom serializer for "responseBody"
   },
   base: {
     env: process.env.NODE_ENV,

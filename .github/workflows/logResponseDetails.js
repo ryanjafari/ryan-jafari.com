@@ -19,19 +19,11 @@ async function parseResponse(response) {
   }
 }
 
-// function logBasicResponseDetails(response) {
-//   log.debug(response.status)
-//   log.debug(response.statusText)
-//   log.debug(response.url)
-//   log.debug(response.redirected)
-//   log.debug(response.ok)
-// }
-
 async function parseJsonResponse(response) {
   try {
     log.debug('Parsing response body as JSON...')
     const jsonResponse = await response.json()
-    log.debug(jsonResponse)
+    log.debug({ jsonResponse })
     return jsonResponse // Return the parsed JSON response
   } catch (error) {
     handleError(error, 'Error parsing response body as JSON:')
@@ -43,7 +35,7 @@ async function parseTextResponse(response) {
   try {
     log.debug('Parsing response body as text...')
     const textResponse = await response.text()
-    log.debug(textResponse)
+    log.debug({ textResponse })
     // logHtmlDetails(textResponse)
     return textResponse // Return the parsed text response
   } catch (error) {
