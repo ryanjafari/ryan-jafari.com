@@ -1,3 +1,7 @@
+# TODO: put some stuff into actions if reusable
+# TODO: only continue if previous step succeeds
+# TODO: organize in multiple jobs
+
 name: Blog Update Notification
 
 on:

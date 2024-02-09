@@ -2,24 +2,36 @@ import path from 'path'
 import pino from 'pino'
 import { fileURLToPath } from 'url'
 
-const responseBodySerializer = (body) => {
-  // Detect if the body is likely HTML
-  if (typeof body === 'string' && body.includes('<html')) {
-    // Extract HTML details
-    const titleMatch = body.match(/<title>(.*?)<\/title>/i)
-    const descriptionMatch = body.match(
+const responseBodySerializer = (responseBody) => {
+  // Directly pass through if responseBody is already an object (assuming JSON)
+  if (typeof responseBody !== 'string') {
+    return responseBody
+  }
+
+  // Proceed to check for HTML content if responseBody is a string
+  if (responseBody.includes('<html')) {
+    // Attempt to extract HTML title and description
+    const titleMatch = responseBody.match(/<title>(.*?)<\/title>/i)
+    const descriptionMatch = responseBody.match(
       /<meta name="description" content="(.*?)"/i,
     )
-
-    // Build the details object
     const details = {}
-    if (titleMatch) details.title = titleMatch[1]
-    if (descriptionMatch) details.description = descriptionMatch[1]
 
-    return details // Return extracted details
+    if (titleMatch) {
+      details.title = titleMatch[1]
+    }
+    if (descriptionMatch) {
+      details.description = descriptionMatch[1]
+    }
+
+    // Return extracted HTML details if any were found
+    if (Object.keys(details).length > 0) {
+      return { htmlContent: details }
+    }
   }
-  // If not HTML or unable to extract, return original body or some indication
-  return body.startsWith('{') ? 'JSON Content' : 'Non-HTML Content'
+
+  // If it's a string but not HTML, or HTML without title/description, return as is
+  return responseBody
 }
 
 // Define a custom serializer for the "response" key
