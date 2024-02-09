@@ -2,63 +2,47 @@ import path from 'path'
 import pino from 'pino'
 import { fileURLToPath } from 'url'
 
+// Serializes response body for logging. Extracts and logs HTML content details if present.
 const responseBodySerializer = (responseBody) => {
-  // Directly pass through if responseBody is already an object (assuming JSON)
   if (typeof responseBody !== 'string') {
-    return responseBody
+    return responseBody // Return as-is if not a string
   }
 
-  // Proceed to check for HTML content if responseBody is a string
   if (responseBody.includes('<html')) {
-    // Attempt to extract HTML title and description
     const titleMatch = responseBody.match(/<title>(.*?)<\/title>/i)
     const descriptionMatch = responseBody.match(
       /<meta name="description" content="(.*?)"/i,
     )
     const details = {}
 
-    if (titleMatch) {
-      details.title = titleMatch[1]
-    }
-    if (descriptionMatch) {
-      details.description = descriptionMatch[1]
-    }
+    if (titleMatch) details.title = titleMatch[1]
+    if (descriptionMatch) details.description = descriptionMatch[1]
 
-    // Return extracted HTML details if any were found
-    if (Object.keys(details).length > 0) {
-      return { htmlContent: details }
-    }
+    return Object.keys(details).length > 0
+      ? { htmlContent: details }
+      : responseBody
   }
 
-  // If it's a string but not HTML, or HTML without title/description, return as is
-  return responseBody
+  return responseBody // Return as-is if not HTML or no details found
 }
 
-// Define a custom serializer for the "response" key
+// Serializes response objects, redacting sensitive headers for logging.
 const responseSerializer = (response) => {
-  // Check if the input looks like a Fetch API Response object
   if (
     response &&
     typeof response === 'object' &&
     'status' in response &&
-    'url' in response &&
-    'headers' in response // For defensive programming
+    'url' in response
   ) {
-    // Convert headers to an object and redact sensitive headers
     const headers = Object.fromEntries(response.headers.entries())
-    const sensitiveHeaders = ['etag', 'x-request-id'] // Define sensitive headers here
-    const redactedHeaders = { ...headers }
-
-    // Redact sensitive headers
+    const sensitiveHeaders = ['etag', 'x-request-id']
     sensitiveHeaders.forEach((header) => {
-      if (redactedHeaders.hasOwnProperty(header)) {
-        redactedHeaders[header] = '[REDACTED]'
-      }
+      if (header in headers) headers[header] = '[REDACTED]'
     })
 
     return {
       bodyUsed: response.bodyUsed,
-      headers: redactedHeaders, // Use the redacted headers object
+      headers: headers,
       ok: response.ok,
       redirected: response.redirected,
       status: response.status,
@@ -67,44 +51,26 @@ const responseSerializer = (response) => {
       url: response.url,
     }
   }
-  // If it's not a response object, return it unchanged
-  return response
+  return response // Return as-is if not a response object
 }
 
+// Creates a base logger instance with predefined settings.
 const createBaseLogger = pino({
   name: 'r-j.com',
   level: process.env.PINO_LOG_LEVEL || 'info',
   serializers: {
-    response: responseSerializer, // Use the custom serializer for "response"
-    responseBody: responseBodySerializer, // Use the custom serializer for "responseBody"
+    response: responseSerializer,
+    responseBody: responseBodySerializer,
   },
-  base: {
-    env: process.env.NODE_ENV,
-  },
+  base: { env: process.env.NODE_ENV },
   formatters: {
     level(label, number) {
       return { level: number, levelLabel: label }
     },
   },
-  useOnlyCustomLevels: false,
-
-  // TODO: Configure browser transport
-  // browser: {
-  //   write: (o: any) => {
-  //     console.log(`${JSON.stringify(o)}`);
-  //   }
-  // }
-
-  // TODO: Configure additional transports
-  // transport: {
-  //   target: './pino-pretty-transport',
-  //   options: {
-  //     colorize: true,
-  //     colorizeObjects: true,
-  //   },
-  // },
 })
 
+// Creates a logger for a specific file, using the file's basename from the import meta URL.
 const createFileLogger = (importMetaUrl) => {
   const filename = path.basename(fileURLToPath(importMetaUrl))
   return createBaseLogger.child({ filename })
