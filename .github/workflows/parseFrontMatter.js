@@ -1,6 +1,6 @@
 import fsp from 'fs/promises'
 import yaml from 'js-yaml'
-import createFileLogger from './logger.js'
+import { createFileLogger } from './logger.js'
 import { saveToGitHubOutput } from './saveToGitHubOutput.js'
 
 const log = createFileLogger(import.meta.url)
