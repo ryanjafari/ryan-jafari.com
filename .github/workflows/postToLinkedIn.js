@@ -1,9 +1,9 @@
-import { logResponseDetails } from './logResponseDetails.js'
 import createFileLogger from './logger.js'
+import { logResponseDetails } from './parseResponse.js'
 
 const log = createFileLogger(import.meta.url)
 
-async function postArticleToLinkedIn() {
+const postArticleToLinkedIn = async () => {
   log.info('Posting article to LinkedIn...')
 
   const {

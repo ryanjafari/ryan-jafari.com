@@ -80,7 +80,6 @@ async function sendEmailToConvertKit() {
     log.debug({ responseBody }, 'Parsed response body from ConvertKit.')
 
     if (!response.ok) {
-      // TODO: log.handleError(response, 'Failed to send email to ConvertKit.')
       log.error({ response }, 'Failed to send email to ConvertKit.')
       throw new Error('Failed to send email to ConvertKit.')
     }

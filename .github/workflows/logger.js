@@ -55,25 +55,34 @@ const responseSerializer = (response) => {
 }
 
 // Creates a base logger instance with predefined settings.
-const createBaseLogger = pino({
-  name: 'r-j.com',
-  level: process.env.PINO_LOG_LEVEL || 'info',
-  serializers: {
-    response: responseSerializer,
-    responseBody: responseBodySerializer,
-  },
-  base: { env: process.env.NODE_ENV },
-  formatters: {
-    level(label, number) {
-      return { level: number, levelLabel: label }
+const createBaseLogger = () =>
+  pino({
+    name: 'r-j.com',
+    level: process.env.PINO_LOG_LEVEL || 'info',
+    serializers: {
+      response: responseSerializer,
+      responseBody: responseBodySerializer,
     },
-  },
-})
+    base: { env: process.env.NODE_ENV },
+    formatters: {
+      level(label, number) {
+        return { level: number, levelLabel: label }
+      },
+    },
+  })
 
-// Creates a logger for a specific file, using the file's basename from the import meta URL.
+// Creates a logger for a specific file, using the file's basename from the import meta URL. Modified to extend the logger with a handleError method.
 const createFileLogger = (importMetaUrl) => {
   const filename = path.basename(fileURLToPath(importMetaUrl))
-  return createBaseLogger.child({ filename })
+  const fileLogger = createBaseLogger().child({ filename })
+
+  // Extending the logger instance with a handleError method. Handles errors by logging them and rethrowing.
+  fileLogger.handleError = (obj, message) => {
+    fileLogger.error(obj, message)
+    throw error
+  }
+
+  return fileLogger
 }
 
-export default createFileLogger
+export { createFileLogger }
