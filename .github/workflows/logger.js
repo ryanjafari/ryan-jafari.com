@@ -54,6 +54,19 @@ const responseSerializer = (response) => {
   return response // Return as-is if not a response object
 }
 
+// Custom serializer for error objects
+const errorSerializer = (errorObj) => {
+  if (errorObj && errorObj.error instanceof Error) {
+    // Extracting and formatting the error information
+    return {
+      message: errorObj.error.message,
+      stack: errorObj.error.stack,
+      type: errorObj.error.constructor.name,
+    }
+  }
+  return errorObj
+}
+
 // Creates a base logger instance with predefined settings.
 const createBaseLogger = () =>
   pino({
@@ -62,6 +75,7 @@ const createBaseLogger = () =>
     serializers: {
       response: responseSerializer,
       responseBody: responseBodySerializer,
+      error: errorSerializer,
     },
     base: { env: process.env.NODE_ENV },
     formatters: {

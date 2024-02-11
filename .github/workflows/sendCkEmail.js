@@ -1,4 +1,5 @@
 import { createFileLogger } from './logger.js'
+import { saveToGitHubOutput } from './saveToGitHubOutput.js'
 
 const log = createFileLogger(import.meta.url)
 
@@ -89,7 +90,7 @@ main()
     log.info('Email sending process completed.')
   })
   .catch((error) => {
-    log.error(error, 'An error occurred during the email sending process.')
+    log.error({ error }, 'An error occurred during the email sending process.')
     process.exit(1)
   })
   .finally(() => {
