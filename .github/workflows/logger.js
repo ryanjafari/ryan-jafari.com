@@ -2,30 +2,6 @@ import path from 'path'
 import pino from 'pino'
 import { fileURLToPath } from 'url'
 
-// Serializes response body for logging. Extracts and logs HTML content details if present.
-const responseBodySerializer = (responseBody) => {
-  if (typeof responseBody !== 'string') {
-    return responseBody // Return as-is if not a string
-  }
-
-  if (responseBody.includes('<html')) {
-    const titleMatch = responseBody.match(/<title>(.*?)<\/title>/i)
-    const descriptionMatch = responseBody.match(
-      /<meta name="description" content="(.*?)"/i,
-    )
-    const details = {}
-
-    if (titleMatch) details.title = titleMatch[1]
-    if (descriptionMatch) details.description = descriptionMatch[1]
-
-    return Object.keys(details).length > 0
-      ? { htmlContent: details }
-      : responseBody
-  }
-
-  return responseBody // Return as-is if not HTML or no details found
-}
-
 // Serializes response objects, redacting sensitive headers for logging.
 const responseSerializer = (response) => {
   if (
@@ -52,6 +28,30 @@ const responseSerializer = (response) => {
     }
   }
   return response // Return as-is if not a response object
+}
+
+// Serializes response body for logging. Extracts and logs HTML content details if present.
+const responseBodySerializer = (responseBody) => {
+  if (typeof responseBody !== 'string') {
+    return responseBody // Return as-is if not a string
+  }
+
+  if (responseBody.includes('<html')) {
+    const titleMatch = responseBody.match(/<title>(.*?)<\/title>/i)
+    const descriptionMatch = responseBody.match(
+      /<meta name="description" content="(.*?)"/i,
+    )
+    const details = {}
+
+    if (titleMatch) details.title = titleMatch[1]
+    if (descriptionMatch) details.description = descriptionMatch[1]
+
+    return Object.keys(details).length > 0
+      ? { htmlContent: details }
+      : responseBody
+  }
+
+  return responseBody // Return as-is if not HTML or no details found
 }
 
 // Custom serializer for error objects
