@@ -50,7 +50,7 @@ const main = async () => {
   saveToGitHubOutput('articleFrontMatter', frontMatter)
 }
 
-main()
+await main()
   .then(() => {
     log.info('Article front matter parsing completed.')
   })

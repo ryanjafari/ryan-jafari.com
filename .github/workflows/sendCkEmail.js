@@ -86,7 +86,7 @@ const main = async () => {
   log.info({ url, subject }, 'Email successfully sent to ConvertKit.')
 }
 
-main()
+await main()
   .then(() => {
     log.info('Email sending process completed.')
   })
