@@ -2,6 +2,18 @@ import path from 'path'
 import pino from 'pino'
 import { fileURLToPath } from 'url'
 
+// Custom serializer for errors
+const errorSerializer = (error) => {
+  if (error instanceof Error) {
+    return {
+      type: error.constructor.name,
+      message: error.message,
+      stack: error.stack,
+    }
+  }
+  return error
+}
+
 // Serializes response objects, redacting sensitive headers for logging.
 const responseSerializer = (response) => {
   if (
@@ -54,27 +66,15 @@ const responseBodySerializer = (responseBody) => {
   return responseBody // Return as-is if not HTML or no details found
 }
 
-// Custom serializer for errors
-const errorSerializer = (err) => {
-  if (err instanceof Error) {
-    return {
-      type: err.constructor.name,
-      message: err.message,
-      stack: err.stack,
-    }
-  }
-  return err
-}
-
 // Creates a base logger instance with predefined settings.
 const createBaseLogger = () =>
   pino({
     name: 'r-j.com',
     level: process.env.PINO_LOG_LEVEL || 'info',
     serializers: {
+      error: errorSerializer,
       response: responseSerializer,
       responseBody: responseBodySerializer,
-      error: errorSerializer,
     },
     base: { env: process.env.NODE_ENV },
     formatters: {
