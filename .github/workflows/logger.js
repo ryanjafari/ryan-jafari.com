@@ -54,19 +54,16 @@ const responseBodySerializer = (responseBody) => {
   return responseBody // Return as-is if not HTML or no details found
 }
 
-// Custom serializer for error objects
-const errorSerializer = (errorObj) => {
-  console.log('Serializing error:', errorObj) // Check input
-
-  if (errorObj && errorObj.error instanceof Error) {
-    // Extracting and formatting the error information
+// Custom serializer for errors
+const errorSerializer = (err) => {
+  if (err instanceof Error) {
     return {
-      message: errorObj.error.message,
-      stack: errorObj.error.stack,
-      type: errorObj.error.constructor.name,
+      type: err.constructor.name,
+      message: err.message,
+      stack: err.stack,
     }
   }
-  return errorObj
+  return err
 }
 
 // Creates a base logger instance with predefined settings.
