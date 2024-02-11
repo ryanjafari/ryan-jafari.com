@@ -6,6 +6,8 @@ import { createFileLogger } from './logger.js'
 
 const log = createFileLogger(import.meta.url)
 
+log.debug('saveToGitHubOutput.js loaded.')
+
 /**
  * Saves a variable to the GitHub Actions output file.
  * @param {string} name - The name of the variable as it should appear in the output.
