@@ -56,6 +56,8 @@ const responseBodySerializer = (responseBody) => {
 
 // Custom serializer for error objects
 const errorSerializer = (errorObj) => {
+  console.log('Serializing error:', errorObj) // Check input
+
   if (errorObj && errorObj.error instanceof Error) {
     // Extracting and formatting the error information
     return {
