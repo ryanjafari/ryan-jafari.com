@@ -38,6 +38,8 @@ const prepareEmailContent = (
 // Posts email to ConvertKit, now directly including payload construction
 const postEmailToConvertKit = async (envVars, { content, subject }) => {
   const ckApiEndpoint = `${envVars.CK_API_BASE_URL}${envVars.CK_API_BC_ENDPOINT}`
+  log.debug({ ckApiEndpoint }, 'Posting email to ConvertKit.')
+
   const payload = JSON.stringify({
     api_key: envVars.CK_API_KEY,
     content,
@@ -47,6 +49,7 @@ const postEmailToConvertKit = async (envVars, { content, subject }) => {
     published_at: JSON.parse(envVars.ARTICLE_FRONT_MATTER).date,
     subject,
   })
+  log.debug({ payload }, 'Constructed payload for ConvertKit.')
 
   const response = await fetch(ckApiEndpoint, {
     method: 'POST',
@@ -62,28 +65,33 @@ const postEmailToConvertKit = async (envVars, { content, subject }) => {
 
 // Main function orchestrating the email sending process
 const main = async () => {
-  try {
-    log.debug('Initiating email sending process to ConvertKit.')
-    const envVars = parseEnvVariables()
-    const frontMatter = JSON.parse(envVars.ARTICLE_FRONT_MATTER)
-    const { url, content, subject } = prepareEmailContent(
-      envVars.ARTICLE_PATH,
-      envVars.NEXT_PUBLIC_SITE_URL,
-      frontMatter,
-    )
+  log.debug('Initiating email sending process to ConvertKit.')
+  const envVars = parseEnvVariables()
+  const frontMatter = JSON.parse(envVars.ARTICLE_FRONT_MATTER)
+  const { url, content, subject } = prepareEmailContent(
+    envVars.ARTICLE_PATH,
+    envVars.NEXT_PUBLIC_SITE_URL,
+    frontMatter,
+  )
 
-    saveToGitHubOutput('articleUrl', url)
+  saveToGitHubOutput('articleUrl', url)
 
-    const response = await postEmailToConvertKit(envVars, { content, subject })
-    log.debug({ response }, 'Received response from ConvertKit.')
-    const responseBody = await parseResponse(response)
-    log.debug({ responseBody }, 'Parsed response body from ConvertKit.')
+  const response = await postEmailToConvertKit(envVars, { content, subject })
+  log.debug({ response }, 'Received response from ConvertKit.')
+  const responseBody = await parseResponse(response)
+  log.debug({ responseBody }, 'Parsed response body from ConvertKit.')
 
-    log.info({ url, subject }, 'Email successfully sent to ConvertKit.')
-  } catch (error) {
-    log.error({ error }, 'An error occurred during the email sending process.')
-    process.exit(1)
-  }
+  log.info({ url, subject }, 'Email successfully sent to ConvertKit.')
 }
 
 main()
+  .then(() => {
+    log.info('Email sending process completed.')
+  })
+  .catch((error) => {
+    log.error({ error }, 'An error occurred during the email sending process.')
+    process.exit(1)
+  })
+  .finally(() => {
+    log.info('Finished sending email to ConvertKit.')
+  })
