@@ -21,7 +21,8 @@ const parseResponse = async (response) => {
       return await parseTextResponse(response)
     }
   } catch (error) {
-    log.handleError({ error }, 'Failed to parse response.')
+    log.error({ error }, 'Failed to parse response.')
+    throw new Error('Failed to parse response.')
   }
 }
 
@@ -32,7 +33,8 @@ const parseJsonResponse = async (response) => {
     log.debug({ jsonResponse }, 'Successfully parsed JSON response.')
     return jsonResponse
   } catch (error) {
-    log.handleError({ error }, 'Failed to parse JSON response.')
+    log.error({ error }, 'Failed to parse JSON response.')
+    throw new Error('Failed to parse JSON response.')
   }
 }
 
@@ -43,7 +45,8 @@ const parseTextResponse = async (response) => {
     log.debug({ textResponse }, 'Successfully parsed text response.')
     return textResponse
   } catch (error) {
-    log.handleError({ error }, 'Failed to parse text response.')
+    log.error({ error }, 'Failed to parse text response.')
+    throw new Error('Failed to parse text response.')
   }
 }
 

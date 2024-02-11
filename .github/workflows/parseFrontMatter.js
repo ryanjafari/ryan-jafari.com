@@ -12,6 +12,7 @@ const validateArticlePath = () => {
     log.error({ ARTICLE_PATH }, 'Missing ARTICLE_PATH environment variable.')
     throw new Error('Missing ARTICLE_PATH environment variable.')
   }
+  log.debug({ ARTICLE_PATH }, 'Validated ARTICLE_PATH environment variable.')
   return ARTICLE_PATH
 }
 
@@ -22,6 +23,7 @@ const readAndValidateContent = async (ARTICLE_PATH) => {
     log.error({ content }, 'Content does not include front matter delimiters.')
     throw new Error('Content does not include front matter delimiters.')
   }
+  log.debug({ content }, 'Read and validated article content.')
   return content
 }
 
@@ -30,30 +32,32 @@ const extractAndParseFrontMatter = (content) => {
   const parts = content.split('---')
   const frontMatter = yaml.load(parts[1])
   if (!frontMatter) {
-    log.error({ content }, 'Failed to parse front matter.')
+    log.error({ parts }, 'Failed to parse front matter.')
     throw new Error('Failed to parse front matter.')
   }
+  log.debug({ frontMatter }, 'Extracted and parsed front matter.')
   return frontMatter
 }
 
 // Main function orchestrating the parsing process
 const main = async () => {
-  try {
-    log.debug('Starting article front matter parsing process.')
+  log.debug('Starting article front matter parsing process.')
 
-    const ARTICLE_PATH = validateArticlePath()
-    const content = await readAndValidateContent(ARTICLE_PATH)
-    const frontMatter = extractAndParseFrontMatter(content)
+  const ARTICLE_PATH = validateArticlePath()
+  const content = await readAndValidateContent(ARTICLE_PATH)
+  const frontMatter = extractAndParseFrontMatter(content)
 
-    log.debug({ frontMatter }, 'Parsed front matter.')
-    saveToGitHubOutput('articleFrontMatter', frontMatter)
-
-    log.info('Article front matter parsing completed.')
-  } catch (error) {
-    // Assuming error object includes relevant details for logging
-    log.error({ error }, 'An error occurred during the parsing process.')
-    process.exit(1) // Exiting with an error code if an exception is caught
-  }
+  saveToGitHubOutput('articleFrontMatter', frontMatter)
 }
 
 main()
+  .then(() => {
+    log.info('Article front matter parsing completed.')
+  })
+  .catch((error) => {
+    log.error({ error }, 'An error occurred during the parsing process.')
+    process.exit(1)
+  })
+  .finally(() => {
+    log.info('Finished parsing front matter.')
+  })

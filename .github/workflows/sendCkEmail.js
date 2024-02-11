@@ -1,49 +1,68 @@
 import { createFileLogger } from './logger.js'
-import { parseResponse } from './parseResponse.js'
-import { saveToGitHubOutput } from './saveToGitHubOutput.js'
 
 const log = createFileLogger(import.meta.url)
 
 // Parses environment variables required for the operation
-function parseEnvVariables() {
-  const {
-    ARTICLE_FRONT_MATTER,
-    ARTICLE_PATH,
-    CK_API_KEY,
-    CK_API_BASE_URL,
-    CK_API_BC_ENDPOINT,
-    CK_EMAIL_ADDRESS,
-    NEXT_PUBLIC_SITE_URL,
-  } = process.env
-
-  log.debug('Parsed environment variables.')
-
-  return {
-    ARTICLE_FRONT_MATTER,
-    ARTICLE_PATH,
-    CK_API_KEY,
-    CK_API_BASE_URL,
-    CK_API_BC_ENDPOINT,
-    CK_EMAIL_ADDRESS,
-    NEXT_PUBLIC_SITE_URL,
+const parseEnvVariables = () => {
+  const envVariables = {
+    ARTICLE_FRONT_MATTER: process.env.ARTICLE_FRONT_MATTER,
+    ARTICLE_PATH: process.env.ARTICLE_PATH,
+    CK_API_KEY: process.env.CK_API_KEY,
+    CK_API_BASE_URL: process.env.CK_API_BASE_URL,
+    CK_API_BC_ENDPOINT: process.env.CK_API_BC_ENDPOINT,
+    CK_EMAIL_ADDRESS: process.env.CK_EMAIL_ADDRESS,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   }
+
+  log.debug({ envVariables }, 'Parsed environment variables.')
+
+  return envVariables
 }
 
 // Prepares email content based on the article's front matter and path
-function prepareEmailContent(ARTICLE_PATH, NEXT_PUBLIC_SITE_URL, frontMatter) {
+const prepareEmailContent = (
+  ARTICLE_PATH,
+  NEXT_PUBLIC_SITE_URL,
+  frontMatter,
+) => {
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
   const url = `${NEXT_PUBLIC_SITE_URL}/articles/${slug}`
   const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
   const subject = frontMatter.title
 
-  log.debug({ slug, url, content, subject }, 'Prepared email content.')
+  log.debug({ slug, url, content, subject }, 'Prepared email content from:')
 
   return { url, content, subject }
 }
 
-// Main function that handles sending an email via ConvertKit
-async function sendEmailToConvertKit() {
-  log.info('Initiating email sending process to ConvertKit.')
+// Posts email to ConvertKit, now directly including payload construction
+const postEmailToConvertKit = async (envVars, { content, subject }) => {
+  const ckApiEndpoint = `${envVars.CK_API_BASE_URL}${envVars.CK_API_BC_ENDPOINT}`
+  const payload = JSON.stringify({
+    api_key: envVars.CK_API_KEY,
+    content,
+    description: '[ck-broadcast] GitHub Workflow Job',
+    email_address: envVars.CK_EMAIL_ADDRESS,
+    public: true,
+    published_at: JSON.parse(envVars.ARTICLE_FRONT_MATTER).date,
+    subject,
+  })
+
+  const response = await fetch(ckApiEndpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload,
+  })
+  if (!response.ok) {
+    log.error({ response }, 'Failed to send email to ConvertKit.')
+    throw new Error('Failed to send email to ConvertKit.')
+  }
+  return response
+}
+
+// Main function orchestrating the email sending process
+const main = async () => {
+  log.debug('Initiating email sending process to ConvertKit.')
   const envVars = parseEnvVariables()
   const frontMatter = JSON.parse(envVars.ARTICLE_FRONT_MATTER)
   const { url, content, subject } = prepareEmailContent(
@@ -52,46 +71,24 @@ async function sendEmailToConvertKit() {
     frontMatter,
   )
 
-  log.debug({ url, content, subject }, 'Prepared email content.')
-
   saveToGitHubOutput('articleUrl', url)
-  log.debug('Article URL saved to GitHub output.')
 
-  const ckApiEndpoint = `${envVars.CK_API_BASE_URL}${envVars.CK_API_BC_ENDPOINT}`
+  const response = await postEmailToConvertKit(envVars, { content, subject })
+  log.debug({ response }, 'Received response from ConvertKit.')
+  const responseBody = await parseResponse(response)
+  log.debug({ responseBody }, 'Parsed response body from ConvertKit.')
 
-  try {
-    log.info('Attempting to post email content to ConvertKit.')
-    const response = await fetch(ckApiEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        api_key: envVars.CK_API_KEY,
-        content,
-        description: '[ck-broadcast] GitHub Workflow Job',
-        email_address: envVars.CK_EMAIL_ADDRESS,
-        public: true,
-        published_at: frontMatter.date,
-        subject,
-      }),
-    })
-    log.debug({ response }, 'Received response from ConvertKit.')
-
-    const responseBody = await parseResponse(response)
-    log.debug({ responseBody }, 'Parsed response body from ConvertKit.')
-
-    if (!response.ok) {
-      log.error({ response }, 'Failed to send email to ConvertKit.')
-      throw new Error('Failed to send email to ConvertKit.')
-    }
-
-    log.info({ response }, 'Email successfully sent to ConvertKit.')
-  } catch (error) {
-    log.error(
-      { error },
-      'An error occurred while attempting to send email to ConvertKit.',
-    )
-    process.exit(1)
-  }
+  log.info({ url, subject }, 'Email successfully sent to ConvertKit.')
 }
 
-sendEmailToConvertKit()
+main()
+  .then(() => {
+    log.info('Email sending process completed.')
+  })
+  .catch((error) => {
+    log.error({ error }, 'An error occurred during the email sending process.')
+    process.exit(1)
+  })
+  .finally(() => {
+    log.info('Finished sending email.')
+  })

@@ -71,16 +71,10 @@ const createBaseLogger = () =>
     },
   })
 
-// Creates a logger for a specific file, using the file's basename from the import meta URL. Modified to extend the logger with a handleError method.
+// Creates a logger for a specific file, using the file's basename from the import meta URL.
 const createFileLogger = (importMetaUrl) => {
   const filename = path.basename(fileURLToPath(importMetaUrl))
   const fileLogger = createBaseLogger().child({ filename })
-
-  // Extending the logger instance with a handleError method. Handles errors by logging them and rethrowing.
-  fileLogger.handleError = (obj, message) => {
-    fileLogger.error(obj, message)
-    throw error
-  }
 
   return fileLogger
 }
