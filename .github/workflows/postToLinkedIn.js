@@ -55,7 +55,7 @@ const main = async () => {
   const envVars = parseEnvVariables()
 
   const response = await postArticleToLinkedIn(envVars)
-  \
+
   // Construct the request payload according to LinkedIn's API requirements
 
   // Send the request
