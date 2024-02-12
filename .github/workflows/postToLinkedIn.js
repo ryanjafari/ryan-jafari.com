@@ -4,13 +4,13 @@ const log = createFileLogger(import.meta.url)
 
 // Parses environment variables required for the operation
 const parseEnvVariables = () => {
-  const envVariables = ({
+  const envVariables = {
     SHARE_URL: process.env.SHARE_URL,
     SHARE_CONTENT: process.env.SHARE_CONTENT,
     SHARE_TITLE: process.env.SHARE_TITLE,
     LINKEDIN_ACCESS_TOKEN: process.env.LINKEDIN_ACCESS_TOKEN,
     LINKEDIN_PERSON_ID: process.env.LINKEDIN_PERSON_ID,
-  } = process.env)
+  }
 
   log.debug({ envVariables }, 'Parsed environment variables.')
 
@@ -22,7 +22,7 @@ const postArticleToLinkedIn = async (envVars) => {
   log.debug({ linkedInApiUrl }, 'Posting article to LinkedIn.')
 
   const payload = {
-    author: `urn:li:person:${LINKEDIN_PERSON_ID}`,
+    author: `urn:li:person:${envVars.LINKEDIN_PERSON_ID}`,
     lifecycleState: 'DRAFT',
     specificContent: {
       'com.linkedin.ugc.ShareContent': {
@@ -55,6 +55,9 @@ const main = async () => {
   const envVars = parseEnvVariables()
 
   const response = await postArticleToLinkedIn(envVars)
+  log.debug({ response }, 'Received response from LinkedIn.')
+  const responseBody = await parseResponse(response)
+  log.debug({ responseBody }, 'Parsed response body from LinkedIn.')
 
   // Construct the request payload according to LinkedIn's API requirements
 
