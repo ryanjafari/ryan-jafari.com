@@ -73,7 +73,7 @@ jobs:
         #     const { default: parseFrontMatter } = await import(script)
         #     return await parseFrontMatter({ github, context })
 
-      - id: send_ck_email
+      - id: send_convertkit_email
         name: Send email via ConvertKit
         # uses: actions/github-script@v7.0.1
         env:
@@ -88,21 +88,18 @@ jobs:
         if: ${{ env.ARTICLE_FRONT_MATTER }}
         run: |
           set -o pipefail
-          node "$WORKFLOWS_PATH"/sendCkEmail.js | node "$WORKFLOWS_PATH"/formatLogs.js
-        # with:
-        #   script: |
-        #     const workflows_path = process.env.WORKFLOWS_PATH
-        #     const script = `${workflows_path}/sendCkEmail.js`
-        #     const { default: sendCkEmail } = await import(script)
-        #     return await sendCkEmail({ github, context })
+          node "$WORKFLOWS_PATH"/sendConvertKitEmail.js | node "$WORKFLOWS_PATH"/formatLogs.js
 
       - id: post_to_linkedin
         name: Post Article to LinkedIn
         working-directory: ${{ env.WORKFLOWS_PATH }}
         env:
-          ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.articleFrontMatter }}
-          ARTICLE_URL: ${{ steps.send_ck_email.outputs.articleUrl }}
-          LINKEDIN_PERSON_ID: ${{ vars.LINKEDIN_PERSON_ID }}
+          # ARTICLE_FRONT_MATTER: ${{ steps.parse_front_matter.outputs.articleFrontMatter }}
+          SHARE_URL: ${{ steps.send_convertkit_email.outputs.shareUrl }}
+          SHARE_CONTENT: ${{ steps.send_convertkit_email.outputs.shareContent }}
+          SHARE_TITLE: ${{ steps.send_convertkit_email.outputs.shareTitle }}
+          # ARTICLE_URL: ${{ steps.send_convertkit_email.outputs.articleUrl }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
-        if: ${{ env.ARTICLE_FRONT_MATTER }}
+          LINKEDIN_PERSON_ID: ${{ vars.LINKEDIN_PERSON_ID }}
+        if: ${{ env.SHARE_URL }}
         run: node ./postToLinkedIn.js | node ./formatLogs.js

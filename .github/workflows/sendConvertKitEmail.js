@@ -30,11 +30,11 @@ const prepareEmailContent = (
   const slug = ARTICLE_PATH.match(/articles\/(.+?)\/page\.md/)[1]
   const url = `${NEXT_PUBLIC_SITE_URL}/articles/${slug}`
   const content = `<p>${frontMatter.date}</p><p>${frontMatter.description}</p><p><a href="${url}">Read more...</a></p>`
-  const subject = frontMatter.title
+  const title = frontMatter.title
 
-  log.debug({ slug, url, content, subject }, 'Prepared email content from:')
+  log.debug({ slug, url, content, title }, 'Prepared email content from:')
 
-  return { url, content, subject }
+  return { url, content, title }
 }
 
 // Posts email to ConvertKit, now directly including payload construction
@@ -70,20 +70,22 @@ const main = async () => {
   log.debug('Initiating email sending process to ConvertKit.')
   const envVars = parseEnvVariables()
   const frontMatter = JSON.parse(envVars.ARTICLE_FRONT_MATTER)
-  const { url, content, subject } = prepareEmailContent(
+  const { url, content, title } = prepareEmailContent(
     envVars.ARTICLE_PATH,
     envVars.NEXT_PUBLIC_SITE_URL,
     frontMatter,
   )
 
-  saveToGitHubOutput('articleUrl', url)
+  saveToGitHubOutput('shareUrl', url)
+  saveToGitHubOutput('shareContent', content)
+  saveToGitHubOutput('shareTitle', title)
 
-  const response = await postEmailToConvertKit(envVars, { content, subject })
+  const response = await postEmailToConvertKit(envVars, { content, title })
   log.debug({ response }, 'Received response from ConvertKit.')
   const responseBody = await parseResponse(response)
   log.debug({ responseBody }, 'Parsed response body from ConvertKit.')
 
-  log.info({ url, subject }, 'Email successfully sent to ConvertKit.')
+  log.info({ url, content, title }, 'Email successfully sent to ConvertKit.')
 }
 
 await main()
