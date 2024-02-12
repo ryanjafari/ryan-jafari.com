@@ -26,7 +26,7 @@ const postArticleToLinkedIn = async (envVars) => {
 
   const payload = JSON.stringify({
     author: `urn:li:person:${envVars.LINKEDIN_PERSON_ID}`,
-    commentary: 'test',
+    commentary: 'tes1t',
     visibility: 'PUBLIC',
     distribution: {
       feedDistribution: 'MAIN_FEED',
