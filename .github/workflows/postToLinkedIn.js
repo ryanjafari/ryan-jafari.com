@@ -6,9 +6,7 @@ const log = createFileLogger(import.meta.url)
 // Parses environment variables required for the operation
 const parseEnvVariables = () => {
   const envVariables = {
-    SHARE_URL: process.env.SHARE_URL,
     SHARE_CONTENT: process.env.SHARE_CONTENT,
-    SHARE_TITLE: process.env.SHARE_TITLE,
     LINKEDIN_ACCESS_TOKEN: process.env.LINKEDIN_ACCESS_TOKEN,
     LINKEDIN_API_BASE_URL: process.env.LINKEDIN_API_BASE_URL,
     LINKEDIN_API_POSTS_ENDPOINT: process.env.LINKEDIN_API_POSTS_ENDPOINT,
