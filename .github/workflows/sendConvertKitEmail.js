@@ -39,8 +39,8 @@ const prepareEmailContent = (
 
 // Posts email to ConvertKit, now directly including payload construction
 const postEmailToConvertKit = async (envVars, { content, subject }) => {
-  const ckApiEndpoint = `${envVars.CK_API_BASE_URL}${envVars.CK_API_BC_ENDPOINT}`
-  log.debug({ ckApiEndpoint }, 'Posting email to ConvertKit.')
+  const converKitApiUrl = `${envVars.CK_API_BASE_URL}/${envVars.CK_API_BC_ENDPOINT}`
+  log.debug({ converKitApiUrl }, 'Posting email to ConvertKit.')
 
   const payload = JSON.stringify({
     api_key: envVars.CK_API_KEY,
@@ -53,7 +53,7 @@ const postEmailToConvertKit = async (envVars, { content, subject }) => {
   })
   log.debug({ payload }, 'Constructed payload for ConvertKit.')
 
-  const response = await fetch(ckApiEndpoint, {
+  const response = await fetch(converKitApiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: payload,

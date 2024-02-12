@@ -2,40 +2,61 @@ import { createFileLogger } from './logger.js'
 
 const log = createFileLogger(import.meta.url)
 
-const postArticleToLinkedIn = async () => {
-  log.debug('Posting article to LinkedIn...')
+// Parses environment variables required for the operation
+const parseEnvVariables = () => {
+  const envVariables = ({
+    SHARE_URL: process.env.SHARE_URL,
+    SHARE_CONTENT: process.env.SHARE_CONTENT,
+    SHARE_TITLE: process.env.SHARE_TITLE,
+    LINKEDIN_ACCESS_TOKEN: process.env.LINKEDIN_ACCESS_TOKEN,
+    LINKEDIN_PERSON_ID: process.env.LINKEDIN_PERSON_ID,
+  } = process.env)
 
-  const {
-    SHARE_URL,
-    SHARE_CONTENT,
-    SHARE_TITLE,
-    LINKEDIN_ACCESS_TOKEN,
-    LINKEDIN_PERSON_ID,
-  } = process.env
+  log.debug({ envVariables }, 'Parsed environment variables.')
 
-  // Parse the ARTICLE_FRONT_MATTER if necessary
-  // const articleDetails = JSON.parse(ARTICLE_FRONT_MATTER)
-  // const { title, description } = articleDetails // Assuming these fields exist
+  return envVariables
+}
 
-  // Define the API endpoint
-  const apiUrl = 'https://api.linkedin.com/v2/ugcPosts'
+const postArticleToLinkedIn = async (envVars) => {
+  const linkedInApiUrl = `${envVars.LINKEDIN_API_BASE_URL}/${envVars.LINKEDIN_API_POSTS_ENDPOINT}`
+  log.debug({ linkedInApiUrl }, 'Posting article to LinkedIn.')
 
+  const payload = {
+    author: `urn:li:person:${LINKEDIN_PERSON_ID}`,
+    lifecycleState: 'DRAFT',
+    specificContent: {
+      'com.linkedin.ugc.ShareContent': {
+        shareCommentary: {
+          text: 'test',
+        },
+        shareMediaCategory: 'NONE',
+      },
+    },
+    visibility: {
+      'com.linkedin.ugc.MemberNetworkVisibility': 'PRIVATE',
+    },
+  }
+  log.debug({ payload }, 'Constructed payload for LinkedIn.')
+
+  const response = await fetch(linkedInApiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: payload,
+  })
+  if (!response.ok) {
+    log.error({ response }, 'Failed to post article to LinkedIn.')
+    throw new Error('Failed to post article to LinkedIn.')
+  }
+  return response
+}
+
+const main = async () => {
+  log.debug('Initiating LinkedIn article sharing process.')
+  const envVars = parseEnvVariables()
+
+  const response = await postArticleToLinkedIn(envVars)
+  \
   // Construct the request payload according to LinkedIn's API requirements
-  // const payload = {
-  //   author: `urn:li:person:${LINKEDIN_PERSON_ID}`,
-  //   lifecycleState: 'DRAFT',
-  //   specificContent: {
-  //     'com.linkedin.ugc.ShareContent': {
-  //       shareCommentary: {
-  //         text: `${title} - ${description}. Read more: ${ARTICLE_URL}`,
-  //       },
-  //       shareMediaCategory: 'NONE',
-  //     },
-  //   },
-  //   visibility: {
-  //     'com.linkedin.ugc.MemberNetworkVisibility': 'PRIVATE',
-  //   },
-  // }
 
   // Send the request
   // try {
@@ -67,4 +88,4 @@ const postArticleToLinkedIn = async () => {
   // }
 }
 
-postArticleToLinkedIn()
+main()
