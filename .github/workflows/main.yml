@@ -97,6 +97,8 @@ jobs:
           SHARE_CONTENT: ${{ steps.send_convertkit_email.outputs.shareContent }}
           SHARE_TITLE: ${{ steps.send_convertkit_email.outputs.shareTitle }}
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_API_BASE_URL: ${{ vars.LINKEDIN_API_BASE_URL }}
+          LINKEDIN_API_POSTS_ENDPOINT: ${{ vars.LINKEDIN_API_POSTS_ENDPOINT }}
           LINKEDIN_PERSON_ID: ${{ vars.LINKEDIN_PERSON_ID }}
         if: ${{ env.SHARE_URL }}
         run: |
