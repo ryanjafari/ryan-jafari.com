@@ -40,7 +40,7 @@ const postArticleToLinkedIn = async (envVars) => {
   const response = await fetch(linkedInApiUrl, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${LINKEDIN_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${envVars.LINKEDIN_ACCESS_TOKEN}`,
       'X-Restli-Protocol-Version': '2.0.0',
       'LinkedIn-Version': '202402',
       'Content-Type': 'application/json',
