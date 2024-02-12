@@ -23,26 +23,28 @@ const postArticleToLinkedIn = async (envVars) => {
   const linkedInApiUrl = `${envVars.LINKEDIN_API_BASE_URL}/${envVars.LINKEDIN_API_POSTS_ENDPOINT}`
   log.debug({ linkedInApiUrl }, 'Posting article to LinkedIn.')
 
-  const payload = {
+  const payload = JSON.stringify({
     author: `urn:li:person:${envVars.LINKEDIN_PERSON_ID}`,
-    lifecycleState: 'DRAFT',
-    specificContent: {
-      'com.linkedin.ugc.ShareContent': {
-        shareCommentary: {
-          text: 'test',
-        },
-        shareMediaCategory: 'NONE',
-      },
+    commentary: 'test',
+    visibility: 'PUBLIC',
+    distribution: {
+      feedDistribution: 'MAIN_FEED',
+      targetEntities: [],
+      thirdPartyDistributionChannels: [],
     },
-    visibility: {
-      'com.linkedin.ugc.MemberNetworkVisibility': 'PRIVATE',
-    },
-  }
+    lifecycleState: 'DRAFT', // or 'PUBLISHED'
+    isReshareDisabledByAuthor: false,
+  })
   log.debug({ payload }, 'Constructed payload for LinkedIn.')
 
   const response = await fetch(linkedInApiUrl, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${LINKEDIN_ACCESS_TOKEN}`,
+      'X-Restli-Protocol-Version': '2.0.0',
+      'LinkedIn-Version': '202402',
+      'Content-Type': 'application/json',
+    },
     body: payload,
   })
   if (!response.ok) {
@@ -61,36 +63,20 @@ const main = async () => {
   const responseBody = await parseResponse(response)
   log.debug({ responseBody }, 'Parsed response body from LinkedIn.')
 
-  // Construct the request payload according to LinkedIn's API requirements
-
-  // Send the request
-  // try {
-  //   const response = await fetch(apiUrl, {
-  //     method: 'POST',
-  //     body: JSON.stringify(payload),
-  //     headers: {
-  //       Authorization: `Bearer ${LINKEDIN_ACCESS_TOKEN}`,
-  //       'Content-Type': 'application/json',
-  //       'X-Restli-Protocol-Version': '2.0.0', // This header is required for LinkedIn API calls
-  //     },
-  //   })
-
-  //   log.info('Received response from LinkedIn...')
-  //   await logResponseDetails(response)
-
-  //   if (!response.ok) {
-  //     log.error(response.status, 'Error! status:')
-  //     throw new Error('Failed to post article to LinkedIn')
-  //   } else {
-  //     log.info(response.status, 'Success! status:')
-  //   }
-  // } catch (error) {
-  //   log.error(
-  //     error.message,
-  //     'An error occurred while fetching the LinkedIn API:',
-  //   )
-  //   process.exit(1)
-  // }
+  log.info('Article successfully shared on LinkedIn.')
 }
 
-main()
+await main()
+  .then(() => {
+    log.info('LinkedIn article sharing process completed.')
+  })
+  .catch((error) => {
+    log.error(
+      { error },
+      'An error occurred during the LinkedIn article sharing process.',
+    )
+    process.exit(1)
+  })
+  .finally(() => {
+    log.info('Finished sharing article on LinkedIn.')
+  })

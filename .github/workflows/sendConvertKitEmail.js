@@ -90,10 +90,13 @@ const main = async () => {
 
 await main()
   .then(() => {
-    log.info('Email sending process completed.')
+    log.info('Email sending process to ConvertKit completed.')
   })
   .catch((error) => {
-    log.error({ error }, 'An error occurred during the email sending process.')
+    log.error(
+      { error },
+      'An error occurred during the ConvertKit email sending process.',
+    )
     process.exit(1)
   })
   .finally(() => {
