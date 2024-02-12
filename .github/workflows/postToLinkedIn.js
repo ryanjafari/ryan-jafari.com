@@ -42,7 +42,7 @@ const postArticleToLinkedIn = async (envVars) => {
     headers: {
       Authorization: `Bearer ${envVars.LINKEDIN_ACCESS_TOKEN}`,
       'X-Restli-Protocol-Version': '2.0.0',
-      'LinkedIn-Version': '202402',
+      'LinkedIn-Version': '202401',
       'Content-Type': 'application/json',
     },
     body: payload,
