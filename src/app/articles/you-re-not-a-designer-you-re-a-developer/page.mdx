@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 Still, there are of course times when you just need to whip up a quick something. Maybe a quick splash page to gauge interest in a product or _cough_ ~[service](http://www.soothsayerapp.com)~. Or perhaps a client is _really_ keen on you slapping together a "quick and dirty" design for that new admin section (did you just throw up in your mouth a little, because you should have).

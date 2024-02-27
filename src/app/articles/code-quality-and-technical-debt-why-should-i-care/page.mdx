@@ -1,7 +1,6 @@
 import { EntryLayout } from '@/components/EntryLayout'
-
-import wtfs from './wtfs.png'
 import jenga from './jenga.jpg'
+import wtfs from './wtfs.png'
 
 export const entry = {
   date: '2014-07-16',
@@ -16,10 +15,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 It's been a real struggle for my consultancy to demonstrate the importance of code quality and technical debt to our clients. I take a tremendous amount of pride in our work and consider our code to be the best of the best, especially against some of the horrors we've come across in our day. Still, it seems nearly impossible to convey this to someone who doesn't have a background in technology.

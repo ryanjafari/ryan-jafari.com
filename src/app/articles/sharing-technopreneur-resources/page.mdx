@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 Even if you don't consider yourself an entrepreneur, I feel that it's important for all kinds of developers to know some things about what makes a product successful-- both from a technical and business perspective; whether that product be your own, that of a startup you're working for, or of a fortune 500 company.

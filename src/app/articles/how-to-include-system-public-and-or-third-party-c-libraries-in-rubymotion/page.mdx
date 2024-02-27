@@ -14,10 +14,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 Well the mere mortal that I am, this was a bit tricky to figure out, coming from being a RubyMotion and OS X development newcomer. My only hope is that the pain and struggle was not in vain, if you, my fellow newb, can learn from it. **Onward!**

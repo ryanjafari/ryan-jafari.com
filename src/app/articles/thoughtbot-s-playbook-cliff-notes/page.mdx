@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 That being said, last night I couldn't sleep, so I decided to use the early morning hours to go through [Thoughtbot's Playbook](http://playbook.thoughtbot.com/), a collection of notes on how to run a web business from a reputable Rails app development company I wish I was as cool as.

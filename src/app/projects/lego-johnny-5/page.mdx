@@ -1,25 +1,24 @@
 import {
   AtSymbolIcon,
-  LinkIcon,
   CodeBracketIcon,
-  PaintBrushIcon,
+  LinkIcon,
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
-import j5Logo from './lego-johnny-5-logo.svg'
-import j5LeftTrack from './lego-johnny-5-left-track.jpg'
-import j5RightTrack from './lego-johnny-5-right-track.jpg'
-import j5LowerBody from './lego-johnny-5-lower-body.jpg'
-import j5UpperBody from './lego-johnny-5-upper-body.jpg'
 import j5Arms from './lego-johnny-5-arms.jpg'
-import j5Head from './lego-johnny-5-head.jpg'
-import j5Final from './lego-johnny-5-final-step.jpg'
 import j5Complete from './lego-johnny-5-complete.jpg'
+import j5Final from './lego-johnny-5-final-step.jpg'
+import j5Head from './lego-johnny-5-head.jpg'
+import j5LeftTrack from './lego-johnny-5-left-track.jpg'
+import j5Logo from './lego-johnny-5-logo.svg'
+import j5LowerBody from './lego-johnny-5-lower-body.jpg'
 import j5PartsFile from './lego-johnny-5-parts-file.png'
+import j5RightTrack from './lego-johnny-5-right-track.jpg'
 import j5RubyScript from './lego-johnny-5-ruby-script.png'
+import j5UpperBody from './lego-johnny-5-upper-body.jpg'
 import j5XmlFile from './lego-johnny-5-xml-file.png'
 
 export const entry = {
@@ -36,10 +35,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

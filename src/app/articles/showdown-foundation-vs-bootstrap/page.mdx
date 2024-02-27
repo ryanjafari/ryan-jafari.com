@@ -1,5 +1,6 @@
 import { EntryLayout } from '@/components/EntryLayout'
 
+import { Entry } from '@/components/Entry'
 import uberNav from './uber_nav.png'
 
 export const entry = {
@@ -15,10 +16,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 Over the years I've been closely monitoring both Foundation's and Bootstrap's progress, and now I'm ready to come out and say why it might be time for you to seriously consider trying out Foundation for your next project. Once the ugly red-headed stepchild, now sexier.

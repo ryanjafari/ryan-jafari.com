@@ -1,17 +1,17 @@
 import {
   AtSymbolIcon,
-  LinkIcon,
   CodeBracketIcon,
+  LinkIcon,
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
-import logoFord from './ford-mustang-logo.svg'
-import fordHomePage from './ford-mustang-home-page.jpg'
-import fordCustomizer from './ford-mustang-car-customizer.jpg'
 import fordBattleMode from './ford-mustang-battle-mode.jpg'
+import fordCustomizer from './ford-mustang-car-customizer.jpg'
+import fordHomePage from './ford-mustang-home-page.jpg'
+import logoFord from './ford-mustang-logo.svg'
 
 export const entry = {
   // TODO: This date needs to be within the time I worked at FB. X-ref against my resume later. I believe this date works:
@@ -28,10 +28,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

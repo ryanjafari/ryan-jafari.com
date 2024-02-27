@@ -1,8 +1,8 @@
 import { EntryLayout } from '@/components/EntryLayout'
 
 import johnsFavorite from './johns_favorite.jpg'
-import wtf from './wtf.jpg'
 import pepperoni from './pepperoni.jpg'
+import wtf from './wtf.jpg'
 
 export const entry = {
   date: '2014-04-17',
@@ -16,10 +16,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 Girls and boys.

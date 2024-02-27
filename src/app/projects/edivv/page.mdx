@@ -1,7 +1,7 @@
 import {
-  LinkIcon,
   BuildingStorefrontIcon,
   CodeBracketIcon,
+  LinkIcon,
   PaintBrushIcon,
 } from '@heroicons/react/24/outline'
 
@@ -9,11 +9,11 @@ import { EntryLayout } from '@/components/EntryLayout'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
 import { ProjectBullet } from '@/components/ProjectBullet'
 
-import edivvLogo from './edivv.svg'
-import edivvHomePage from './edivv-home-page.png'
 import edivvFacebookSignIn from './edivv-facebook-sign-in.png'
 import edivvFeaturedItems from './edivv-featured-items.png'
+import edivvHomePage from './edivv-home-page.png'
 import edivvItemDetail from './edivv-item-detail.png'
+import edivvLogo from './edivv.svg'
 
 export const entry = {
   date: 2016,
@@ -29,10 +29,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

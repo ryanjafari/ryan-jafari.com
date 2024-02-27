@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 This way, you can ease a bit of the pain of merge conflicts since when you finish your feature you will have already rebased against the branch that the finish merges to (develop).

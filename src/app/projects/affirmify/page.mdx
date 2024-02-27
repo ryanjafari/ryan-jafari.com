@@ -1,23 +1,22 @@
-import {
-  LinkIcon,
-  BuildingStorefrontIcon,
-  CodeBracketIcon,
-  PaintBrushIcon,
-} from '@heroicons/react/24/outline'
-
+import { Entry } from '@/components/Entry'
 import { EntryLayout } from '@/components/EntryLayout'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
 import { ProjectBullet } from '@/components/ProjectBullet'
-
-import affLogo from './affirmify.svg'
-import affHomePage from './affirmify-home-page.jpg'
-import affPricingPage from './affirmify-pricing-page.jpg'
-import affSignupMock from './affirmify-signup-mockup.jpg'
+import {
+  BuildingStorefrontIcon,
+  CodeBracketIcon,
+  LinkIcon,
+  PaintBrushIcon,
+} from '@heroicons/react/24/outline'
 import affDashboard from './affirmify-dashboard.jpg'
 import affDocDetail from './affirmify-document-detail.jpg'
+import affHomePage from './affirmify-home-page.jpg'
 import affOffice from './affirmify-office.jpg'
-import affTeam from './affirmify-team.jpg'
+import affPricingPage from './affirmify-pricing-page.jpg'
 import affRyanWork from './affirmify-ryan-working.jpg'
+import affSignupMock from './affirmify-signup-mockup.jpg'
+import affTeam from './affirmify-team.jpg'
+import affLogo from './affirmify.svg'
 
 export const entry = {
   date: 2013,
@@ -33,10 +32,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

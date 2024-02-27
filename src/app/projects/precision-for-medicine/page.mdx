@@ -1,23 +1,23 @@
 import {
-  LinkIcon,
   CodeBracketIcon,
+  HeartIcon,
+  LinkIcon,
   PaintBrushIcon,
   RocketLaunchIcon,
-  HeartIcon,
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
 import { ProjectBullet } from '@/components/ProjectBullet'
 
-import pfmLogo from './precision-for-medicine.svg'
-import pfmBlogHomePage from './precision-for-medicine-blog-home-page.png'
 import pfmBlogBelowFold from './precision-for-medicine-blog-below-fold.png'
 import pfmBlogCategories from './precision-for-medicine-blog-categories.png'
-import pfmEditor from './precision-for-medicine-editor.png'
+import pfmBlogHomePage from './precision-for-medicine-blog-home-page.png'
 import pfmEditorBlocks from './precision-for-medicine-editor-blocks.png'
+import pfmEditor from './precision-for-medicine-editor.png'
 import pfmNewRelicApm from './precision-for-medicine-new-relic-apm.png'
 import pfmNewRelicCwv from './precision-for-medicine-new-relic-cwv.png'
+import pfmLogo from './precision-for-medicine.svg'
 
 export const entry = {
   date: 2023,
@@ -33,10 +33,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

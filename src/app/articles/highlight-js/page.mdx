@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 Highlight.js is a godsend especially if you like to use Markdown for your blog posts (as we do). Just write your usual Markdown post with your typical [Markdown code block](http://daringfireball.net/projects/markdown/syntax#precode). Highlight.js will automatically detect the code block and the language in which it is written (and syntax highlight it appropriately). Haven't tried it with any other form of post editing, but I'm sure it works just as well with anything else (rich text editor, plain text/HTML, etc.)-- definitely worth a shot. And it's got themes (woot)! Here's a quick rundown of how I got it working:

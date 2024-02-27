@@ -15,10 +15,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 The HTML/CSS code was of the poorest I'd seen. It was impossible to look at, let alone work with to maintain or change it. Now, that was technically my opinion, but I wanted to make it more than just that, since opinions are a dime a dozen. I wanted to prove it was bad and at the same time make things right. So what did we do?

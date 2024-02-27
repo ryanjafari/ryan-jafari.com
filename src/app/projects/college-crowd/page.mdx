@@ -5,13 +5,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
 import ccLogo from './college-crowd-logo.svg'
+import ccPledgeForm from './college-crowd-pledge-form.png'
 import ccProjectIndex from './college-crowd-project-index.png'
 import ccProjectPage from './college-crowd-project-page.png'
-import ccPledgeForm from './college-crowd-pledge-form.png'
 
 export const entry = {
   date: 2013,
@@ -27,10 +27,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

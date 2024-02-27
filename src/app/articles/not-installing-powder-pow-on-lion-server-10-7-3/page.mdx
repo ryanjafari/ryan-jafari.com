@@ -1,3 +1,4 @@
+import { Entry } from '@/components/Entry'
 import { EntryLayout } from '@/components/EntryLayout'
 
 export const entry = {
@@ -13,10 +14,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 For us, this solution came in the form of **Pow**, a Rack server for Mac OS X by the noble bros over at 37signals. Powder, a wrapper around Pow that makes it (even) easier to use, seemed additionally appealing. Alas, as luck would have it, I had no luck installing Pow on **Lion Server** 10.7.3. Why would I be running Lion Server in the first place, you ask? Well firstly, please don't ask, secondly if you must know you should know that I don't know myself how it came to be. I'd wager that I installed the wrong Lion from the App Store.

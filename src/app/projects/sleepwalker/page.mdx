@@ -5,13 +5,13 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
-import swLogo from './sleepwalker-logo.svg'
-import swIntroScreen from './sleepwalker-intro-screen.jpg'
-import swGatesOpen from './sleepwalker-gates-open.jpg'
 import swGatesBadGuys from './sleepwalker-gates-and-bad-guys.jpg'
+import swGatesOpen from './sleepwalker-gates-open.jpg'
+import swIntroScreen from './sleepwalker-intro-screen.jpg'
+import swLogo from './sleepwalker-logo.svg'
 
 export const entry = {
   date: 2008,
@@ -27,10 +27,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 This article isn't really about Chargify and what it offers, but rather a short anecdote from my experiences with their customer support. Customer support for a service like Chargify is important, since it is the medium through which your customers get billed and through which you get paid.

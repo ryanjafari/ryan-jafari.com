@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 There are many similar, but different variations out there. I'm sure you've checked out your share of trendy design firm's "Process" pages. But that's not to say every design & development workflow should be the same for every team out there-- it definitely shouldn't. Some crews are going to have more of a focus on what their speciality is. For instance, [Zurb](http://www.zurb.com/) is heavy on interaction, while [Worry Free Labs](http://www.worryfreelabs.com/) is pretty design-y, and [Thoughtbot](http://thoughtbot.com/) rocks code hard. Having substantial familiarity with these shops will show you this, but it's also pretty easy to tell from their site's overall message. Sorry, I'm the master of tangents-- this isn't an article about marketing.

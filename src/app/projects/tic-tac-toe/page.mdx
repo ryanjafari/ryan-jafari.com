@@ -5,12 +5,12 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
 import tttLogo from './tic-tac-toe-logo.svg'
-import tttNewGame from './tic-tac-toe-new-game.jpg'
 import tttMidGame from './tic-tac-toe-mid-game.jpg'
+import tttNewGame from './tic-tac-toe-new-game.jpg'
 import tttComputerWins from './tic-tac-toe-the-computer-wins.jpg'
 import tttYouWin from './tic-tac-toe-you-win.jpg'
 
@@ -28,10 +28,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

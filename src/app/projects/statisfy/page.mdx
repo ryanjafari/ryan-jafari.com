@@ -5,11 +5,11 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
-import sfLogo from './statisfy-logo.svg'
 import sfIcon from './statisfy-icon.png'
+import sfLogo from './statisfy-logo.svg'
 import sfPieCharts from './statisfy-pie-charts.png'
 import sfWeeklyRpt from './statisfy-weekly-report.png'
 
@@ -27,10 +27,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

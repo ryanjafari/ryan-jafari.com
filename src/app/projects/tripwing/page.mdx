@@ -1,7 +1,7 @@
 import {
-  LinkIcon,
   BuildingStorefrontIcon,
   CodeBracketIcon,
+  LinkIcon,
   PaintBrushIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline'
@@ -10,13 +10,13 @@ import { EntryLayout } from '@/components/EntryLayout'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
 import { ProjectBullet } from '@/components/ProjectBullet'
 
-import twLogo from './tripwing.svg'
 import twHomePage from './tripwing-home-page.png'
-import twTourSearch from './tripwing-tour-search.png'
-import twTourDetail from './tripwing-tour-detail.png'
-import twTourMap from './tripwing-tour-map.png'
 import twTeamConvention from './tripwing-team-convention.jpg'
 import twTeamDinner from './tripwing-team-dinner.jpg'
+import twTourDetail from './tripwing-tour-detail.png'
+import twTourMap from './tripwing-tour-map.png'
+import twTourSearch from './tripwing-tour-search.png'
+import twLogo from './tripwing.svg'
 
 export const entry = {
   date: 2014,
@@ -32,10 +32,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

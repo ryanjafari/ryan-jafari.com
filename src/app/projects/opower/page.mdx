@@ -1,7 +1,7 @@
 import {
   AtSymbolIcon,
-  LinkIcon,
   CodeBracketIcon,
+  LinkIcon,
   UserGroupIcon,
 } from '@heroicons/react/24/outline'
 
@@ -9,8 +9,8 @@ import { EntryLayout } from '@/components/EntryLayout'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
 import { ProjectBullet } from '@/components/ProjectBullet'
 
-import opLogo from './opower-logo.svg'
 import opHanging from './opower-hanging-in-washington.jpg'
+import opLogo from './opower-logo.svg'
 import opOffAfter from './opower-office-after-hours.jpg'
 import opOffCarlos from './opower-office-carlos-working.jpg'
 import opOffOutside from './opower-office-outside-view.jpg'
@@ -30,10 +30,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

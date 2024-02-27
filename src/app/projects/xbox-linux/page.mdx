@@ -4,16 +4,16 @@ import {
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
-import { ProjectBullet } from '@/components/ProjectBullet'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
+import { ProjectBullet } from '@/components/ProjectBullet'
 
-import xblLogo from './xbox-linux-logo.svg'
-import xblHmm from './xbox-linux-hmm.jpg'
-import xblSoldering from './xbox-linux-soldering-failure.jpg'
 import xblBrutally from './xbox-linux-brutally-crude-soldering.jpg'
-import xblSomethingUsb from './xbox-linux-something-with-usb.jpg'
+import xblHmm from './xbox-linux-hmm.jpg'
 import xblHolyMoly from './xbox-linux-holy-moly.jpg'
 import xblItsWorking from './xbox-linux-its-working.jpg'
+import xblLogo from './xbox-linux-logo.svg'
+import xblSoldering from './xbox-linux-soldering-failure.jpg'
+import xblSomethingUsb from './xbox-linux-something-with-usb.jpg'
 import xblRunningHot from './xbox-linux-we-were-running-hot.jpg'
 
 export const entry = {
@@ -30,10 +30,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

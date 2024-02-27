@@ -12,10 +12,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 So you think you're a baller Rails dev, writing 1337 codez and making nubs QQ. You're using git flow and your buddy tells you to check out his new branch he just pushed, because while the back-end is great, it looks mediocre and you need to make it look hot (I'm the front-end guy).

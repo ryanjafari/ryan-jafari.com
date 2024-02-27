@@ -1,21 +1,21 @@
 import {
-  LinkIcon,
-  CodeBracketIcon,
-  RocketLaunchIcon,
-  HeartIcon,
   ArrowTrendingUpIcon,
+  CodeBracketIcon,
+  HeartIcon,
+  LinkIcon,
+  RocketLaunchIcon,
 } from '@heroicons/react/24/outline'
 
 import { EntryLayout } from '@/components/EntryLayout'
 import { ImagesWithDetails } from '@/components/ImagesWithDetails'
 import { ProjectBullet } from '@/components/ProjectBullet'
 
-import theStdLogo from './the-standard.svg'
-import theStdHomePage from './the-standard-home-page.png'
 import theStdAdmin from './the-standard-admin.png'
+import theStdGsc from './the-standard-google-search.png'
+import theStdHomePage from './the-standard-home-page.png'
 import theStdApm from './the-standard-sentry-apm.png'
 import theStdCwv from './the-standard-sentry-cwv.png'
-import theStdGsc from './the-standard-google-search.png'
+import theStdLogo from './the-standard.svg'
 
 export const entry = {
   date: 2023,
@@ -31,10 +31,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 {entry.description}

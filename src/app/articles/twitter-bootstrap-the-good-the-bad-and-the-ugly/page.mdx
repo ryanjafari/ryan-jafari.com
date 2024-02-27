@@ -13,10 +13,12 @@ export const metadata = {
 }
 
 export default (props) => (
-  <EntryLayout
-    entry={entry}
-    {...props}
-  />
+  <EntryLayout>
+    <Entry
+      entry={entry}
+      {...props}
+    />
+  </EntryLayout>
 )
 
 [Twitter Bootstrap](https://getbootstrap.com/), one of these CSS prototyping frameworks, is all the rage now, as you probably know. It's heavily marketed by Twitter to developers, trendy, cool, and hip. I was first introduced to it while looking for a quick way to get some styling for a prototype. Among its "competitors" are [Zurb Foundation](http://foundation.zurb.com/) (which by the way we ended up using for that prototype). Why? Well Twitter Bootstrap seemed to be a little too invasive into our HTML-- meaning that often our HTML had to have a certain structure to accommodate Bootstrap. We thought Foundation was a little bit cleaner (and less bloated) on the code end of things. But ANYWAY...
